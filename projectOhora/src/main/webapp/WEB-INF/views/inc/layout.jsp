@@ -13,7 +13,7 @@
 <link rel="shortcut icon" href="https://www.ohora.kr/web/upload/favicon_20190801113230.ico" />
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title><tiles:getAsString name="title" /></title>
-<link href="/css/header.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/header.css" type="text/css" rel="stylesheet" />
 <link href='<tiles:getAsString name="css"/>' type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

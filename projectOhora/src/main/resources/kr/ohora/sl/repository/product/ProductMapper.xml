@@ -3,68 +3,112 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ProductMapper">
+<mapper namespace="kr.ohora.sl.repository.product.ProductMapper">
+
 	<sql id="prdCondition">
 		<where>
 			<if test="categoryNumber != null">
 				<choose>
 					<when test="categoryNumber == 121">
                      	<![CDATA[
-                        pdt_adddate >= '2018-05-01' 
-                        AND pdt_adddate < '2018-09-01'
+                        pdtAdddate >= '2018-05-01' 
+                        AND pdtAdddate < '2018-09-01'
                         ]]>
 					</when>
 					<when test="categoryNumber == 120">
-						pdt_sales_count >= 300
+						pdtSalesCount >= 300
 					</when>
 					<when test="categoryNumber == 44">
-						<!-- 전체 상품의 경우 아무 조건 없음 -->
+						1 = 1
 					</when>
 					<when test="categoryNumber == 671">
-						pdt_discount_rate >= 30
+						pdtDiscountRate >= 30
 					</when>
 					<when test="categoryNumber == 160">
-						cat_id = 1
+						catId = 1
 					</when>
 					<when test="categoryNumber == 161">
-						cat_id = 2
+						catId = 2
 					</when>
 					<when test="categoryNumber == 49">
-						cat_id = 3
+						catId = 3
 					</when>
 					<when test="categoryNumber == 436">
-						cat_id = 1 AND scat_id = 2
+						catId = 1 AND scatId = 2
 					</when>
 					<when test="categoryNumber == 435">
-						cat_id = 1 AND scat_id = 1
+						catId = 1 AND scatId = 1
 					</when>
 					<when test="categoryNumber == 432">
-						pdt_sales_count >= 300 AND scat_id = 2
+						pdtSalesCount >= 300 AND scatId = 2
 					</when>
 					<when test="categoryNumber == 431">
-						pdt_sales_count >= 300 AND scat_id = 1
+						pdtSalesCount >= 300 AND scatId = 1
 					</when>
 					<when test="categoryNumber == 125">
-						pdt_sales_count >= 300 AND cat_id = 1
+						pdtSalesCount >= 300 AND catId = 1
 					</when>
 					<when test="categoryNumber == 127">
-						pdt_sales_count >= 300 AND cat_id = 2
+						pdtSalesCount >= 300 AND catId = 2
 					</when>
 					<when test="categoryNumber == 540">
-						pdt_sales_count >= 300 AND cat_id = 3
+						pdtSalesCount >= 300 AND catId = 3
 					</when>
 					<when test="categoryNumber == 238">
-						pdt_discount_rate >= 50
+						pdtDiscountRate >= 50
 					</when>
 				</choose>
 			</if>
 		</where>
 	</sql>
 
-	<select id="selectProducts" parameterType="map"
-		resultType="Product">
-		SELECT *
-		FROM o_product
-		<include refid="prdCondition" />
-	</select>
+	<!-- public ArrayList<ProductDTO> selectProductsByCateNo(int currentPage, int numberPerPage, int categoryNumber); -->
+<select id="selectProductsByCateNo" resultType="kr.ohora.sl.domain.ProductDTO">
+    SELECT *
+    FROM (
+        SELECT 
+            rownum AS rn,
+            pdtId,
+            catId,
+            scatId,
+            pdtNumber,
+            pdtName,
+            pdtAmount,
+            pdtDiscountRate,
+            pdtImgUrl,
+            pdtCount,
+            pdtReviewCount,
+            pdtSalesCount,
+            pdtAdddate,
+            pdtViewcount,
+            CASE
+                WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount * pdtDiscountRate / 100 AS INT)
+                ELSE pdtAmount
+            END AS pdtDiscountAmount
+        FROM (
+            SELECT *
+            FROM OPRODUCT
+            <include refid="prdCondition" />
+            <![CDATA[
+            ORDER BY pdtid ASC
+        ) a
+        WHERE rownum <= #{currentPage} * #{numberPerPage}
+    ) b
+    WHERE rn > (#{currentPage} - 1) * #{numberPerPage}
+    ]]>
+</select>
+
+<select id="selectTotalRecords" resultType="Integer">
+    SELECT COUNT(*) FROM OPRODUCT
+    <include refid="prdCondition" />
+</select>
+
+
+	<!-- public void productViewUpdate(); // 상품 클릭시 조회수 +1 -->
+	<update id="productViewUpdate">
+		UPDATE O_PRODUCT
+		SET pdtViewcount = pdtViewcount + 1
+		WHERE pdtId = #{pdtId}
+	</update>
+
 </mapper>

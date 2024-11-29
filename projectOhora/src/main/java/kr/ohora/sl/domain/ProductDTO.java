@@ -2,40 +2,31 @@ package kr.ohora.sl.domain;
 
 import java.util.Date;
 
-import org.apache.ibatis.type.Alias;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Alias("ProductDTO")
 public class ProductDTO {
-	private int pdt_id;					// »óÇ° ID
-	private int cat_id;					// Ä«Å×°í¸® ID
-	private int scat_id;				// ÇÏÀ§Ä«Å×°í¸® ID
-	private int pdt_number;				// ¿É¼Ç°¹¼ö
-	private String pdt_name;			// »óÇ°¸í
-	private int pdt_amount;				// »óÇ°°¡°Ý
-	private int pdt_discount_rate;		// ÇÒÀÎÀ²
-	private String pdt_img_url;			// ÀÌ¹ÌÁö°æ·Î
-	private int pdt_count;				// Àç°í¼ö·®
-	private int pdt_review_count;		// ¸®ºä ¼ö
-	private int pdt_sales_count;		// ÆÇ¸Å ¼ö·®
-	private Date pdt_adddate;			// »óÇ° µî·ÏÀÏ
-	private int pdt_viewcount;			// Á¶È¸¼ö
-	private String pdt_description;		// »óÇ° ¼³¸í ( Ãß°¡ ±¸¼º »óÇ° ºÎºÐ¸¸ Àû¿ë )
+	private int pdtId;					// ï¿½ï¿½Ç° ID
+	private int catId;					// Ä«ï¿½×°ï¿½ ID
+	private int scatId;				// ï¿½ï¿½ï¿½ï¿½Ä«ï¿½×°ï¿½ ID
+	private int pdtNumber;				// ï¿½É¼Ç°ï¿½ï¿½ï¿½
+	private String pdtName;			// ï¿½ï¿½Ç°ï¿½ï¿½
+	private int pdtAmount;				// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+	private int pdtDiscountRate;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String pdtImgUrl;			// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int pdtCount;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int pdtReviewCount;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	private int pdtSalesCount;		// ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private Date pdtAdddate;			// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int pdtViewcount;			// ï¿½ï¿½È¸ï¿½ï¿½
+	private String pdtDescription;		// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ( ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ÎºÐ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ )
 	
-	private int pdt_discount_amount;	// ÇÒÀÎµÈ °¡°Ý ( ¾Æ·¡¿Í °°ÀÌ Àû¿ë )
-	/* pdt_amount - (int)(pdt_amount * pdt_discount_rate / 100.0f ) // ÇÒÀÎÀ² Àû¿ë */	
-	
-	
+	private int pdtDiscountAmount;	// ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ )
+	/* pdt_amount - (int)(pdt_amount * pdt_discount_rate / 100.0f ) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */	
 	
 	
-	private int opt_id;				// ¿É¼Ç ID
-	private String opt_name;		// ¿É¼Ç ID
-	private int opt_amount;			// ¿É¼Ç °¡°Ý
-	private int opt_count;			// ¿É¼Ç ¼ö·®
+	private int optId;				// ï¿½É¼ï¿½ ID
+	private String optName;		// ï¿½É¼ï¿½ ID
+	private int optAmount;			// ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int optCount;			// ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
