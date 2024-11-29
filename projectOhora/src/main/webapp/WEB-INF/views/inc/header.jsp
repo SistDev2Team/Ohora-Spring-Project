@@ -65,7 +65,7 @@
 			<div class="SMS_fixed_inner">
 				<div
 					class="xans-element- xans-layout xans-layout-logotop fixed_logo">
-					<a href="${contextPath}/ohora/main.htm"
+					<a href="${pageContext.request.contextPath}/oho_main.htm"
 						style="display: block; text-align: center; margin-top: 30px">
 						<img
 						src="https://ohora.kr/web/upload/logo/ohora_BI_logotype_w.png"
@@ -79,36 +79,36 @@
 				<div class="gnb_menu_container">
 					<ul class="gnb_menu_wrap menu_1ul">
 						<li class="eng_font menu_1li submenu"><a
-							href="${contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">new</a>
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">new</a>
 						</li>
 						<li class="eng_font menu_1li submenu"><a
-							href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">best</a>
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">best</a>
 						</li>
 
 						<li class="eng_font"><a
-							href="${contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">product</a>
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">product</a>
 							<!-- 마우스 오버 시 나오는 영역(product) -->
 							<ul class="menu_2ul">
 								<li><a
-									href="${contextPath}/product/prd_view.htm?cate_no=160&currentPage=1"><span>네일</span></a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=160&currentPage=1"><span>네일</span></a>
 								</li>
 								<li><a
-									href="${contextPath}/product/prd_view.htm?cate_no=161&currentPage=1"><span>페디</span></a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=161&currentPage=1"><span>페디</span></a>
 								</li>
 								<li><a
-									href="${contextPath}/product/prd_view.htm?cate_no=49&currentPage=1"><span>커스텀</span></a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=49&currentPage=1"><span>커스텀</span></a>
 								</li>
 								<li><a
-									href="${contextPath}/product/prd_view.htm?cate_no=49&currentPage=1"><span>케어
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=49&currentPage=1"><span>케어
 											&amp; 툴</span></a></li>
 							</ul> <!-- //마우스 오버 시 나오는 영역(product) --></li>
 						<li class="eng_font menu_1li submenu"><a
-							href="${contextPath}/product/prd_view.htm?cate_no=671&currentPage=1"><span>outlet</span></a>
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1"><span>outlet</span></a>
 						</li>
 						<li class="eng_font"><a
-							href="${contextPath}/event.htm?_=index">event</a></li>
+							href="${pageContext.request.contextPath}/event.htm?_=index">event</a></li>
 						<li class="eng_font"><a
-							href="${contextPath}/howto.htm?howto=main">how to</a></li>
+							href="${pageContext.request.contextPath}/howto.htm?howto=main">how to</a></li>
 					</ul>
 				</div>
 				<!-- //헤더 주메뉴 -->
@@ -118,7 +118,7 @@
 					<div class="small_icon search_fixed_btn"></div>
 					<div
 						class="xans-element- xans-layout xans-layout-orderbasketcount small_icon m_cart common_cart">
-						<a href="${contextPath}/product/cart.htm"><b
+						<a href="${pageContext.request.contextPath}/product/cart.htm"><b
 							class="count EC-Layout-Basket-count">0</b></a>
 					</div>
 					<div class="small_icon m_menu">
@@ -135,7 +135,7 @@
 			<div class="SP_search_wrap">
 				<div class="SP_utilListSearch_inner">
 					<form id="searchBarForm" name=""
-						action="${contextPath}/product/prd_search.htm" method="get"
+						action="${pageContext.request.contextPath}/product/prd_search.htm" method="get"
 						target="_self" enctype="multipart/form-data">
 						<div class="xans-element- xans-layout xans-layout-searchheader">
 
@@ -162,12 +162,12 @@
 				<div class="SP_utilListKeyword_inner">
 					<ul>
 						<li><a
-							href="${contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">#OUTLET
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">#OUTLET
 								입장하기</a></li>
 						<li><a
-							href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">#BEST
+							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">#BEST
 								디자인 추천</a></li>
-						<li><a href="${contextPath}/event.htm?_=event6">#첫구매 젤램프
+						<li><a href="${pageContext.request.contextPath}/event.htm?_=event6">#첫구매 젤램프
 								증정</a></li>
 					</ul>
 				</div>
@@ -185,7 +185,7 @@
 
 						<div class="big_txt">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">
 								<span>new</span>
 							</a> <a class="#"> <span></span>
 							</a> <a class="#"> <span></span>
@@ -193,13 +193,13 @@
 						</div>
 						<div class="big_txt" style="margin-top: 60px;">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">
 								<span>best</span>
 							</a> <a
-								href="${contextPath}/product/prd_view.htm?cate_no=125&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=125&currentPage=1">
 								<span>네일</span>
 							</a> <a
-								href="${contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">
 								<span>페디</span>
 							</a>
 						</div>
@@ -207,22 +207,22 @@
 					<div class="cate_wrap first">
 						<div class="big_txt">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">
 								<span>nail</span>
 							</a> <a class=""
-								href="${contextPath}/product/prd_view.htm?cate_no=435&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=435&currentPage=1">
 								<span>젤스트립</span>
 							</a> <a class=""
-								href="${contextPath}/product/prd_view.htm?cate_no=436&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=436&currentPage=1">
 								<span>젤네일팁</span>
 							</a>
 						</div>
 						<div class="big_txt" style="margin-top: 63px;">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">
 								<span>pedi</span>
 							</a> <a class=""
-								href="${contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">
 								<span>젤스트립</span>
 							</a>
 						</div>
@@ -231,7 +231,7 @@
 					<div class="cate_wrap first">
 						<div class="big_txt">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">
 								<span>outlet</span>
 							</a>
 						</div>
@@ -245,7 +245,7 @@
 						</div>
 						<div class="big_txt" style="margin-top: 45px;">
 							<a class="eng_font big_"
-								href="${contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">
 								<span>care &amp; tool</span>
 							</a>
 						</div>
@@ -260,7 +260,7 @@
 
 						<div class="big_txt"
 							style="margin-left: 35px; margin-bottom: 42px;">
-							<a class="big_ eng_font" href="${contextPath}/event.htm?_=index">
+							<a class="big_ eng_font" href="${pageContext.request.contextPath}/event.htm?_=index">
 								<span>event</span>
 							</a>
 						</div>
@@ -268,17 +268,17 @@
 						<div class="big_txt"
 							style="margin-left: 35px; margin-bottom: 42px;">
 							<a class="big_ eng_font"
-								href="${contextPath}/review/reviewlist.htm?pdt_id=1"> <span>review</span>
+								href="${pageContext.request.contextPath}/review/reviewlist.htm?pdt_id=1"> <span>review</span>
 							</a>
 						</div>
 						<div class="big_txt" style="margin-left: 35px;">
 							<a class="big_ eng_font" href="#empty"> <span
 								style="margin-top: 10px;">brand</span>
-							</a> <a class="" href="${contextPath}/ohora_Fend_brand4.htm"> <span>about</span>
-							</a> <a class="" href="${contextPath}/membership.htm"> <span>membership</span>
-							</a> <a class="" href="${contextPath}/magazine.htm"> <span>magazine</span>
+							</a> <a class="" href="${pageContext.request.contextPath}/ohora_Fend_brand4.htm"> <span>about</span>
+							</a> <a class="" href="${pageContext.request.contextPath}/membership.htm"> <span>membership</span>
+							</a> <a class="" href="${pageContext.request.contextPath}/magazine.htm"> <span>magazine</span>
 							</a> <a class=""
-								href="${contextPath}/product/prd_view.htm?cate_no=238&currentPage=1">
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=238&currentPage=1">
 								<span>collaboration</span>
 							</a>
 						</div>
@@ -333,9 +333,9 @@
 						<div class="third_cate">
 							<a href="https://oe9lp.channel.io/home"><span>CS
 									Center</span></a> <a
-								href="${contextPath}/board/noticelist.htm?currentPage=1"><span>Notice</span></a>
-							<a href="${contextPath}/board/faqlist.htm?currentPage=1"><span>FAQ</span></a>
-							<a href="${contextPath}/howto.htm?howto=main">How to</a>
+								href="${pageContext.request.contextPath}/board/noticelist.htm?currentPage=1"><span>Notice</span></a>
+							<a href="${pageContext.request.contextPath}/board/faqlist.htm?currentPage=1"><span>FAQ</span></a>
+							<a href="${pageContext.request.contextPath}/howto.htm?howto=main">How to</a>
 						</div>
 					</div>
 				</div>

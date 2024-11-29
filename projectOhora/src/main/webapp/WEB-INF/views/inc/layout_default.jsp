@@ -31,11 +31,18 @@ span.material-symbols-outlined {
 	<tiles:insertAttribute name="header" />
 	<!-- header 종료 -->
 
+	<!-- visual 시작 -->
+	<tiles:insertAttribute name="visual" />
+	<!-- visual 종료 -->
+
 	<div id="main">
 		<div class="top-wrapper clear">
 			<!-- content 시작 -->
 			<tiles:insertAttribute name="content" />
 			<!-- content 종료 -->
+			<!-- navi 시작 -->
+			<tiles:insertAttribute name="aside" />
+			<!-- navi 종료 -->
 		</div>
 	</div>
 	<!-- footer 시작 -->

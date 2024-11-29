@@ -506,7 +506,7 @@
       }
     });
   </script>
-<script src="${pageContext.request.contextPath}/js/oho_main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/oho_main.js"></script>
 
 <script>
    // 쿠키 생성 스크립트
