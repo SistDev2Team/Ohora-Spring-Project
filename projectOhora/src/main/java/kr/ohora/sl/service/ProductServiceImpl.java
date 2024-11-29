@@ -31,5 +31,36 @@ public class ProductServiceImpl implements ProductService{
 		return this.productMapper.selectTotalRecords( criteria );
 	}
 
+	@Override
+	public ProductDTO getProductDetail(int pdtId) {
+		log.info("> ProductServiceImpl.prdDetail()...");
+		return this.productMapper.selectProductDetail( pdtId );
+	}
+
+	@Override
+	public ArrayList<ProductDTO> getProductOptionCmb(ProductDTO productDTO) {
+		log.info("> ProductServiceImpl.getProductOptionCmb()...");
+		return this.productMapper.selectProductOptionCmb( productDTO );
+	}
+
+	@Override
+	public ArrayList<ProductDTO> getProductOption(ProductDTO productDTO) {
+		log.info("> ProductServiceImpl.getProductOption()...");
+		int catId = productDTO.getCatId();
+		return this.productMapper.selectProductOption(productDTO, catId);
+	}
+
+	@Override
+	public ArrayList<ProductDTO> getProductsBySearch(Criteria criteria) {
+		log.info("> ProductServiceImpl.getProductsBySearch()...");
+		return this.productMapper.selectProductsBySearch( criteria );
+	}
+
+	@Override
+	public int getTotalRecordsBySearch(Criteria criteria, String keyword) {
+		log.info("> ProductServiceImpl.getTotalRecordsBySearch()...");
+		return this.productMapper.selectTotalRecordsBySearch( criteria , keyword );
+	}
+
 	
 }

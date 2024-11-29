@@ -12,16 +12,17 @@ import lombok.ToString;
 @ToString
 public class Criteria {
 
-	private int categoryNumber;	// 구분하는 카테고리 번호
-	private int currentPage;	// 현재 페이지 번호
+	private Integer categoryNumber;		// 구분하는 카테고리 번호
+	private int currentPage;		// 현재 페이지 번호
 	private int numberOfPageBlock;	// 한 페이지에 출력할 게시글 수
 
-	public int numberPerPage = 12;  // 한 페이지에 출력할 상품 수 (12개)
-	
+	private int numberPerPage = 12;  // 한 페이지에 출력할 상품 수 (12개)
+	private String keyword;			// 검색어
+
 	public Criteria() {
 		this(44,1,10);
 	}
-	
+
 	public Criteria(int categoryNumber, int currentPage, int numberOfPageBlock) {
 		super();
 		this.categoryNumber = categoryNumber;
@@ -29,14 +30,28 @@ public class Criteria {
 		this.numberOfPageBlock = numberOfPageBlock;
 	}
 
-	// ?pageNum=2&amount=10&type=T&keyword=홍길동&..............
+	public Criteria(String keyword, int currentPage, int numberOfPageBlock) {
+		super();
+		this.keyword = keyword;
+		this.currentPage = currentPage;
+		this.numberOfPageBlock = numberOfPageBlock;
+	}
+
+	// ?pageNum=2&amount=10&type=T&keyword=홍길동&..
 	// org.springframework.web.util
 	// 	ㄴ UriComponentsBuilder
 	public String getListLink() {
-		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
-										.queryParam("cate_no", this.categoryNumber)
-										.queryParam("currentPage", this.currentPage);
-		return builder.toUriString();
-	}
+		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
+	    
+	    if (this.keyword != null) {
+	        builder.queryParam("keyword", this.keyword);
+	    }
+	    if (this.categoryNumber != null) {
+	        builder.queryParam("cate_no", this.categoryNumber);
+	    }
+	    builder.queryParam("currentPage", this.currentPage);
+	    
+	    return builder.toUriString();
 	
+	}
 } // class

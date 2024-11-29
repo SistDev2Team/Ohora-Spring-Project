@@ -15,20 +15,20 @@
 					<!-- 큰 이미지 -->
 					<div class="SP_thumbnail">
 						<img id="mainImage"
-							src="${contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdt_img_url}.jpg"
-							alt="${pdtDetail.pdt_name}" class="BigImage">
+							src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdtImgUrl}.jpg"
+							alt="${pdtDetail.pdtName}" class="BigImage">
 					</div>
 					<!-- 작은 이미지 목록 -->
 					<div class="SP_listImg">
 						<ul>
 							<li><img
-								src="${contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdt_img_url}.jpg"
+								src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdtImgUrl}.jpg"
 								alt="Thumb 1"
-								onmouseover="changeImage('${contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdt_img_url}.jpg')"></li>
+								onmouseover="changeImage('${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdtDetail.pdtImgUrl}.jpg')"></li>
 							<li><img
-								src="${contextPath}/resources/images/prd_image/imgs_hover/${pdtDetail.pdt_img_url}.jpg"
+								src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdtDetail.pdtImgUrl}.jpg"
 								alt="Thumb 2"
-								onmouseover="changeImage('${contextPath}/resources/images/prd_image/imgs_hover/${pdtDetail.pdt_img_url}.jpg')"></li>
+								onmouseover="changeImage('${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdtDetail.pdtImgUrl}.jpg')"></li>
 						</ul>
 					</div>
 				</div>
@@ -53,31 +53,31 @@
 							<ul class="SP_prdListItemInfo" style="display: block;">
 								<li class="display_상품명 xans-record- SP_dfList_prdName"><span
 									class="SP_detail_content" style=""> <span class="title"
-										style="">${ pdtDetail.pdt_name }</span>
+										style="">${ pdtDetail.pdtName }</span>
 								</span></li>
 								<li class="xans-record- review_count"><span
-									class="SP_detail_content">리뷰 ${ pdtDetail.pdt_review_count }</span>
+									class="SP_detail_content">리뷰 ${ pdtDetail.pdtReviewCount }</span>
 								</li>
 								<li class="display_가격 xans-record- SP_dfList_price strike"
 									style="display: list-item;"><span class="title">가격</span>
 									<span class="SP_detail_content" style=""> <c:choose>
-											<c:when test="${ pdtDetail.pdt_discount_rate != 0 }">
+											<c:when test="${ pdtDetail.pdtDiscountRate != 0 }">
 												<span style=""> <strong id="span_product_price_text"
 													style="text-decoration: line-through;"> <fmt:formatNumber
-															value="${ pdtDetail.pdt_amount }" type="number"
+															value="${ pdtDetail.pdtAmount }" type="number"
 															groupingUsed="true" />
 												</strong> <input id="product_price" name="product_price" value=""
 													type="hidden" style="">
 												</span>
 												<span class="salesPrice"> <fmt:formatNumber
-														value="${pdtDetail.pdt_discount_amount}" type="number"
+														value="${pdtDetail.pdtDiscountAmount}" type="number"
 														groupingUsed="true" />
 												</span>
-												<span class="dcPercent">${ pdtDetail.pdt_discount_rate }%</span>
+												<span class="dcPercent">${ pdtDetail.pdtDiscountRate }%</span>
 											</c:when>
 											<c:otherwise>
 												<span class="salesPrice"> <fmt:formatNumber
-														value="${pdtDetail.pdt_discount_amount}" type="number"
+														value="${pdtDetail.pdtDiscountAmount}" type="number"
 														groupingUsed="true" />
 												</span>
 											</c:otherwise>
@@ -109,7 +109,7 @@
 												<option value="**" disabled="" link_image="">-------------------</option>
 												<c:forEach items="${prdOptCmb}" var="poc" varStatus="status">
 													<option value="P0000CGN000D" link_image="">0${ status.index + 1 }.
-														${poc.opt_name}</option>
+														${poc.optName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -145,21 +145,21 @@
 													<div class="SP_addSetInfo">
 														<div class="SP_addSetThumb">
 															<a href="#"><img
-																src="${contextPath}/resources/images/prd_image/imgs/${optprd.pdt_img_url}.jpg"
+																src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${optprd.pdtImgUrl}.jpg"
 																alt="" id="ec-add-product-composed-product-1810"></a>
 														</div>
 														<div class="SP_prdAddSetList">
 															<ul>
 																<li class="SP_addSetList_tt">
 																	<!-- <div class="SP_prdAddSet_tt">상품명</div> -->
-																	<div class="SP_prdAddSet_cont SP_prdAddSet_prdtt">${optprd.pdt_name}</div>
+																	<div class="SP_prdAddSet_cont SP_prdAddSet_prdtt">${optprd.pdtName}</div>
 																</li>
-																<li class="desc">${optprd.pdt_description}</li>
+																<li class="desc">${optprd.pdtDescription}</li>
 																<li class=" add_prd_price">
 																	<!-- <div class="SP_prdAddSet_tt"><span>판매가 : </span></div> -->
 																	<div class="SP_prdAddSet_cont SP_prdAddSet_price">
 																		<span class=""> <fmt:formatNumber
-																				value="${optprd.pdt_discount_amount}" type="number"
+																				value="${optprd.pdtDiscountAmount}" type="number"
 																				pattern="#,##0" />
 																		</span>
 																	</div>
@@ -254,7 +254,7 @@
 									class="total SP_totalPriceNum"> <c:choose>
 										<c:when test="${empty prdOptCmb}">
 											<strong> <em id="totalAmount"> <fmt:formatNumber
-														value="${pdtDetail.pdt_discount_amount}" type="number"
+														value="${pdtDetail.pdtDiscountAmount}" type="number"
 														groupingUsed="true" />
 											</em> (<span id="totalQuantityDisplay">1</span>개)
 											</strong>
@@ -359,7 +359,7 @@
 										class="Brev crema-product-reviews-count crema-applied"
 										data-product-code="2101" data-format="({{{count}}})"
 										data-install-method="hardcoded" data-observed-install="false"
-										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdt_review_count }</b></a>
+										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdtReviewCount }</b></a>
 								</li>
 								<li><a href="#prdDetail">상세정보</a></li>
 								<!--li><a href="#recmdPrdWiget" class="best_design">추천디자인</a></li-->
@@ -382,7 +382,7 @@
 }
 </style>
 										<iframe
-											src="${pageContext.request.contextPath}/review/reviewlist.do?pdt_id=<%= request.getParameter("pdt_id") %>"
+											src="${pageContext.request.contextPath}/review/reviewlist.htm?pdtId=<%= request.getParameter("pdtId") %>"
 											width="100%" height="1200px"></iframe>
 									</div>
 								</div>
@@ -397,7 +397,7 @@
 										class="Brev crema-product-reviews-count crema-applied"
 										data-product-code="2101" data-format="({{{count}}})"
 										data-install-method="hardcoded" data-observed-install="false"
-										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdt_review_count }</b></a>
+										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdtReviewCount }</b></a>
 								</li>
 								<li class="selected"><a href="#prdDetail">상세정보</a></li>
 								<!--li><a href="#recmdPrdWiget" class="best_design">추천디자인</a></li-->
@@ -876,7 +876,7 @@
 										class="Brev crema-product-reviews-count crema-applied"
 										data-product-code="2101" data-format="({{{count}}})"
 										data-install-method="hardcoded" data-observed-install="false"
-										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdt_review_count }</b></a>
+										data-applied-widgets="[&quot;.crema-product-reviews-count&quot;]">${ pdtDetail.pdtReviewCount }</b></a>
 								</li>
 								<li><a href="#prdDetail">상세정보</a></li>
 								<!--li class="selected"><a href="#recmdPrdWiget" class="best_design">추천디자인</a></li-->
@@ -1225,9 +1225,9 @@ $(document).ready(function () {
            }
            
            // 상품 정보 가져오기
-           const productName = `${pdtDetail.pdt_name}`;
-           const productId = `${pdtDetail.pdt_id}`;
-           const productDiscountAmount = `${pdtDetail.pdt_discount_amount}`;
+           const productName = `${pdtDetail.pdtName}`;
+           const productId = `${pdtDetail.pdtId}`;
+           const productDiscountAmount = `${pdtDetail.pdtDiscountAmount}`;
 
            // 새 옵션 행 생성
            const newProductRow = `

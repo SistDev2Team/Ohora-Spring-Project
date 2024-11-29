@@ -135,7 +135,7 @@
 			<div class="SP_search_wrap">
 				<div class="SP_utilListSearch_inner">
 					<form id="searchBarForm" name=""
-						action="${contextPath}/product/search.htm" method="get"
+						action="${contextPath}/product/prd_search.htm" method="get"
 						target="_self" enctype="multipart/form-data">
 						<div class="xans-element- xans-layout xans-layout-searchheader">
 

@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ohora.sl.repository.product.ProductMapper">
-
+	<!-- 상품 기준에 따른 SQL 쿼리 처리 -->
 	<sql id="prdCondition">
 		<where>
 			<if test="categoryNumber != null">
@@ -62,53 +62,156 @@
 		</where>
 	</sql>
 
-	<!-- public ArrayList<ProductDTO> selectProductsByCateNo(int currentPage, int numberPerPage, int categoryNumber); -->
-<select id="selectProductsByCateNo" resultType="kr.ohora.sl.domain.ProductDTO">
-    SELECT *
-    FROM (
-        SELECT 
-            rownum AS rn,
-            pdtId,
-            catId,
-            scatId,
-            pdtNumber,
-            pdtName,
-            pdtAmount,
-            pdtDiscountRate,
-            pdtImgUrl,
-            pdtCount,
-            pdtReviewCount,
-            pdtSalesCount,
-            pdtAdddate,
-            pdtViewcount,
-            CASE
-                WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount * pdtDiscountRate / 100 AS INT)
-                ELSE pdtAmount
-            END AS pdtDiscountAmount
-        FROM (
-            SELECT *
-            FROM OPRODUCT
-            <include refid="prdCondition" />
-            <![CDATA[
-            ORDER BY pdtid ASC
-        ) a
-        WHERE rownum <= #{currentPage} * #{numberPerPage}
-    ) b
-    WHERE rn > (#{currentPage} - 1) * #{numberPerPage}
-    ]]>
-</select>
+	<!-- public ArrayList<ProductDTO> selectProductsByCateNo( Criteria criteria 
+		); // cate_no 에 따른 상품 ( new , best , all , outlet ) -->
+	<select id="selectProductsByCateNo"
+		resultType="kr.ohora.sl.domain.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT
+		rownum AS rn,
+		pdtId,
+		catId,
+		scatId,
+		pdtNumber,
+		pdtName,
+		pdtAmount,
+		pdtDiscountRate,
+		pdtImgUrl,
+		pdtCount,
+		pdtReviewCount,
+		pdtSalesCount,
+		pdtAdddate,
+		pdtViewcount,
+		CASE
+		WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount *
+		pdtDiscountRate / 100 AS INT)
+		ELSE pdtAmount
+		END AS pdtDiscountAmount
+		FROM (
+		SELECT *
+		FROM OPRODUCT
+		<include refid="prdCondition" />
+	            <![CDATA[
+	            ORDER BY pdtid ASC
+	        ) a
+	        WHERE rownum <= #{currentPage} * #{numberPerPage}
+	    ) b
+	    WHERE rn > (#{currentPage} - 1) * #{numberPerPage}
+	    ]]>
+	</select>
 
-<select id="selectTotalRecords" resultType="Integer">
-    SELECT COUNT(*) FROM OPRODUCT
-    <include refid="prdCondition" />
-</select>
+	<!-- public Integer selectTotalRecords( Criteria criteria ); -->
+	<select id="selectTotalRecords" resultType="Integer">
+		SELECT COUNT(*) FROM OPRODUCT
+		<include refid="prdCondition" />
+	</select>
 
 
 	<!-- public void productViewUpdate(); // 상품 클릭시 조회수 +1 -->
 	<update id="productViewUpdate">
-		UPDATE O_PRODUCT
+		UPDATE OPRODUCT
 		SET pdtViewcount = pdtViewcount + 1
 		WHERE pdtId = #{pdtId}
 	</update>
 
+	<!-- public ProductDTO selectProductDetail(Criteria criteria); -->
+	<select id="selectProductDetail" resultType="kr.ohora.sl.domain.ProductDTO">
+		SELECT pdtId,
+		catId,
+		scatId,
+		pdtNumber,
+		pdtName,
+		pdtAmount,
+		pdtDiscountRate,
+		pdtImgUrl,
+		pdtCount,
+		pdtReviewCount,
+		pdtSalesCount,
+		pdtAdddate,
+		pdtViewcount,
+		CASE
+		WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount *
+		pdtDiscountRate / 100 AS INT)
+		ELSE pdtAmount
+		END AS pdtDiscountAmount
+		FROM OPRODUCT
+		WHERE pdtId = #{pdtId}
+	</select>
+
+	<!-- public ArrayList<ProductOptionDTO> selectProductOptionCmb(Criteria 
+		criteria); -->
+	<select id="selectProductOptionCmb"
+		resultType="kr.ohora.sl.domain.ProductDTO">
+		SELECT o.optName
+		FROM oProduct p
+		JOIN oPdtoption o ON p.pdtId = o.pdtId
+		WHERE p.scatId IS NOT NULL
+		AND o.pdtId = #{pdtId}
+	</select>
+
+	<!-- public ArrayList<ProductDTO> selectProductOption(Criteria criteria); -->
+	<select id="selectProductOption" resultType="kr.ohora.sl.domain.ProductDTO">
+		SELECT pdtId,
+		catId,
+		scatId,
+		pdtNumber,
+		pdtName,
+		pdtAmount,
+		pdtDiscountRate,
+		pdtImgUrl,
+		pdtCount,
+		pdtReviewCount,
+		pdtSalesCount,
+		pdtAdddate,
+		pdtViewcount,
+		CASE
+		WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount *
+		pdtDiscountRate / 100 AS INT)
+		ELSE pdtAmount
+		END AS pdtDiscountAmount,
+		pdtDescription
+		FROM oproduct
+		<where>
+			<choose>
+				<when test="catId == 1">
+					pdtId BETWEEN 172 AND 175
+				</when>
+				<when test="catId == 2">
+					pdtId BETWEEN 169 AND 171
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<!-- public ArrayList<ProductDTO> selectProductsBySearch( Criteria criteria ); -->
+	<select id="selectProductsBySearch"	resultType="kr.ohora.sl.domain.ProductDTO">
+		SELECT		pdtId,
+					catId,
+					scatId,
+					pdtNumber,
+					pdtName,
+					pdtAmount,
+					pdtDiscountRate,
+					pdtImgUrl,
+					pdtCount,
+					pdtReviewCount,
+					pdtSalesCount,
+					pdtAdddate,
+					pdtViewcount,
+					CASE
+					WHEN pdtDiscountRate != 0 THEN pdtAmount - CAST(pdtAmount *
+					pdtDiscountRate / 100 AS INT)
+					ELSE pdtAmount
+					END AS pdtDiscountAmount
+					FROM OPRODUCT
+		WHERE REGEXP_LIKE(pdtName, #{keyword}, 'i')
+	</select>
+	
+	<!-- public Integer selectTotalRecordsBySearch( Criteria criteria , String keyword ); -->
+	<select id="selectTotalRecordsBySearch" resultType="Integer">
+		SELECT COUNT(*)
+		FROM OPRODUCT
+		WHERE REGEXP_LIKE(pdtName, #{keyword}, 'i')
+	</select>
 </mapper>

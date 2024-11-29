@@ -14,7 +14,7 @@
 			class="xans-element- xans-product xans-product-searchdata search_keyword_wrapper xans-record-">
 			<form class="searchField"
 				id="ec-product-searchdata-searchkeyword_form"
-				action="${pageContext.request.contextPath}/product/search.do" method="get">
+				action="${pageContext.request.contextPath}/product/prd_search.htm" method="get">
 				<fieldset>
 					<div class="searchInput">
 						<span class="xans-element- xans-layout xans-layout-mobileaction "><a
@@ -80,36 +80,36 @@
 											<div class="item-container">
 												<dl>
 													<a
-														href="${pageContext.request.contextPath}/product/detail.do?pdt_id=${pdt.pdt_id}&cate_no=${param.cate_no}"
+														href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${pdt.pdtId}&cate_no=${param.cate_no}"
 														class="item-viewlink"></a>
 													<div class="item-image">
 														<img
-															src="../resources/images/prd_image/imgs/${pdt.pdt_img_url}.jpg"
+															src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdt.pdtImgUrl}.jpg"
 															alt="" width="800" height="800" /> <img
-															src="../resources/images/prd_image/imgs_hover/${pdt.pdt_img_url}.jpg"
+															src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdt.pdtImgUrl}.jpg"
 															alt="" width="800" height="800" />
 													</div>
 													<div class="item-info">
 														<dd class="name-container">
-															<p class="item-name">${pdt.pdt_name}</p>
+															<p class="item-name">${pdt.pdtName}</p>
 														</dd>
 														<dd class="price-container">
 															<c:choose>
-																<c:when test="${pdt.pdt_discount_rate != 0}">
-																	<p class="dcRate">${pdt.pdt_discount_rate}%</p>
+																<c:when test="${pdt.pdtDiscountRate != 0}">
+																	<p class="dcRate">${pdt.pdtDiscountRate}%</p>
 																	<p class="sale-price">
-																		<fmt:formatNumber value="${pdt.pdt_discount_amount}"
+																		<fmt:formatNumber value="${pdt.pdtDiscountAmount}"
 																			type="number" pattern="#,##0" />
 																	</p>
 																	<p class="normal-price">
-																		<fmt:formatNumber value="${pdt.pdt_amount}"
+																		<fmt:formatNumber value="${pdt.pdtAmount}"
 																			type="number" pattern="#,##0" />
 																	</p>
 																</c:when>
 																<c:otherwise>
 																	<p class="dcRate"></p>
 																	<p class="sale-price">
-																		<fmt:formatNumber value="${pdt.pdt_amount}"
+																		<fmt:formatNumber value="${pdt.pdtAmount}"
 																			type="number" pattern="#,##0" />
 																	</p>
 																	<p class="normal-price"></p>
@@ -118,12 +118,12 @@
 														</dd>
 														<div class="review-container">
 															<p class="rvCount-wrap">
-																<span class="rvCount">${pdt.pdt_review_count}</span>
+																<span class="rvCount">${pdt.pdtReviewCount}</span>
 															</p>
 														</div>
 														<div class="cart-in">
-															<img src="../resources/images/btn_list_cart.gif"
-																data-pdtid="${pdt.pdt_id}" alt="장바구니 추가 버튼" />
+															<img src="${pageContext.request.contextPath}/resources/images/btn_list_cart.gif"
+																data-pdtid="${pdt.pdtId}" alt="장바구니 추가 버튼" />
 														</div>
 
 													</div>
@@ -141,50 +141,50 @@
 					<!-- prev [1start] 2 3 4 5 6 7 8 9 10 next -->
 					<div id="page-container">
 						<a
-							href="search.do?keyword=${param.keyword}&currentPage=${ pvo.first }"
+							href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.first }"
 							class="first">first</a>
 
-						<c:if test="${ pvo.prev }">
+						<c:if test="${ pdto.prev }">
 							<a
-								href="search.do?keyword=${param.keyword}&currentPage=${ pvo.start - 1 }"
+								href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.start - 1 }"
 								class="prev">prev</a>
 						</c:if>
 
-						<c:if test="${ not pvo.prev }">
+						<c:if test="${ not pdto.prev }">
 							<a
-								href="search.do?keyword=${param.keyword}&currentPage=${ pvo.first }"
+								href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.first }"
 								class="prev">prev</a>
 						</c:if>
 
 						<ol>
-							<c:forEach begin="${ pvo.start }" end="${ pvo.end }" step="1"
+							<c:forEach begin="${ pdto.start }" end="${ pdto.end }" step="1"
 								var="i">
 								<c:choose>
-									<c:when test="${ i == pvo.currentPage }">
+									<c:when test="${ i == pdto.currentPage }">
 										<li><a href="#" class="active">${ i }</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a
-											href="search.do?keyword=${param.keyword}&currentPage=${ i }">${ i }</a></li>
+											href="prd_search.htm?keyword=${param.keyword}&currentPage=${ i }">${ i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 						</ol>
 						<c:choose>
-							<c:when test="${ pvo.currentPage != pvo.last }">
+							<c:when test="${ pdto.currentPage != pdto.last }">
 								<a
-									href="search.do?keyword=${param.keyword}&currentPage=${ pvo.currentPage + 1 }"
+									href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.currentPage + 1 }"
 									class="next">next</a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="search.do?keyword=${param.keyword}&currentPage=${ pvo.last }"
+									href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.last }"
 									class="next">next</a>
 							</c:otherwise>
 						</c:choose>
 
 						<a
-							href="search.do?keyword=${param.keyword}&currentPage=${ pvo.last }"
+							href="prd_search.htm?keyword=${param.keyword}&currentPage=${ pdto.last }"
 							class="last">last</a>
 					</div>
 

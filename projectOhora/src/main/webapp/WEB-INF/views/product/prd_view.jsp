@@ -44,38 +44,38 @@
 							<c:choose>
 								<c:when test="${param.cate_no == '44'}">
 									<li data-path="44"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">전체상품</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">전체상품</a>
 									</li>
 								</c:when>
 								<c:when
 									test="${param.cate_no == '120' || param.cate_no == '125' || param.cate_no == '127' || param.cate_no == '432' || param.cate_no == '431' || param.cate_no == '540'}">
 									<li data-path="120"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">베스트</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">베스트</a>
 									</li>
 								</c:when>
 								<c:when test="${param.cate_no == '121'}">
 									<li data-path="121"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">신상품</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">신상품</a>
 									</li>
 								</c:when>
 								<c:when test="${param.cate_no == '161'}">
 									<li data-path="121"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">페디</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">페디</a>
 									</li>
 								</c:when>
 								<c:when test="${param.cate_no == '160'}">
 									<li data-path="121"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">네일</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">네일</a>
 									</li>
 								</c:when>
 								<c:when test="${param.cate_no == '49'}">
 									<li data-path="121"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">케어
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">케어
 											&amp; 툴</a></li>
 								</c:when>
 								<c:when test="${param.cate_no == '671'}">
 									<li data-path="121"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">outlet</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">outlet</a>
 									</li>
 								</c:when>
 							</c:choose>
@@ -85,35 +85,35 @@
 					<div class="cate_list">
 						<ul class="menu_1ul">
 							<li class="menu_1li" data-cate="44" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">전체상품</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">전체상품</a></li>
 							<li class="menu_1li" data-cate="120" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">베스트</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">베스트</a></li>
 							<li class="menu_1li" data-cate="121" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">신상품</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=121&currentPage=1">신상품</a></li>
 							<li class="menu_1li" data-cate="204" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">pedi</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">pedi</a></li>
 							<li class="menu_1li" data-cate="600" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=431&currentPage=1">gelstrip</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=431&currentPage=1">gelstrip</a></li>
 							<li class="menu_1li" data-cate="605" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=432&currentPage=1">gelnailtip</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=432&currentPage=1">gelnailtip</a></li>
 							<li class="menu_1li" data-cate="671" data-depth="1"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">outlet</a></li>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1">outlet</a></li>
 						</ul>
 
 						<ul class="menu_2ul">
 							<!-- 전체상품일 때 -->
 							<c:if test="${param.cate_no == 44}">
 								<li class="menu_2li" data-cate="44" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">ALL</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=44&currentPage=1">ALL</a>
 								</li>
 								<li class="menu_2li" data-cate="160" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">네일</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=160&currentPage=1">네일</a>
 								</li>
 								<li class="menu_2li" data-cate="161" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">페디</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=161&currentPage=1">페디</a>
 								</li>
 								<li class="menu_2li" data-cate="49" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">케어
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=49&currentPage=1">케어
 										&amp; 툴</a></li>
 							</c:if>
 
@@ -121,22 +121,22 @@
 							<c:if
 								test="${param.cate_no == 120 || param.cate_no == 125 || param.cate_no == 127 || param.cate_no == 432 || param.cate_no == 431 || param.cate_no == 540}">
 								<li class="menu_2li" data-cate="120" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">ALL</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">ALL</a>
 								</li>
 								<li class="menu_2li" data-cate="125" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=125&currentPage=1">네일</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=125&currentPage=1">네일</a>
 								</li>
 								<li class="menu_2li" data-cate="127" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">페디</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=127&currentPage=1">페디</a>
 								</li>
 								<li class="menu_2li" data-cate="432" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=432&currentPage=1">젤네일팁</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=432&currentPage=1">젤네일팁</a>
 								</li>
 								<li class="menu_2li" data-cate="431" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=431&currentPage=1">젤스트립</a>
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=431&currentPage=1">젤스트립</a>
 								</li>
 								<li class="menu_2li" data-cate="540" data-depth="2"><a
-									href="${contextPath}/product/prd_view.htm?cate_no=540&currentPage=1">케어
+									href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=540&currentPage=1">케어
 										&amp; 툴</a></li>
 							</c:if>
 						</ul>
@@ -144,15 +144,15 @@
 						<ul class="menu_3ul">
 							<li class="menu_3li" data-cate="${param.cate_no }" data-depth="3">
 								<a
-								href="${contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1">ALL</a>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1">ALL</a>
 							</li>
 							<c:choose>
 								<c:when test="${param.cate_no == 160 || param.cate_no == 161 }">
 									<li class="menu_3li" data-cate="436" data-depth="3"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=436&currentPage=1">젤네일팁</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=436&currentPage=1">젤네일팁</a>
 									</li>
 									<li class="menu_3li" data-cate="435" data-depth="3"><a
-										href="${contextPath}/product/prd_view.htm?cate_no=435&currentPage=1">젤스트립</a>
+										href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=435&currentPage=1">젤스트립</a>
 									</li>
 								</c:when>
 							</c:choose>
@@ -210,16 +210,16 @@
 			<div id="banner-image-wrap">
 				<c:choose>
 					<c:when test="${param.cate_no == '44'}">
-						<img src="${contextPath}/resources/images/main_all_img.jpg"
+						<img src="${pageContext.request.contextPath}/resources/images/main_all_img.jpg"
 							alt="메인이미지" />
 					</c:when>
 					<c:when test="${param.cate_no == '120'}">
 						<li data-path="120"><img
-							src="${contextPath}/resources/images/main_best_img.jpg"
+							src="${pageContext.request.contextPath}/resources/images/main_best_img.jpg"
 							alt="인기상품이미지" /></li>
 					</c:when>
 					<c:when test="${param.cate_no == '121'}">
-						<img src="${contextPath}/resources/images/main_new_img.jpg"
+						<img src="${pageContext.request.contextPath}/resources/images/main_new_img.jpg"
 							alt="신상품이미지" />
 					</c:when>
 				</c:choose>
@@ -250,13 +250,13 @@
 						</div>
 						<ul class="sort_type_list" style="display: none;">
 							<li class="sort-way"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=5">신상품</a>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=5">신상품</a>
 							</li>
 							<li class="sort-way"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=6">인기상품</a>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=6">인기상품</a>
 							</li>
 							<li class="sort-way"><a
-								href="${contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=8">조회수</a>
+								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=${param.cate_no}&currentPage=1&sort_method=8">조회수</a>
 							</li>
 						</ul>
 					</div>
@@ -404,13 +404,13 @@
 										<div class="item-container">
 											<dl>
 												<a
-													href="${contextPath}/product/detail.htm?pdt_id=${pdt.pdtId}&cate_no=${param.cate_no}"
+													href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${pdt.pdtId}&cate_no=${param.cate_no}"
 													class="item-viewlink"></a>
 												<div class="item-image">
 													<img
-														src="${contextPath}/resources/images/prd_image/imgs/${pdt.pdtImgUrl}.jpg"
+														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdt.pdtImgUrl}.jpg"
 														alt="" width="800" height="800" /> <img
-														src="${contextPath}/resources/images/prd_image/imgs_hover/${pdt.pdtImgUrl}.jpg"
+														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdt.pdtImgUrl}.jpg"
 														alt="" width="800" height="800" />
 												</div>
 												<div class="item-info">
@@ -447,7 +447,7 @@
 													</div>
 													<div class="cart-in">
 														<img
-															src="${contextPath}/resources/images/btn_list_cart.gif"
+															src="${pageContext.request.contextPath}/resources/images/btn_list_cart.gif"
 															data-pdtid="${pdt.pdtId}" alt="장바구니 추가 버튼" />
 													</div>
 
@@ -461,62 +461,45 @@
 
 					</ul>
 				</div>
-
-
-				<!-- prev [1start] 2 3 4 5 6 7 8 9 10 next -->
+				
+				<!-- prev [1start] 2 3 4 5 6 7 8 9 10 next --> 
 				<div id="page-container">
-					<!-- first 링크 -->
-					<a
-						href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.first }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-						class="first">first</a>
-
-					<!-- prev 링크 -->
-					<c:if test="${ pdto.prev }">
-						<a
-							href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.start - 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-							class="prev">prev</a>
-					</c:if>
-					<c:if test="${ not pdto.prev }">
-						<a
-							href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.first }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-							class="prev">prev</a>
-					</c:if>
-
-					<!-- 페이지 번호 목록 -->
-					<ol>
-						<c:forEach begin="${ pdto.start }" end="${ pdto.end }" step="1"
-							var="i">
-							<c:choose>
-								<c:when test="${ i == pdto.currentPage }">
-									<li><a href="#" class="active">${ i }</a></li>
-								</c:when>
-								<c:otherwise>
-									<li><a
-										href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ i }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>">${ i }</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</ol>
-
-					<!-- next 링크 -->
-					<c:choose>
-						<c:when test="${ pdto.currentPage != pdto.last }">
-							<a
-								href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.currentPage + 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-								class="next">next</a>
-						</c:when>
-						<c:otherwise>
-							<a
-								href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.last }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-								class="next">next</a>
-						</c:otherwise>
-					</c:choose>
-
-					<!-- last 링크 -->
-					<a
-						href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.last }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>"
-						class="last">last</a>
+				    <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.first }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="first">first</a>
+				    
+				    <c:if test="${ pdto.prev }">
+				        <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.start - 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="prev">prev</a>
+				    </c:if>
+				    
+				    <c:if test="${ not pdto.prev }">
+				        <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.first }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="prev">prev</a>
+				    </c:if>
+				    
+				    <ol>
+				        <c:forEach begin="${ pdto.start }" end="${ pdto.end }" step="1" var="i">
+				            <c:choose>
+				                <c:when test="${ i == pdto.currentPage }">
+				                    <li><a href="#" class="active">${ i }</a></li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li><a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ i }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>">${ i }</a></li>
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				    </ol>
+				
+				    <c:choose>
+				        <c:when test="${ pdto.currentPage != pdto.last }">
+				            <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.currentPage + 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="next">next</a>
+				        </c:when>
+				        <c:otherwise>
+				            <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.last }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="next">next</a>
+				        </c:otherwise>
+				    </c:choose>
+				
+				    <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.last }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="last">last</a>
 				</div>
+
+				
 
 			</div>
 		</div>
@@ -528,7 +511,7 @@
 			<div id="searchArea" ; style="height: 919px; display: none;">
 				<h1 id="side-title">
 					내가 원하는 디자인 찾기 <span> <img
-						src="${contextPath}/resources/images/close_icon.png" alt="" />
+						src="${pageContext.request.contextPath}/resources/images/close_icon.png" alt="" />
 					</span>
 				</h1>
 

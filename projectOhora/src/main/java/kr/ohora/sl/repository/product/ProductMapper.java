@@ -14,11 +14,18 @@ import kr.ohora.sl.domain.ProductDTO;
 public interface ProductMapper {
 	
 	public ArrayList<ProductDTO> selectProductsByCateNo( Criteria criteria );	// cate_no 에 따른 상품 ( new , best , all , outlet )
-    // public ArrayList<ProductDTO> selectProductsByCateNo(int currentPage, int numberPerPage, int categoryNumber, int sort_method);	// 신상품, 인기상품, 조회수 별 정렬
-    // public ArrayList<ProductDTO> selectProductsBySearch(String searchWord,	int currentPage, int numberPerPage);	// 상품 검색
     
     public Integer selectTotalRecords( Criteria criteria );
     
     public void productViewUpdate();	// 상품 클릭시 조회수 +1
-    	
+
+	public ProductDTO selectProductDetail(@Param("pdtId") int pdtId);
+
+	public ArrayList<ProductDTO> selectProductOptionCmb( ProductDTO productDTO );
+
+	public ArrayList<ProductDTO> selectProductOption( ProductDTO productDTO, @Param("catId") int catId );
+	
+	public ArrayList<ProductDTO> selectProductsBySearch( Criteria criteria );
+	
+	public Integer selectTotalRecordsBySearch( Criteria criteria , @Param("keyword") String keyword );
 }

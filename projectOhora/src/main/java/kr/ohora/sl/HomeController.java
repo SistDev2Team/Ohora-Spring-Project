@@ -17,7 +17,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = "/home.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -29,7 +29,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		model.addAttribute("user", "kenik");
 		
-		return "home.htm";
+		return "home.jsp";
 	}
 	
 }
