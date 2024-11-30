@@ -68,22 +68,22 @@
 						<c:forEach var="newPrd" items="${newProducts}" varStatus="status">
 							<li id="item${ status.index + 1 }"
 								class="item-swiper-slide swiper-slide">
-								<div class="container-complete" data-prd-num="${newPrd.pdtId}">
+								<div class="container-complete" data-prd-num="${newPrd.pdtid}">
 									<dl>
 										<a
-											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${newPrd.pdtId}&cate_no=121"
+											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${newPrd.pdtid}&cate_no=121"
 											class="viewlink"></a>
 										<div class="base-img">
 											<div class="thumb">
 												<img loading="lazy" alt="" class="thumb_img" width="800"
 													height="800"
-													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${newPrd.pdtImgUrl}.jpg">
+													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${newPrd.pdtimgurl}.jpg">
 												<img loading="lazy" class="hover_img" width="800"
 													height="800"
-													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${newPrd.pdtImgUrl}.jpg">
+													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${newPrd.pdtimgurl}.jpg">
 											</div>
 											<span class="soldout-img"
-												style="display: ${newPrd.pdtCount==0 ? 'block' : 'none'};">
+												style="display: ${newPrd.pdtcount==0 ? 'block' : 'none'};">
 												<a href=""> <span>coming<br>soon
 												</span>
 											</a>
@@ -93,38 +93,38 @@
 										<div class="base-mask">
 											<dd class="name-container">
 												<p class="name">
-													<span>${newPrd.pdtName}</span>
+													<span>${newPrd.pdtname}</span>
 												</p>
 											</dd>
 											<dd class="price-container">
 												<c:choose>
-													<c:when test="${newPrd.pdtDiscountRate != 0}">
+													<c:when test="${newPrd.pdtdiscountrate != 0}">
 														<p class="normal-price">
-															<fmt:formatNumber value="${newPrd.pdtAmount}"
+															<fmt:formatNumber value="${newPrd.pdtamount}"
 																type="number" pattern="#,##0" />
 														</p>
 														<p class="sale-price">
-															<fmt:formatNumber value="${newPrd.pdtDiscountAmount}"
+															<fmt:formatNumber value="${newPrd.pdtdiscountamount}"
 																type="number" pattern="#,##0" />
 														</p>
-														<p class="discount">${newPrd.pdtDiscountRate}%</p>
+														<p class="discount">${newPrd.pdtdiscountrate}%</p>
 													</c:when>
 													<c:otherwise>
 														<p class="sale-price">
-															<fmt:formatNumber value="${newPrd.pdtAmount}"
+															<fmt:formatNumber value="${newPrd.pdtamount}"
 																type="number" pattern="#,##0" />
 														</p>
 													</c:otherwise>
 												</c:choose>
 											</dd>
 
-											<dd class="prdRegiDate">등록일: ${newPrd.pdtAdddate}</dd>
+											<dd class="prdRegiDate">등록일: ${newPrd.pdtadddate}</dd>
 
 											<div class="prdInfoBot">
 												<div class="rvCount">
 													<div class="rvWrap">
 														<p class="rv_count_wrap">
-															<span class="rv_count_value">${newPrd.pdtReviewCount}</span>
+															<span class="rv_count_value">${newPrd.pdtreviewcount}</span>
 														</p>
 													</div>
 												</div>
@@ -132,7 +132,7 @@
 											<div class="cart-in">
 												<img
 													src="${pageContext.request.contextPath}/resources/images/btn_list_cart.gif"
-													data-pdtid="${newPrd.pdtId}" alt="장바구니 추가 버튼" />
+													data-pdtid="${newPrd.pdtid}" alt="장바구니 추가 버튼" />
 											</div>
 
 											<div class="only_info_dispNone">
@@ -176,22 +176,22 @@
 							varStatus="status">
 							<li id="item${status.index + 1}"
 								class="item-swiper-slide swiper-slide">
-								<div class="container-complete" data-prd-num="${bestPrd.pdtId}">
+								<div class="container-complete" data-prd-num="${bestPrd.pdtid}">
 									<dl>
 										<a
-											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${bestPrd.pdtId}&cate_no=121"
+											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${bestPrd.pdtid}&cate_no=121"
 											class="viewlink"></a>
 										<div class="base-img">
 											<div class="thumb">
 												<img loading="lazy" alt="" class="thumb_img" width="800"
 													height="800"
-													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${bestPrd.pdtImgUrl}.jpg">
+													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${bestPrd.pdtimgurl}.jpg">
 												<img loading="lazy" class="hover_img" width="800"
 													height="800"
-													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${bestPrd.pdtImgUrl}.jpg">
+													src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${bestPrd.pdtimgurl}.jpg">
 											</div>
 											<span class="soldout-img"
-												style="display: ${bestPrd.pdtCount==0 ? 'block' : 'none'};">
+												style="display: ${bestPrd.pdtcount==0 ? 'block' : 'none'};">
 												<a href=""> <span>coming<br>soon
 												</span>
 											</a>
@@ -200,38 +200,38 @@
 										<div class="base-mask">
 											<dd class="name-container">
 												<p class="name">
-													<span>${bestPrd.pdtName}</span>
+													<span>${bestPrd.pdtname}</span>
 												</p>
 											</dd>
 											<dd class="price-container">
 												<c:choose>
-													<c:when test="${bestPrd.pdtDiscountRate != 0}">
+													<c:when test="${bestPrd.pdtdiscountrate != 0}">
 														<p class="normal-price">
-															<fmt:formatNumber value="${bestPrd.pdtAmount}"
+															<fmt:formatNumber value="${bestPrd.pdtamount}"
 																type="number" pattern="#,##0" />
 														</p>
 														<p class="sale-price">
-															<fmt:formatNumber value="${bestPrd.pdtDiscountAmount}"
+															<fmt:formatNumber value="${bestPrd.pdtdiscountamount}"
 																type="number" pattern="#,##0" />
 														</p>
-														<p class="discount">${bestPrd.pdtDiscountRate}%</p>
+														<p class="discount">${bestPrd.pdtdiscountrate}%</p>
 													</c:when>
 													<c:otherwise>
 														<p class="sale-price">
-															<fmt:formatNumber value="${bestPrd.pdtAmount}"
+															<fmt:formatNumber value="${bestPrd.pdtamount}"
 																type="number" pattern="#,##0" />
 														</p>
 													</c:otherwise>
 												</c:choose>
 											</dd>
 
-											<dd class="prdRegiDate">등록일: ${bestPrd.pdtAdddate}</dd>
+											<dd class="prdRegiDate">등록일: ${bestPrd.pdtadddate}</dd>
 
 											<div class="prdInfoBot">
 												<div class="rvCount">
 													<div class="rvWrap">
 														<p class="rv_count_wrap">
-															<span class="rv_count_value">${bestPrd.pdtReviewCount}</span>
+															<span class="rv_count_value">${bestPrd.pdtreviewcount}</span>
 														</p>
 													</div>
 												</div>
@@ -240,7 +240,7 @@
 											<div class="cart-in">
 												<img
 													src="${pageContext.request.contextPath}/resources/images/btn_list_cart.gif"
-													data-pdtid="${bestPrd.pdtId}" alt="장바구니 추가 버튼" />
+													data-pdtid="${bestPrd.pdtid}" alt="장바구니 추가 버튼" />
 											</div>
 
 											<div class="only_info_dispNone">
@@ -621,7 +621,7 @@
 
         saveCartItems: function (items) {
             const simplifiedItems = items.map((item) => ({
-                pdtId: item.pdtId,
+                pdtId: item.pdtid,
                 quantity: item.quantity,
             }));
             this.setCookie("cartItems", JSON.stringify(simplifiedItems), 14);
@@ -651,7 +651,7 @@
     function addToCart(pdtId) {
         const basketId = CookieUtil.setBasketId();
         const cartItems = CookieUtil.getCartItems();
-        const existingItem = cartItems.find((item) => item.pdtId === pdtId);
+        const existingItem = cartItems.find((item) => item.pdtid === pdtId);
 
         if (existingItem) {
             const userConfirmed = confirm("같은 상품이 존재합니다. 추가하시겠습니까?");
@@ -672,7 +672,7 @@
     // 장바구니 카운트 업데이트 함수
     function updateCartCount() {
         const cartItems = CookieUtil.getCartItems();
-        const uniquepdtIds = new Set(cartItems.map((item) => item.pdtId));
+        const uniquepdtIds = new Set(cartItems.map((item) => item.pdtid));
         const cartCount = uniquepdtIds.size;
         $(".count.EC-Layout-Basket-count").text(cartCount);
     }

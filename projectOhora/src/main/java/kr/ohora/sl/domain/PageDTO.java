@@ -40,7 +40,7 @@ public class PageDTO {
 
 		if( this.end > last) this.end = last;
 		
-		this.prev = (this.start > 1);		// 이전 페이지 블록이 존재하면 true
+		this.prev = (this.currentPage > 1);		// 이전 페이지 블록이 존재하면 true
 		this.next = (this.end < last);		// 다음 페이지 블록이 존재하면 true
     }
 }

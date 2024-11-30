@@ -1,4 +1,4 @@
-package kr.ohora.sl.service;
+package kr.ohora.sl.service.product;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public interface ProductService {
 	int getTotalRecords( Criteria criteria );
 
 	// 상품 상세 정보
-	ProductDTO getProductDetail( int pdtId );
+	ProductDTO getProductDetail( int pdtid );
 	
 	// 추가구성상품 존재여부 구분하기
 	ArrayList<ProductDTO> getProductOptionCmb(ProductDTO productDTO);

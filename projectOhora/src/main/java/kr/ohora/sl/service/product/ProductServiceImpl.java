@@ -1,4 +1,4 @@
-package kr.ohora.sl.service;
+package kr.ohora.sl.service.product;
 
 import java.util.ArrayList;
 
@@ -32,9 +32,9 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public ProductDTO getProductDetail(int pdtId) {
+	public ProductDTO getProductDetail(int pdtid) {
 		log.info("> ProductServiceImpl.prdDetail()...");
-		return this.productMapper.selectProductDetail( pdtId );
+		return this.productMapper.selectProductDetail( pdtid );
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public ArrayList<ProductDTO> getProductOption(ProductDTO productDTO) {
 		log.info("> ProductServiceImpl.getProductOption()...");
-		int catId = productDTO.getCatId();
-		return this.productMapper.selectProductOption(productDTO, catId);
+		int catid = productDTO.getCatid();
+		return this.productMapper.selectProductOption(productDTO, catid);
 	}
 
 	@Override

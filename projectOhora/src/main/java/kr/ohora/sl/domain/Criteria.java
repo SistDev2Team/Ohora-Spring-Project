@@ -18,16 +18,18 @@ public class Criteria {
 
 	private int numberPerPage = 12;  // 한 페이지에 출력할 상품 수 (12개)
 	private String keyword;			// 검색어
+	private Integer sortMethod;
 
 	public Criteria() {
-		this(44,1,10);
+		this(44,1,10,null);
 	}
 
-	public Criteria(int categoryNumber, int currentPage, int numberOfPageBlock) {
+	public Criteria(int categoryNumber, int currentPage, int numberOfPageBlock, Integer sortMethod) {
 		super();
 		this.categoryNumber = categoryNumber;
 		this.currentPage = currentPage;
 		this.numberOfPageBlock = numberOfPageBlock;
+		this.sortMethod = sortMethod;
 	}
 
 	public Criteria(String keyword, int currentPage, int numberOfPageBlock) {
@@ -45,6 +47,9 @@ public class Criteria {
 	    
 	    if (this.keyword != null) {
 	        builder.queryParam("keyword", this.keyword);
+	    }
+	    if (this.sortMethod != null) {
+	        builder.queryParam("sort_method", this.sortMethod);
 	    }
 	    if (this.categoryNumber != null) {
 	        builder.queryParam("cate_no", this.categoryNumber);

@@ -19,11 +19,11 @@ public interface ProductMapper {
     
     public void productViewUpdate();	// 상품 클릭시 조회수 +1
 
-	public ProductDTO selectProductDetail(@Param("pdtId") int pdtId);
+	public ProductDTO selectProductDetail(@Param("pdtid") int pdtid);
 
 	public ArrayList<ProductDTO> selectProductOptionCmb( ProductDTO productDTO );
 
-	public ArrayList<ProductDTO> selectProductOption( ProductDTO productDTO, @Param("catId") int catId );
+	public ArrayList<ProductDTO> selectProductOption( ProductDTO productDTO, @Param("catid") int catid );
 	
 	public ArrayList<ProductDTO> selectProductsBySearch( Criteria criteria );
 	

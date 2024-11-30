@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.ohora.sl.domain.Criteria;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.security.CustomUser;
-import kr.ohora.sl.service.ProductService;
+import kr.ohora.sl.service.product.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 

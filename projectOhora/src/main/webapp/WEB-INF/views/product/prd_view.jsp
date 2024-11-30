@@ -404,36 +404,36 @@
 										<div class="item-container">
 											<dl>
 												<a
-													href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${pdt.pdtId}&cate_no=${param.cate_no}"
+													href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${pdt.pdtid}&cate_no=${param.cate_no}"
 													class="item-viewlink"></a>
 												<div class="item-image">
 													<img
-														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdt.pdtImgUrl}.jpg"
+														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${pdt.pdtimgurl}.jpg"
 														alt="" width="800" height="800" /> <img
-														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdt.pdtImgUrl}.jpg"
+														src="${pageContext.request.contextPath}/resources/images/prd_image/imgs_hover/${pdt.pdtimgurl}.jpg"
 														alt="" width="800" height="800" />
 												</div>
 												<div class="item-info">
 													<dd class="name-container">
-														<p class="item-name">${pdt.pdtName}</p>
+														<p class="item-name">${pdt.pdtname}</p>
 													</dd>
 													<dd class="price-container">
 														<c:choose>
-															<c:when test="${pdt.pdtDiscountRate != 0}">
-																<p class="dcRate">${pdt.pdtDiscountRate}%</p>
+															<c:when test="${pdt.pdtdiscountrate != 0}">
+																<p class="dcRate">${pdt.pdtdiscountrate}%</p>
 																<p class="sale-price">
-																	<fmt:formatNumber value="${pdt.pdtDiscountAmount}"
+																	<fmt:formatNumber value="${pdt.pdtdiscountamount}"
 																		type="number" pattern="#,##0" />
 																</p>
 																<p class="normal-price">
-																	<fmt:formatNumber value="${pdt.pdtAmount}"
+																	<fmt:formatNumber value="${pdt.pdtamount}"
 																		type="number" pattern="#,##0" />
 																</p>
 															</c:when>
 															<c:otherwise>
 																<p class="dcRate"></p>
 																<p class="sale-price">
-																	<fmt:formatNumber value="${pdt.pdtAmount}"
+																	<fmt:formatNumber value="${pdt.pdtamount}"
 																		type="number" pattern="#,##0" />
 																</p>
 																<p class="normal-price"></p>
@@ -442,13 +442,13 @@
 													</dd>
 													<div class="review-container">
 														<p class="rvCount-wrap">
-															<span class="rvCount">${pdt.pdtReviewCount}</span>
+															<span class="rvCount">${pdt.pdtreviewcount}</span>
 														</p>
 													</div>
 													<div class="cart-in">
 														<img
 															src="${pageContext.request.contextPath}/resources/images/btn_list_cart.gif"
-															data-pdtid="${pdt.pdtId}" alt="장바구니 추가 버튼" />
+															data-pdtid="${pdt.pdtid}" alt="장바구니 추가 버튼" />
 													</div>
 
 												</div>
@@ -467,7 +467,7 @@
 				    <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.first }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="first">first</a>
 				    
 				    <c:if test="${ pdto.prev }">
-				        <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.start - 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="prev">prev</a>
+				        <a href="prd_view.htm?cate_no=${param.cate_no}&currentPage=${ pdto.currentPage - 1 }<c:if test='${ not empty param.sort_method }'>&sort_method=${param.sort_method}</c:if>" class="prev">prev</a>
 				    </c:if>
 				    
 				    <c:if test="${ not pdto.prev }">
@@ -868,7 +868,7 @@
 
         saveCartItems: function (items) {
             const simplifiedItems = items.map((item) => ({
-                pdtId: item.pdtId,
+                pdtId: item.pdtid,
                 quantity: item.quantity,
             }));
             this.setCookie("cartItems", JSON.stringify(simplifiedItems), 14);
@@ -898,7 +898,7 @@
     function addToCart(pdtId) {
         const basketId = CookieUtil.setBasketId();
         const cartItems = CookieUtil.getCartItems();
-        const existingItem = cartItems.find((item) => item.pdtId === pdtId);
+        const existingItem = cartItems.find((item) => item.pdtid === pdtId);
 
         if (existingItem) {
             const userConfirmed = confirm("같은 상품이 존재합니다. 추가하시겠습니까?");
@@ -919,7 +919,7 @@
     // 장바구니 카운트 업데이트 함수
     function updateCartCount() {
         const cartItems = CookieUtil.getCartItems();
-        const uniquepdtIds = new Set(cartItems.map((item) => item.pdtId));
+        const uniquepdtIds = new Set(cartItems.map((item) => item.pdtid));
         const cartCount = uniquepdtIds.size;
         $(".count.EC-Layout-Basket-count").text(cartCount);
     }

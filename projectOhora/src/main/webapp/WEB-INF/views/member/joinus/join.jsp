@@ -4399,13 +4399,13 @@
 												        <!-- 아이디 입력 -->
 												        <input type="text" id="member_id" name="username" data-checked="false" value="${user.username}">
 												        
-												        <!-- 서버 검증 메시지 -->
-												        <span class="error">${usernameError}</span>
 												        
 												        <!-- 중복 확인 버튼 -->
 												   
 													    <button type="button" class="btn btn-default" onclick="checkDuplication('id', 'member_id', 'idMsg')">중복 확인</button>
 													
+												        <!-- 서버 검증 메시지 -->
+												        <span class="error">${usernameError}</span>
 
 												        
 												        <!-- 중복 확인 메시지 -->
