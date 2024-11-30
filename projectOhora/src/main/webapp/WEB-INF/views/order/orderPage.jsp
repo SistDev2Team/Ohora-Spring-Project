@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ page import="com.util.ConvertInt" %>
+<%@ page import="kr.ohora.sl.util.ConvertInt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,20 +13,19 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-<link rel="stylesheet" href="../resources/cdn-main/member_order.css">
- <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="orderPage.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
  span.material-symbols-outlined{
     vertical-align: text-bottom;
- }  
+ }
 </style>
-<%@include file="header.jsp" %>
+
 </head>
 <body>
 
-<form action="/projectOhora/product/order_result.do" id="order_form">
+<form action="/order/order.htm" id="order_form">
     <div class="order-container" id="wrap"> <!--mCafe24Order-->
 
         <div class="first-container">  <!--billingNshipping-->
@@ -87,17 +86,17 @@
                                         <span id="info-mainLabel">[기본]</span> 
                                         <!-- [기본]주소지를 선택할 경우에만 span안에 [기본] 이라는 텍스트 채워짐-->
 
-                                        <span id="receiver">${empty addrList ? '' : addrList[0].addr_name }</span>
-                                        <span id="receiver-tel">${empty addrList ? '' : addrList[0].addr_tel }</span>
+                                        <span id="receiver">${empty addrList ? '' : addrList[0].addrname }</span>
+                                        <span id="receiver-tel">${empty addrList ? '' : addrList[0].addrtel }</span>
                                         <!-- 번호 앞에 before로 / 달려있음 -->
                                     </p>
 
                                     <p class="addr">
                                         [
-                                        <span id="addrZipCode">${empty addrList ? '' : addrList[0].addr_zipcode }</span>
+                                        <span id="addrZipCode">${empty addrList ? '' : addrList[0].addrzipcode }</span>
                                         ]
                                         <span id="addrText">
-                                            ${empty addrList ? '' : addrList[0].addr_address_main }
+                                            ${empty addrList ? '' : addrList[0].addraddressmain }
                                         </span>
                                     </p>
 
@@ -227,7 +226,7 @@
                                                 </span>
                                             </th>
                                             <td>
-                                                <input type="text" id="rname" name="rname" value="${empty userDTO ? '수령인' : userDTO.user_name}">
+                                                <input type="text" id="rname" name="rname" value="${empty userDTO ? '수령인' : userDTO.username}">
                                             </td>
                                         </tr>
 
@@ -244,18 +243,18 @@
                                                 <ul class="self-addr">
                                                     <li id="self-zipcodeWrap">
                                                         <input type="text" maxlength="14" placeholder="우편번호" id="rzipcode1" name="rzipcode1" 
-                                                        class="inputTypeText" readonly value="${empty addrList ? '' : addrList[0].addr_zipcode }">
+                                                        class="inputTypeText" readonly value="${empty addrList ? '' : addrList[0].addrzipcode }">
                                                         <div class="btn" style="z-index: 10;" onclick="postCode()">
                                                             <a class="for-view-btn">우편번호</a>
                                                         </div>
                                                     </li>
                                                     <li id="receiver-baseAddr-wrap">
                                                        <input type="text" id="raddr1" name="raddr1" placeholder="기본주소" class="inputTypeText" 
-                                                        maxlength="100" readonly value="${empty addrList ? '' : addrList[0].addr_address_main }">
+                                                        maxlength="100" readonly value="${empty addrList ? '' : addrList[0].addraddressmain }">
                                                     </li>
                                                     <li id="receiver-baseAddr-wrap2">
                                                         <input type="text" id="raddr2" name="raddr2" placeholder="상세주소를 입력하세요" class="inputTypeText"
-                                                         maxlength="255" value="${empty addrList ? '' : addrList[0].addr_address_detail }">
+                                                         maxlength="255" value="${empty addrList ? '' : addrList[0].addraddressdetail }">
                                                     </li>
                                                 </ul>
                                                 /
@@ -426,16 +425,16 @@
 			<div class="orderPrd">
                         <div class="prdInfoBox">
                             <div class="thumbnail">
-                            <input type="hidden" id="pdtId" name="pdtId" value="${pdt.pdt_id}">
+                            <input type="hidden" id="pdtId" name="pdtId" value="${pdt.pdtid}">
                                 <a href="#">
-                                    <img src="../resources/images/prd_image/imgs/${pdt.pdt_img_url}.jpg" alt="상품썸네일" width="90" height="90">
+                                    <img src="../resources/images/prd_image/imgs/${pdt.pdtimgurl}.jpg" alt="상품썸네일" width="90" height="90">
                                 </a>
                             </div>
                             <div class="description">
 
                                 <strong class="prdName" title="상품명">
-                                    <a href="#">${pdt.pdt_name}</a>
-                                    <input type="hidden" name="pdtName" value="${pdt.pdt_name}">
+                                    <a href="#">${pdt.pdtname}</a>
+                                    <input type="hidden" name="pdtName" value="${pdt.pdtname}">
                                 </strong>
 
                                 <ul class="prdInfo">
@@ -452,7 +451,7 @@
                                         <span class="wranTxt">
                                             -
                                             <span>
-                                            <fmt:formatNumber value="${(pdt.pdt_amount -pdt.pdt_discount_amount) * pdtCountArray[status.index]}"
+                                            <fmt:formatNumber value="${(pdt.pdtamount -pdt.pdtdiscountamount) * pdtCountArray[status.index]}"
                                             type="number" pattern="#,##0" />
                                             </span>
                                         </span>
@@ -460,15 +459,15 @@
                                 </ul>
 
                                 <div class="prdPrice">
-                                    <span><fmt:formatNumber value="${pdt.pdt_discount_amount * pdtCountArray[status.index]}" type="number" pattern="#,##0" /></span>
-                                    <input type="hidden" name="pdtDcAmount" value="${pdt.pdt_discount_amount * pdtCountArray[status.index]}">
+                                    <span><fmt:formatNumber value="${pdt.pdtdiscountamount * pdtCountArray[status.index]}" type="number" pattern="#,##0" /></span>
+                                    <input type="hidden" name="pdtDcAmount" value="${pdt.pdtdiscountamount * pdtCountArray[status.index]}">
                                     <span class="originPrice">
-                                        <span><fmt:formatNumber value="${pdt.pdt_amount * pdtCountArray[status.index]}" type="number" pattern="#,##0" />
-                                        <input type="hidden" name="pdtAmount" value="${pdt.pdt_amount * pdtCountArray[status.index]}">
+                                        <span><fmt:formatNumber value="${pdt.pdtamount * pdtCountArray[status.index]}" type="number" pattern="#,##0" />
+                                        <input type="hidden" name="pdtAmount" value="${pdt.pdtamount * pdtCountArray[status.index]}">
                                     </span>
                                 </div>
-							<c:set var="discountSum" value="${ discountSum + ((pdt.pdt_amount -pdt.pdt_discount_amount) * pdtCountArray[status.index])}"></c:set>
-							<c:set var="amountSum" value="${ amountSum + (pdt.pdt_amount * pdtCountArray[status.index])}"></c:set>
+							<c:set var="discountSum" value="${ discountSum + ((pdt.pdtamount -pdt.pdtdiscountamount) * pdtCountArray[status.index])}"></c:set>
+							<c:set var="amountSum" value="${ amountSum + (pdt.pdtamount * pdtCountArray[status.index])}"></c:set>
                             </div>
                             <!-- description -->
                             <button type="button" class="btnRemove" id="btrRm">
@@ -562,7 +561,7 @@
                     <select name="icpnId" id="userCoupon" style="width: 700px; height:50px; font-size: 16px" selected>
                     		<option value="0">쿠폰 선택</option>
                         	<c:forEach items="${ couponList }" var="cp" varStatus="status">
-								<option value="${ cp.icpn_id }">${cp.cpn_info}</option>
+								<option value="${ cp.icpnid }">${cp.cpninfo}</option>
 							</c:forEach>
 							
 			        </select>
@@ -576,11 +575,11 @@
                     <strong class="heading2">적립금</strong>
                     <span class="summary">
                         (
-                            <span class="UseablePoint" data-point="${empty userDTO ? 0 : userDTO.user_point }">${empty userDTO ? 0 : userDTO.user_point }원</span>
+                            <span class="UseablePoint" data-point="${empty userDTO ? 0 : userDTO.userpoint }">${empty userDTO ? 0 : userDTO.userpoint }원</span>
                         사용 가능 )
                     </span>
                     <div class="control">
-                        <input type="text" id="input_point" name="input_point">
+                        <input type="text" id="inputPoint" name="inputPoint">
                         <button type="button" id="btn_point">전액 사용</button>
                     </div>
                     <ul class="pointGuide">
@@ -694,35 +693,35 @@
 
                         <div class="inner">
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod0" name="addr_paymethod" value="휴대폰 결제">
+                                <input type="radio" id="addr_paymethod0" name="paymethod" value="휴대폰 결제">
                                 <label for="addr_paymethod0">휴대폰 결제</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod1" name="addr_paymethod" value="신용카드 결제">
+                                <input type="radio" id="addr_paymethod1" name="paymethod" value="신용카드 결제">
                                 <label for="addr_paymethod1">신용카드 결제</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod2" name="addr_paymethod" value="가상계좌 결제">
+                                <input type="radio" id="addr_paymethod2" name="paymethod" value="가상계좌 결제">
                                 <label for="addr_paymethod2">가상계좌 결제</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod3" name="addr_paymethod" value="실시간 계좌이체">
+                                <input type="radio" id="addr_paymethod3" name="paymethod" value="실시간 계좌이체">
                                 <label for="addr_paymethod3">실시간 계좌이체</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod4" name="addr_paymethod" value="네이버페이(간편결재)">
+                                <input type="radio" id="addr_paymethod4" name="paymethod" value="네이버페이(간편결재)">
                                 <label for="addr_paymethod4">네이버페이(간편결재)</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod5" name="addr_paymethod" value="카카오페이(간편결제)">
+                                <input type="radio" id="addr_paymethod5" name="paymethod" value="카카오페이(간편결제)">
                                 <label for="addr_paymethod5">카카오페이(간편결제)</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod6" name="addr_paymethod" value="토스(간편결제)">
+                                <input type="radio" id="addr_paymethod6" name="paymethod" value="토스(간편결제)">
                                 <label for="addr_paymethod6">토스(간편결제)</label>
                             </span>
                             <span class="base-label">
-                                <input type="radio" id="addr_paymethod7" name="addr_paymethod" value="페이코(간편결제)">
+                                <input type="radio" id="addr_paymethod7" name="paymethod" value="페이코(간편결제)">
                                 <label for="addr_paymethod7">페이코(간편결제)</label>
                             </span>
                         </div>
@@ -857,13 +856,13 @@
 
     </div>
     <!-- 결제 수단 끝 -->
-    <c:if test="${userDTO.mem_id == 1 }">
+    <c:if test="${userDTO.memid == 1 }">
     	<c:set var="rate" value="0.01f"></c:set>
     </c:if>
-    <c:if test="${userDTO.mem_id == 2 }">
+    <c:if test="${userDTO.memid == 2 }">
     	<c:set var="rate" value="0.02f"></c:set>
     </c:if>
-    <c:if test="${userDTO.mem_id == 3 }">
+    <c:if test="${userDTO.memid == 3 }">
     	<c:set var="rate" value="0.03f"></c:set>
     </c:if>
 
@@ -988,6 +987,6 @@
 
 
 </body>
-<%@include file="footer.jsp" %>
-<script src="../resources/js/member_order.js"></script>
+
+<script src="orderPage.js"></script>
 </html>

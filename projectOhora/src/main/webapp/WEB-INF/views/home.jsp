@@ -14,6 +14,8 @@
 
 <h3>
 	<a href="/time">/time</a>
+	<a href="/order/orderPage.htm?pdtId=1&pdtCount=1&pdtId=2&pdtCount=2">order</a>
+	<a href="/admin/productList.htm">관리페이지</a>
 </h3>
 </body>
 </html>
