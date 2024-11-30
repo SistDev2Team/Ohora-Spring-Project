@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ohora.sl.repository.member.MemberMapper">
+
+	<resultMap id="userMap" type="kr.ohora.sl.domain.UserDTO">
+	    <!-- UserDTO 필드 매핑 -->
+	    <id property="userid" column="USERID" />
+	    <result property="username" column="USERNAME" />
+	    <result property="password" column="PASSWORD" />
+	    <result property="name" column="NAME" />
+	    <result property="useremail" column="USEREMAIL" />
+	    <result property="usertel" column="USERTEL" />
+	    <result property="userbirth" column="USERBIRTH" />
+	    <result property="userpoint" column="USERPOINT" />
+	    <result property="usersnsagree" column="USERSNSAGREE" />
+	    <result property="userjoindate" column="USERJOINDATE" />
+	    <result property="enabled" column="ENABLED" />
+	
+	    <!-- 권한 목록 매핑 -->
+	    <collection property="authList" ofType="kr.ohora.sl.domain.AuthDTO">
+	        <result property="authority" column="AUTHORITY" />
+	    </collection>
+	</resultMap>
+
+	<select id="getUserInfo" parameterType="string" resultMap="userMap">
+	    SELECT 
+	        u.USERID, 
+	        u.USERNAME, 
+	        u.PASSWORD, 
+	        u.NAME, 
+	        u.USEREMAIL, 
+	        u.USERTEL, 
+	        u.USERBIRTH, 
+	        u.USERPOINT, 
+	        u.USERSNSAGREE, 
+	        u.USERJOINDATE, 
+	        u.ENABLED,
+	        a.AUTHORITY
+	    FROM 
+	        SCOTT.OUSER u
+	    LEFT JOIN 
+	        SCOTT.OAUTH a ON u.USERID = a.USERID
+	    WHERE 
+	        u.USERNAME = #{username}
+	    ORDER BY 
+	        u.USERID, a.AUTHORITY
+	</select>
+	
+	
+	 <select id="isDuplicate" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM SCOTT.OUSER
+        <where>
+            <choose>
+                <when test="type == 'id'">
+                    USERNAME = #{value}
+                </when>
+                <when test="type == 'email'">
+                    USEREMAIL = #{value}
+                </when>
+                <when test="type == 'phone'">
+                    USERTEL = #{value}
+                </when>
+                <otherwise>
+                    1 = 0 
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    
+<insert id="insertUser" parameterType="kr.ohora.sl.domain.UserDTO" keyProperty="userid" useGeneratedKeys="false">
+    <selectKey keyProperty="userid" resultType="int" order="BEFORE">
+        SELECT SCOTT.O_USER_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO SCOTT.OUSER (
+        USERID, USERNAME, PASSWORD, NAME, USEREMAIL, USERTEL, USERBIRTH, USERSNSAGREE
+    ) VALUES (
+        #{userid},                          
+        #{username},                         
+        #{password},                         
+        #{name},                             
+        #{useremail},                        
+        #{usertel},                          
+        #{userbirth},                        
+        #{usersnsagree}                      
+    )
+</insert>
+   
+ <insert id="insertUserAuthority" parameterType="map">
+    INSERT INTO SCOTT.OAUTH (USERID, AUTHORITY)
+    VALUES (#{userId}, #{authority})
+</insert>
+
+<insert id="issueWelcomeCoupon" parameterType="int">
+    INSERT INTO SCOTT.OISSUEDCOUPON (
+        ICPNID, USERID, CPNID, ICPNISSUEDATE
+    ) VALUES (
+        SCOTT.O_ISSUEDCOUPON_SEQ.NEXTVAL, 
+        #{userId},                       
+        1,                               
+        SYSDATE                          
+    )
+</insert>
+    
+    
+
+</mapper>

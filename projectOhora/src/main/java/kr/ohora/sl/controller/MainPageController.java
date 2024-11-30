@@ -1,10 +1,12 @@
 package kr.ohora.sl.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ohora.sl.domain.Criteria;
 import kr.ohora.sl.domain.ProductDTO;
+import kr.ohora.sl.domain.security.CustomUser;
 import kr.ohora.sl.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -26,8 +29,19 @@ public class MainPageController {
 	private ProductService productService;
 
 	@RequestMapping("/oho_main")
-	public String main(Model model, Criteria criteria) {
+	public String main(Model model, Criteria criteria, Principal principal) {
+		
+		
 		log.info("> MainPageController main()...");
+		
+		
+		
+  	  if (principal != null) {
+	        CustomUser customUser = (CustomUser) ((Authentication) principal).getPrincipal();
+	        System.out.println(" 로그인한 사용자: " + customUser.getUsername()); // id
+	        System.out.println(" 로그인사용자이름 " + customUser.getUser().getUsername());
+	        System.out.println("권한목록: " + customUser.getAuthorities());
+	    }
 		
 		criteria.setCategoryNumber(121);
 		criteria.setCurrentPage(1);

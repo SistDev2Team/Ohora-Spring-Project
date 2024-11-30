@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <div id="header">
 	<div class="SP_topBanner" style="display: block">
@@ -38,30 +40,29 @@
 					<div
 						class="xans-element- xans-layout xans-layout-statelogoff SP_gnb_inr">
 
-						<c:if test="${not empty sessionScope.userPk}">
-							<a href="${pageContext.request.contextPath}/oho_mypage.htm"> <span
-								class="title">마이페이지</span>
-							</a>
-							<a
-								href="${pageContext.request.contextPath}/login.htm?action=logout"
-								class="log"> <span class="title">로그아웃</span>
-							</a>
-						</c:if>
-
-
-						<c:if test="${empty sessionScope.userPk}">
-							<a
-								href="${pageContext.request.contextPath}/RegisterHandlerstart.htm">
-								<span class="title">회원가입</span>
-							</a>
-							<a href="${pageContext.request.contextPath}/loginHandlerstart.htm"
-								class="log"> <span class="title">로그인</span>
-							</a>
-						</c:if>
-					</div>
-
-				</div>
-			</div>
+						<sec:authorize access="isAnonymous()">
+						    <a href="${contextPath}/member/joinus/join.htm" class="auth-link">
+						        <span class="title">회원가입 &nbsp;|&nbsp;</span>
+						    </a>
+						    <a href="${contextPath}/member/joinus/login.htm" class="auth-link">
+						        <span class="title">로그인</span>
+						    </a>
+						</sec:authorize>
+			 
+					<sec:authorize access="isAuthenticated()">
+					    <a href="${contextPath}/member/mypage/mypage.htm">
+					        <span class="title">마이페이지 &nbsp;|&nbsp;</span>
+					    </a>
+					    <form action="${contextPath}/member/joinus/logout.htm" method="post">
+					        <input type="hidden" name="_csrf" value="${_csrf.token}">
+					        <button type="submit" class="logout-button">로그아웃</button>
+					    </form>
+					</sec:authorize>
+          </div>
+         </div>
+        </div>
+			
+			
 			<div class="SMS_fixed_inner">
 				<div
 					class="xans-element- xans-layout xans-layout-logotop fixed_logo">
