@@ -2,6 +2,7 @@ package kr.ohora.sl.service.admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
 import kr.ohora.sl.domain.ProductDTO;
@@ -24,4 +25,10 @@ public interface AdminService {
 	ArrayList<UserDTO> getAllCustomerList() throws SQLException;
 
 	UserDTO getCustomerDetailById(Integer userid) throws SQLException;
+	
+	// 상품 삭제
+	int deleteProducts(List<Integer> productIds);
+
+	// 상품 등록
+	void productInsert(ProductDTO productDTO) throws Exception;
 }

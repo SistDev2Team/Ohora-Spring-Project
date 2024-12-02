@@ -2,6 +2,7 @@ package kr.ohora.sl.service.admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,6 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<ProductDTO> getAllProductList(AdminPageCriteria criteria) throws SQLException {
 		log.info("> AdminServiceImpl.getAllProductList()...");		
-		// 할인판매가 가져오기
 		ArrayList<ProductDTO> productDTO = adminMapper.selectAllProductList(criteria);
 		for (ProductDTO product : productDTO) {
 			product.calcDiscountAmount();
@@ -67,6 +67,26 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public UserDTO getCustomerDetailById(Integer userid) throws SQLException {
 		return adminMapper.selectCustomerDetailById(userid);
+	}
+
+	@Override
+	public int deleteProducts(List<Integer> productIds) {
+		return adminMapper.deleteProducts(productIds);
+	}
+
+	@Override
+	public void productInsert(ProductDTO productDTO) throws Exception {
+		log.info("AdminServiceImpl.productInsert()... 상품 등록 서비스 호출");
+		
+		try {
+			productDTO.calcDiscountAmount(); // 할인가계산
+			adminMapper.productInsert(productDTO);
+		} catch (Exception e) {
+			log.error("상품 등록 실패 ..." + e.getMessage());
+			throw new Exception("상품 등록 실패 ...", e);
+		}
+		
+		
 	}
 
 }

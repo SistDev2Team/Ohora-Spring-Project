@@ -509,180 +509,161 @@
 <script src="${pageContext.request.contextPath}/resources/js/oho_main.js"></script>
 
 <script>
-   // 쿠키 생성 스크립트
-    // 비회원 상태일 경우
-    if (userPk == 0) {
-        console.log("비회원 상태입니다. 쿠키 함수를 실행합니다.");
-
-        // 장바구니 추가 이벤트
-        $(document).on("click", ".cart-in img", function () {
-            const pdtId = $(this).data("pdtid");
-            addToCart(pdtId);
-            updateCartCount();
-        });
-
-    } else {
-        console.log("로그인 상태입니다. 쿠키 함수가 실행되지 않습니다.");
-
-        // 비회원이 아닐 경우 클릭 이벤트를 제거하거나 다른 동작 설정
-        $(document).on("click", ".cart-in img", function () {
-        	const pdtId = $(this).data("pdtid");
-        	checkCart(userPk, pdtId);
-	    });
-	}
-   
-    let isProcessing = false;
-    async function checkCart(userPk, pdtId) {
-		if (isProcessing) return;
-        isProcessing = true;
-        
-        try {
-            const response = await $.ajax({
-                url: "${pageContext.request.contextPath}/product/checkcart.ajax",
-                type: "POST",
-                dataType: "json",
-                data: { userPk, pdtId }
-            });
-
-            if (response.status === 'empty') {
-            	await addToUserCart(userPk, pdtId);
-            } else {
-            	if (confirm("장바구니에 동일한 상품이 있습니다.\r\n장바구니에 추가하시겠습니까?")) {
-                    await updateCart(userPk, pdtId);
-                }
-            }
-        } catch (error) {
-            console.error("error:", error);
-        } finally {
-            isProcessing = false;
-        }
-	 
-	}
-	
-	async function addToUserCart(userPk, pdtId) {
-	    try {
-	        const response = await $.ajax({
-	            url: "${pageContext.request.contextPath}/product/addcart.ajax",
-	            type: "POST",
-	            dataType: "json",
-	            data: { userPk, pdtId }
-	        });
-	        
-	        if (response.status === 'success'){
-	        	alert("상품이 장바구니에 추가되었습니다.");
-	        	$(".EC-Layout-Basket-count").text(response.count);
-	        } else{
-	        	alert("장바구니 추가 실패");
-	        }
-	    } catch (error) {
-	        console.error("insert failed:", error);
-	    }
-	}
-	
-	async function updateCart(userPk, pdtId) {
-	    try {
-	        const response = await $.ajax({
-	            url: "${pageContext.request.contextPath}/product/updatecart.ajax",
-	            type: "POST",
-	            dataType: "json",
-	            data: { userPk, pdtId }
-	        });
-	        
-	        if (response.status === 'success'){
-	        	alert("장바구니 상품 수량이 증가되었습니다.");
-	        } else{
-	        	alert("장바구니 추가 실패");
-	        }
-	    } catch (error) {
-	        console.error("update failed:", error);
-	    }
-	}
-    // 비회원 장바구니 쿠키 함수
-    const CookieUtil = {
-        setCookie: function (name, value, days = 14) {
-            let expires = "";
-            if (days) {
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-        },
-
-        getCookie: function (name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(";");
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i].trim();
-                if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-            }
-            return null;
-        },
-
-        saveCartItems: function (items) {
-            const simplifiedItems = items.map((item) => ({
-                pdtId: item.pdtid,
-                quantity: item.quantity,
-            }));
-            this.setCookie("cartItems", JSON.stringify(simplifiedItems), 14);
-        },
-
-        setBasketId: function () {
-            let basketId = this.getCookie("basketId");
-            if (!basketId) {
-                basketId = Math.random().toString(36).substring(2, 10);
-                this.setCookie("basketId", basketId, 14);
-            }
-            return basketId;
-        },
-
-        getCartItems: function () {
-            const cartCookie = this.getCookie("cartItems");
-            try {
-                return cartCookie ? JSON.parse(cartCookie) : [];
-            } catch (e) {
-                console.error("Error parsing cart items from cookie:", e);
-                return [];
-            }
-        },
-    };
-
-    // 장바구니에 아이템 추가 함수
-    function addToCart(pdtId) {
-        const basketId = CookieUtil.setBasketId();
-        const cartItems = CookieUtil.getCartItems();
-        const existingItem = cartItems.find((item) => item.pdtid === pdtId);
-
-        if (existingItem) {
-            const userConfirmed = confirm("같은 상품이 존재합니다. 추가하시겠습니까?");
-            if (!userConfirmed) return;
-            existingItem.quantity += 1;
-        } else {
-            cartItems.push({
-                pdtId: pdtId,
-                quantity: 1,
-            });
-        }
-
-        CookieUtil.saveCartItems(cartItems);
-        alert("장바구니에 상품이 추가되었습니다.");
+/*
+if (userPk == 0) {
+    console.log("비회원 상태입니다. 쿠키 함수를 실행합니다.");
+    */
+    $(".cart-in img").on("click", function () {
+        const pdtId = $(this).data("pdtid");
+        addToCart(pdtId);
         updateCartCount();
-    }
-
-    // 장바구니 카운트 업데이트 함수
+    });
+    
     function updateCartCount() {
-        const cartItems = CookieUtil.getCartItems();
-        const uniquepdtIds = new Set(cartItems.map((item) => item.pdtid));
-        const cartCount = uniquepdtIds.size;
+        const cartItems = getCartItems();
+        const uniquePdtIds = new Set(cartItems.map(item => item.pdtId));
+        const cartCount = uniquePdtIds.size;
         $(".count.EC-Layout-Basket-count").text(cartCount);
     }
 
-    // 초기화
-    $(document).ready(function () {
-    	if (userPk == 0) {
-        	updateCartCount();    		
-    	} else{
-    		
-    	}
+    /*
+} else {
+    console.log("로그인 상태입니다. 쿠키 함수가 실행되지 않습니다.");
+
+    // 비회원이 아닐 경우 클릭 이벤트를 제거하거나 다른 동작 설정
+    $(".cart-in img").on("click", function () {
+    	const pdtId = $(this).data("pdtid");
+    	checkCart(userPk, pdtId);
     });
+}
+    */
+
+let isProcessing = false;
+async function checkCart(userPk, pdtId) {
+	if (isProcessing) return;
+    isProcessing = true;
+    
+    try {
+        const response = await $.ajax({
+            url: "${pageContext.request.contextPath}/product/checkcart.ajax",
+            type: "POST",
+            dataType: "json",
+            data: { userPk, pdtId }
+        });
+
+        if (response.status === 'empty') {
+        	await addToUserCart(userPk, pdtId);
+        } else {
+        	if (confirm("장바구니에 동일한 상품이 있습니다.\r\n장바구니에 추가하시겠습니까?")) {
+                await updateCart(userPk, pdtId);
+            }
+        }
+    } catch (error) {
+        console.error("error:", error);
+    } finally {
+        isProcessing = false;
+    }
+ 
+}
+
+async function addToUserCart(userPk, pdtId) {
+    try {
+        const response = await $.ajax({
+            url: "${pageContext.request.contextPath}/product/addcart.ajax",
+            type: "POST",
+            dataType: "json",
+            data: { userPk, pdtId }
+        });
+        
+        if (response.status === 'success'){
+        	alert("상품이 장바구니에 추가되었습니다.");
+        	$(".EC-Layout-Basket-count").text(response.count);
+        } else{
+        	alert("장바구니 추가 실패");
+        }
+    } catch (error) {
+        console.error("insert failed:", error);
+    }
+}
+
+async function updateCart(userPk, pdtId) {
+    try {
+        const response = await $.ajax({
+            url: "${pageContext.request.contextPath}/product/updatecart.ajax",
+            type: "POST",
+            dataType: "json",
+            data: { userPk, pdtId }
+        });
+        
+        if (response.status === 'success'){
+        	alert("장바구니 상품 수량이 증가되었습니다.");
+        } else{
+        	alert("장바구니 추가 실패");
+        }
+    } catch (error) {
+        console.error("update failed:", error);
+    }
+}
+
+const CookieUtil = {
+    setCookie: function (name, value, days = 14) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+    },
+
+    getCookie: function (name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(nameEQ) === 0) 
+            return decodeURIComponent(c.substring(nameEQ.length));
+        }
+        return null;
+    }
+};
+
+function getCartItems(){
+	const cartItems = CookieUtil.getCookie("cartItems") || "";
+	return cartItems
+		.split('|')
+		.filter(Boolean)
+		.map(item => {
+			const [pdtId, quantity] = item.split(':');
+			return {pdtId:parseInt(pdtId),quantity:parseInt(quantity)};
+		});
+}
+
+function addToCart(pdtId) {
+	let cartItems = getCartItems();
+    const existingItem = cartItems.find(item => item.pdtId === pdtId);
+    
+    if (existingItem) {
+        const userConfirmed = confirm("같은 상품이 존재합니다. 추가하시겠습니까?");
+        if (!userConfirmed) return;
+        existingItem.quantity += 1;
+    }
+     else {
+        cartItems.push({pdtId:pdtId,quantity:1}); 
+    }
+    const cartString = cartItems.map(item => `\${item.pdtId}:\${item.quantity}`).join("|");
+    CookieUtil.setCookie("cartItems", cartString, 14);
+    alert("장바구니에 상품이 추가되었습니다.");
+}
+updateCartCount();
+
+/*
+$(document).ready(function () {
+	if (userPk == 0) {
+    	updateCartCount();    		
+	} else{
+		
+	}
+});
+*/
 </script>

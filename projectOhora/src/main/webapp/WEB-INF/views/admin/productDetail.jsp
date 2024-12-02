@@ -1,375 +1,81 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="shortcut icon" type="image/x-icon" href="images/SiSt.ico">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="">
-<script src="/resources/cdn-main/example.js"></script>
-<style>
-/* 컨테이너 스타일 */
-.container.admin_container {
-	margin: 50px auto;
-	width: 80%;
-	max-width: 1200px;
-	font-family: 'Arial', sans-serif;
-	color: #333;
-	/* border-radius: 10px; */
-}
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div class="content">
+	<div class="container admin_container">
+		<div class="row">
+			<h1 style="text-align: center; margin: 50px 0;">상품 상세 조회</h1>
+		</div>
 
-/* 헤더 스타일 */
-h1 {
-	font-size: 2rem;
-	font-weight: bold;
-	text-align: center;
-	margin-bottom: 30px;
-	color: #555;
-}
-
-/* 사이드 내비게이션 스타일 */
-.side_nav {
-	float: left;
-	width: 20%;
-	margin-right: 5%;
-}
-
-.side_nav .nav {
-	list-style: none;
-	padding: 0;
-}
-
-.side_nav .li_btns {
-	margin: 10px 0;
-	text-align: center;
-}
-
-.side_nav .li_btns a {
-	display: block;
-	padding: 20px 20px;
-	background: #f8f9fa;
-	text-decoration: none;
-	color: #333;
-	border-radius: 5px;
-	font-size: 1rem;
-	transition: background-color 0.3s;
-}
-
-.side_nav .li_btns a:hover {
-	background: #e9ecef;
-}
-
-.side_nav .li_btns.active a {
-	background: rgb(175, 175, 175);
-	color: #fff;
-	font-weight: bold;
-}
-
-/* 테이블 스타일 */
-.table {
-	width: 75%;
-	margin-left: auto;
-	margin-right: auto;
-	border-collapse: collapse;
-	background-color: #fff;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	border-radius: 5px;
-}
-
-.table th, .table td {
-	padding: 15px;
-	text-align: left;
-	border-bottom: 1px solid #f3f3f3;
-	font-size: 0.9rem;
-	text-align: center;
-}
-
-.table th {
-	background: rgb(175, 175, 175);
-	color: white;
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-.table tbody tr:hover {
-	background: #f1f1f1;
-}
-
-.table td {
-	color: #333;
-}
-
-.table th {
-	text-align: center;
-}
-
-/* 반응형 디자인 */
-@media screen and (max-width: 768px) {
-	.container.admin_container {
-		width: 90%;
-	}
-	.side_nav {
-		width: 100%;
-		margin-right: 0;
-		margin-bottom: 20px;
-	}
-	.table {
-		width: 100%;
-	}
-}
-</style>
-<style>
-/* 상품 디테일 div */
-.admin-container {
-	display: flex;
-	font-family: Arial, sans-serif;
-	margin: 20px;
-}
-
-.side-nav {
-	width: 200px;
-	margin-right: 20px;
-}
-
-.side-nav .menu {
-	list-style: none;
-	padding: 0;
-}
-
-.side-nav .menu li {
-	margin: 10px 0;
-}
-
-.side-nav .menu li a {
-	display: block;
-	padding: 10px 15px;
-	background-color: #f7f7f7;
-	color: #333;
-	text-decoration: none;
-	border-radius: 5px;
-	text-align: center;
-}
-
-.side-nav .menu li.active a {
-	background-color: #d3d3d3;
-	font-weight: bold;
-}
-
-.side-nav .menu li a:hover {
-	background-color: #e9e9e9;
-}
-
-.main-content {
-	flex: 1;
-}
-
-.page-title {
-	font-size: 24px;
-	text-align: center;
-	margin-bottom: 20px;
-}
-
-.button-group {
-	text-align: right;
-	margin-bottom: 10px;
-}
-
-.button-group .btn {
-	padding: 8px 20px;
-	margin-left: 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: #f0f0f0;
-	color: #333;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.button-group .btn:hover {
-	background-color: #dcdcdc;
-}
-
-.product-table {
-	width: 100%;
-	border-collapse: collapse;
-	background-color: #fff;
-	border: 1px solid #ddd;
-}
-
-.product-table th, .product-table td {
-	padding: 10px;
-	text-align: center;
-	border: 1px solid #ddd;
-}
-
-.product-table th {
-	background-color: #f7f7f7;
-	font-weight: bold;
-	text-align: center;
-}
-
-.product-table tbody tr:hover {
-	background-color: #f9f9f9;
-}
-</style>
-<style>
-/* 상품 디테일 div css */
-.product-details-container {
-	display: flex;
-	align-items: flex-start;
-	margin: 20px;
-	font-family: Arial, sans-serif;
-}
-
-.product-image img {
-	max-width: 400px;
-	max-height: 400px;
-	object-fit: cover;
-	border-radius: 10px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-	margin-right: 20px;
-}
-
-.product-info {
-	flex: 1;
-}
-
-.product-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.product-table th, .product-table td {
-	padding: 10px;
-	text-align: left;
-	vertical-align: top;
-	border-bottom: 1px solid #ddd;
-}
-
-.product-table th {
-	width: 150px;
-	font-weight: bold;
-	background-color: #f9f9f9;
-	text-align: center;
-	vertical-align: middle;
-}
-
-.product-table td {
-	background-color: #fdfdfd;
-}
-
-.product-table tr:last-child td {
-	border-bottom: none;
-}
-</style>
-<style>
-/* 수정, 삭제버튼 productList 에만 적용 */
-.button {
-	text-align: right; /* 버튼을 오른쪽으로 정렬 */
-	margin: 10px 0; /* 버튼과 테이블 사이의 여백 추가 */
-}
-
-.bt_back, .bt_modify {
-	padding: 8px 15px; /* 버튼 크기 확대 */
-	font-size: 14px; /* 글자 크기 */
-	border: 1px solid #ccc; /* 테두리 설정 */
-	border-radius: 5px; /* 모서리 둥글게 */
-	background-color: #f5f5f5; /* 버튼 배경색 */
-	color: #333; /* 버튼 글자색 */
-	cursor: pointer; /* 마우스 올릴 때 포인터 */
-	margin-left: 10px; /* 버튼 간격 */
-	transition: all 0.3s ease; /* 애니메이션 효과 */
-}
-
-.bt_back:hover {
-	background-color: #c2c2c2;
-	color: black;
-}
-
-.bt_modify:hover {
-	background-color: #c2c2c2;
-	color: black;
-}
-</style>
-</head>
-<div id="content">
-	<h1 style="text-align: center; margin: 50px 0;">상품 상세 조회</h1>
-</div>
-
-<!-- 상품 디테일 설명 -->
-<div class="product-details-container">
-	<div class="product-image">
-		<img
-			src="../resources/images/prd_image/imgs/${productDTO.pdtimgurl}.jpg"
-			alt="상품 이미지">
-	</div>
-	<div class="product-info">
-		<table class="product-table">
-			<tr>
-				<th>상품 ID</th>
-				<td>${productDTO.pdtid}</td>
-			</tr>
-			<tr>
-				<th>상품명</th>
-				<td>${productDTO.pdtname}</td>
-			</tr>
-			<tr>
-				<th>상품판매가격</th>
-				<td><fmt:formatNumber value="${productDTO.pdtamount}"
-						type="number" pattern="#,##0" />원</td>
-			</tr>
-			<tr>
-				<th>할인판매가격</th>
-				<td><fmt:formatNumber value="${productDTO.pdtdiscountamount}"
-						type="number" pattern="#,##0" />원</td>
-			</tr>
-			<tr>
-				<th>할인율</th>
-				<td>${productDTO.pdtdiscountrate}%</td>
-			</tr>
-			<tr>
-				<th>재고</th>
-				<td>${productDTO.pdtcount}</td>
-			</tr>
-			<tr>
-				<th>카테고리</th>
-				<td>${productDTO.catid == 1 ? '네일' : productDTO.catid == 2 ? '페디' : '케어툴' }</td>
-			</tr>
-			<tr>
-				<th>하위카테고리</th>
-				<td>${productDTO.scatid == 1 ? '젤스트립' : productDTO.scatid == 2 ? '젤네일팁' : '-'}</td>
-			</tr>
-			<tr>
-				<th>상품 등록일</th>
-				<td><fmt:formatDate value="${productDTO.pdtadddate}"
-						pattern="yyyy-MM-dd" /></td>
-			</tr>
-			<tr>
-				<th>상품 설명</th>
-				<td>이 상품은 최고의 품질을 자랑합니다. 여러분의 삶을 더욱 편리하게 만들어줍니다.</td>
-			</tr>
-		</table>
+		<!-- 상품 디테일 설명 -->
+		<div class="product-details-container">
+			<div class="product-image">
+				<img src="../resources/images/prd_image/imgs/${productDTO.pdtimgurl}.jpg" alt="상품 이미지">
+			</div>
+			<div class="product-info">
+				<table class="product-table">
+					<tr>
+						<th>상품 ID</th>
+						<td>${productDTO.pdtid}</td>
+					</tr>
+					<tr>
+						<th>상품명</th>
+						<td>${productDTO.pdtname}</td>
+					</tr>
+					<tr>
+						<th>상품판매가격</th>
+						<td><fmt:formatNumber value="${productDTO.pdtamount}" type="number" pattern="#,##0" />원</td>
+					</tr>
+					<tr>
+						<th>할인판매가격</th>
+						<td><fmt:formatNumber value="${productDTO.pdtdiscountamount}" type="number" pattern="#,##0" />원</td>
+					</tr>
+					<tr>
+						<th>할인율</th>
+						<td>${productDTO.pdtdiscountrate}%</td>
+					</tr>
+					<tr>
+						<th>재고</th>
+						<td>${productDTO.pdtcount}</td>
+					</tr>
+					<tr>
+						<th>카테고리</th>
+						<td>${productDTO.catid == 1 ? '네일' : productDTO.catid == 2 ? '페디' : '케어툴' }</td>
+					</tr>
+					<tr>
+						<th>하위카테고리</th>
+						<td>${productDTO.scatid == 1 ? '젤스트립' : productDTO.scatid == 2 ? '젤네일팁' : '-'}</td>
+					</tr>
+					<tr>
+						<th>상품 등록일</th>
+						<td><fmt:formatDate value="${productDTO.pdtadddate}" pattern="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<th>상품 설명</th>
+						<td>${productDTO.pdtdescription == null ? productDTO.pdtdescription : '-'}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- // 상품 디테일 설명 -->
 	</div>
 </div>
-<!-- // 상품 디테일 설명 -->
 
 <!-- 수정하기, 뒤로 가기 버튼 -->
 <div class="button">
-	<input type="button" class="bt_modify" id="bt_modify" value="수정하기" /> <input
-		onclick="history.back()" type="button" class="bt_back" id="bt_back"
-		value="뒤로가기" />
+	<input type="button" class="bt_modify" id="bt_modify" value="수정하기"/>
+	<input onclick="history.back()" type="button" class="bt_back" id="bt_back" value="뒤로가기"/>
 </div>
 <!-- // 수정하기, 뒤로 가기 버튼 -->
 
 <!-- 버튼 스크립트 -->
 <script>
-		$("#bt_modify").on("click",function(event){
-			location.href = "/admin/productModify.htm";
-		});
+$("#bt_modify").on("click",function(event){
+	location.href = "/admin/productModify.htm";
+});
 </script>
+
+
+
+

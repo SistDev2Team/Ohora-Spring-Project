@@ -119,7 +119,7 @@
 					<div class="small_icon search_fixed_btn"></div>
 					<div
 						class="xans-element- xans-layout xans-layout-orderbasketcount small_icon m_cart common_cart">
-						<a href="${pageContext.request.contextPath}/product/cart.htm"><b
+						<a href="${pageContext.request.contextPath}/order/iscart.htm"><b
 							class="count EC-Layout-Basket-count">0</b></a>
 					</div>
 					<div class="small_icon m_menu">

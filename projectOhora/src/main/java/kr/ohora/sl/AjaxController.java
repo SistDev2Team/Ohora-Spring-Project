@@ -3,11 +3,14 @@ package kr.ohora.sl;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.ohora.sl.service.admin.AdminService;
 import kr.ohora.sl.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -27,6 +31,9 @@ public class AjaxController {
 	 private static final long VALID_DURATION = 3 * 60 * 1000; // 인증번호 유효 시간 (3분)
 	
 	 private final MemberService memberService;
+	 
+	 @Autowired
+	 private AdminService adminService;
 	 
 	 @GetMapping(value = "/checkDuplicate.ajax")
 	    public ResponseEntity<Map<String, String>> checkDuplicate(
@@ -123,5 +130,26 @@ public class AjaxController {
 	        	      .contentType(MediaType.APPLICATION_JSON)
 	        	      .body(response);
 	    }
+	    
+	 // 관리자페이지 상품삭제
+	 @PostMapping("/adminProduceDelete.ajax")
+	 public ResponseEntity<?> deleteProducts(@RequestParam("productIds[]") List<Integer> productIds) {
+		 log.info("삭제된 상품: " + productIds);
+         try {
+            int deletedCount = adminService.deleteProducts(productIds);
+
+            if (deletedCount == productIds.size()) {
+                return ResponseEntity.ok().body("{\"success\": true}");
+            } else {
+                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+                        .body("{\"success\": false, \"message\": \"일부 상품 삭제에 실패했습니다.\"}");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}");
+        }
+    }
 	
 }//class

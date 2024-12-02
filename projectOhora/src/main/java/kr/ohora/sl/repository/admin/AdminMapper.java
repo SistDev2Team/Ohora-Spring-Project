@@ -2,6 +2,7 @@ package kr.ohora.sl.repository.admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,6 @@ public interface AdminMapper {
 	Integer selectTotalRecordsBySearch( AdminPageCriteria criteria , @Param("keyword") String keyword );
 	ArrayList<UserDTO> selectAllCustomerList() throws SQLException;
 	UserDTO selectCustomerDetailById(Integer userid);
+	int deleteProducts(@Param("productIds") List<Integer> productIds);
+	void productInsert(ProductDTO productDTO); // 상품 등록
 }

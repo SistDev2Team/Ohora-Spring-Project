@@ -2,28 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>오호라</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="shortcut icon" type="image/x-icon" href="http://localhost/jspPro/images/SiSt.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<link rel="stylesheet" href="../resources/cdn-main/iscart.css">
-<script src="../resources/cdn-main/example.js"></script>
-<style>
- span.material-symbols-outlined{
-    vertical-align: text-bottom;
- }  
-</style>
-</head>
-<%@include file="header.jsp" %>
-<body>
-    <!-- 장바구니 영역 -->
+<!-- 장바구니 영역 -->
+<div id="content">
     <div id="SP_order_wrap" class="sub_container basket_container">
         <div class="SP_layoutFix">
             <!-- 타이틀 -->
@@ -115,7 +95,7 @@
 
                         <!-- 각 상품 항목 출력 -->
                         <c:forEach var="dto" items="${cartItems}" varStatus="status">
-                            <div class="prdInfo xans-record-">
+                            <div class="prdInfo xans-record-" data-pdtid="${dto.pdtid }">
                                 <div class="xans-element- xans-order xans-order-normnormal xans-record-">
                                     <div class="xans-element- xans-order xans-order-list">
 
@@ -125,34 +105,28 @@
                                             name="basket_product_normal_type_normal_${status.index}"
                                             class="basket-checkbox checked">
                                         <label for="basket_chk_id_${status.index}" class="label_for_check">
-                                            <div id="checkcolor${status.index}" class="checkcolor"
+                                            <div id="checkcolor${status.index}" class="checkcolor checked"
                                                 style="background-color: black;"></div>
                                         </label>
-                                        <input type="hidden" id="pdtId" name="pdtId" value="${dto.pdt_id}">
-                                		<input type="hidden" id="pdtCount" name="pdtCount" value="${dto.pdt_count}">
+                                        <input type="hidden" id="pdtId" name="pdtId" value="${dto.pdtid}">
+                                		<input type="hidden" id="pdtCount" name="pdtCount" value="${dto.quantity}">
                                         &nbsp;
                                         <!-- // 개별 체크박스 -->
 
                                         <!-- 설명 -->
                                         <div class="description">
                                             <p class="prdImg">
-                                                <a href="view.do?pdt_id=${dto.pdt_id}">
-                                                    <!-- 이미지파일 추가 후 아래코딩을 주석풀고 그아래를 삭제 -->
-                                                    <img loading="lazy" src="../resources/images/prd_image/imgs/${dto.pdt_img_url}.jpg"
-                                                    
-                                                        alt="${dto.pdt_name}" width="250" height="250"
+                                                <a href="${contextPath}/product/prd_view.htm?product_no=2&cate_no=160">
+                                                    <img loading="lazy" src="../resources/images/prdimage/imgs/${dto.pdtimgurl}.jpg"
+                                                    alt="${dto.pdtname}" width="250" height="250"
                                                         onerror="this.onerror=null; this.src='/resources/images/default_image.jpg';">
-                                                        <%-- <img loading="lazy"
-                                                            src="../resources/images/prd_image/마롱네일2.jpg"
-                                                            alt="${dto.pdt_name}" width="250" height="250"
-                                                            onerror="this.onerror=null; this.src='/resources/images/default_image.jpg';"> --%>
-                                                </a>
+                                                    </a>
                                             </p>
 
                                             <!-- 상품 설명 -->
                                             <div class="prdDesc">
                                                 <strong class="prdName" title="상품명">
-                                                    <a href="view.do?pdt_id=${dto.pdt_id}">${dto.pdt_name}</a>
+                                                    <a href="view.htm?pdtid=${dto.pdtid}">${dto.pdtname}</a>
                                                 </strong>
                                                 <ul class="info">
                                                     <li class="displaynone">
@@ -162,25 +136,25 @@
                                                     <li title="적립금" class="mileage displaynone">적립금-</li>
                                                     <li class="price">
                                                     	<c:choose>
-															<c:when test="${ dto.pdt_discount_rate != 0 }">
+															<c:when test="${ dto.pdtdiscountrate != 0 }">
 		                                                        <span class="discount" title="판매가">
 		                                                            <strong>
-		                                                                <fmt:formatNumber value="${dto.pdt_amount}"
+		                                                                <fmt:formatNumber value="${dto.pdtamount}"
 		                                                                    type="number" pattern="#,##0" />
 		                                                            </strong>
 		                                                        </span>
 		                                                        <span title="할인판매가">
 		                                                            <strong>
-		                                                                <fmt:formatNumber value="${dto.pdt_discount_amount}"
+		                                                                <fmt:formatNumber value="${dto.pdtdiscountamount}"
 		                                                                    type="number" pattern="#,##0" />
 		                                                            </strong>
 		                                                        </span>
-		                                                        <span class="dc_percent">${dto.pdt_discount_rate}%</span>
+		                                                        <span class="dc_percent">${dto.pdtdiscountrate}%</span>
 															</c:when>
 															<c:otherwise>
 		                                                        <span title="할인판매가">
 		                                                            <strong>
-		                                                                <fmt:formatNumber value="${dto.pdt_discount_amount}"
+		                                                                <fmt:formatNumber value="${dto.pdtdiscountamount}"
 		                                                                    type="number" pattern="#,##0" />
 		                                                            </strong>
 		                                                        </span>
@@ -189,15 +163,15 @@
                                                     </li>
 
                                                     <!-- 수량 조절 (-/+) 버튼 -->
-                                                    <li class="quantity product-row" data-price="${dto.pdt_amount}"
-                                                        data-discount="${dto.pdt_amount - dto.pdt_discount_amount}">
+                                                    <li class="quantity product-row" data-price="${dto.pdtamount}"
+                                                        data-discount="${dto.pdtamount - dto.pdtdiscountamount}">
                                                         <a href="javascript:void(0);" class="minusBtn">
                                                             <img class="QuantityDown" alt="down"
                                                                 src="/SkinImg/img/minus.svg" width="25" height="25">
                                                         </a>
-                                                        <input id="quantity_id_${dto.pdt_id}"
-                                                            name="quantity_name_${dto.pdt_id}" size="2"
-                                                            value="${dto.pdt_count}" type="text" class="quantityInput">
+                                                        <input id="quantity_id_${dto.pdtid}"
+                                                            name="quantity_name_${dto.pdtid}" size="2"
+                                                            value="${dto.quantity}" type="text" class="quantityInput">
                                                         <a href="javascript:void(0);" class="plusBtn">
                                                             <img class="QuantityUp" alt="up" src="/SkinImg/img/plus.svg"
                                                                 width="25" height="25">
@@ -209,7 +183,7 @@
                                                     <div class="prdTotal">
                                                         합계 : <strong class="itemTotal">
                                                             <fmt:formatNumber
-                                                                value="${(dto.pdt_amount - dto.pdt_discount_amount) * dto.pdt_count}"
+                                                                value="${(dto.pdtamount - dto.pdtdiscountamount) * dto.pdtcount}"
                                                                 type="number" pattern="#,##0" />
                                                         </strong>
                                                     </div>
@@ -221,21 +195,21 @@
                                         <!-- 버튼 영역 -->
                                         <c:choose>
 				                            <c:when test="${empty auth}">
-				                                <a href="#none" onclick="deleteItem(${status.index});" class="btnNormal SMScart_option_del_btnTD">삭제</a>
+				                                <a href="#none" id="deleteBtn" onclick="deleteItem(${status.index});" class="btnNormal SMScart_option_del_btnTD">삭제</a>
 				                            </c:when>
 				                            <c:otherwise>
-				                                <a href="${contextPath}/product/deletecart.do?pdtId=${dto.pdt_id}" class="btnNormal SMScart_option_del_btnTD">삭제</a>
+				                                <a href="${contextPath}/product/deletecart.htm?pdtid=${dto.pdtid}" class="btnNormal SMScart_option_del_btnTD">삭제</a>
 				                            </c:otherwise>
 				                        </c:choose>
                                         <div class="btnArea typeFull displaynone">
                                             <span class="gLeft">
-                                                <a href="#none" onclick="selBasketDel('basket_chk_id_${status.index}');"
-                                                   class="btnNormal SMScart_option_del_btnTD">삭제</a>
-                                                <a href="#none" onclick="BasketNew.moveWish(${dto.pdt_id});"
+                                                <a href="#none" onclick="deleteItem('basket_chk_id_${status.index}');"
+                                                 class="btnNormal SMScart_option_del_btnTD">삭제</a>
+                                                <a href="#none" onclick="BasketNew.moveWish(${dto.pdtid});"
                                                     class="btnNormal SMScart_option_wish_btnTD">관심상품</a>
                                             </span>
                                             <span class="gRight">
-                                                <a href="#none" onclick="Basket.orderBasketItem(${dto.pdt_id});"
+                                                <a href="#none" onclick="Basket.orderBasketItem(${dto.pdtid});"
                                                     class="btnStrong SMScart_option_buy_btnTD">주문하기</a>
                                             </span>
                                         </div>
@@ -243,9 +217,9 @@
                                 </div>
                                 
                                 <!-- 누적 계산 -->
-                                <c:set var="itemTotal" value="${dto.pdt_discount_amount * dto.pdt_count}" />
+                                <c:set var="itemTotal" value="${dto.pdtdiscountamount * dto.pdtcount}" />
                                 <c:set var="itemDiscount"
-                                    value="${(dto.pdt_amount - dto.pdt_discount_amount) * dto.pdt_count}" />
+                                    value="${(dto.pdtamount - dto.pdtdiscountamount) * dto.pdtcount}" />
                                 <c:set var="totalAmount" value="${totalAmount + itemTotal}" scope="page" />
                                 <c:set var="totalDiscount" value="${totalDiscount + itemDiscount}" scope="page" />
                             </div>
@@ -340,10 +314,6 @@
                                             	<!-- 비회원 -->
                                                 <b>로그인 후 회원혜택과 적립금을 확인하세요.</b>
                                                 <!-- 회원 -->
-                                                <%-- 구매시 <fmt:formatNumber
-                                                    value="${(totalAmount - totalDiscount) * 0.01}" type="number"
-                                                    pattern="#,##0" />원
-                                                <b>적립예정</b> --%>
                                             </div>
 
                                         </div>
@@ -389,7 +359,7 @@
                         data-swiper-key="reconewContainer">
                         <!-- 상품리스트영역 ul -->
                         <ul class="items SMSitems common_items swiper-wrapper"
-                            style="transition-duration: 0ms; transform: translate3d(-2543.33px, 0px, 0px);">
+                            style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
 
                             <li class="xans-record- append_item swiper-slide"
                                 style="width: 323.333px; margin-right: 40px;">
@@ -1032,354 +1002,201 @@
         &nbsp;
     </div>
     </div>
-	
-	<script>
+	</div>
 
-	// 비회원 장바구니 쿠키 함수, 14일간 유지
-	const CookieUtil = {
-	    setCookie: function (name, value, days = 14) {
-	        let expires = "";
-	        if (days) {
-	            const date = new Date();
-	            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-	            expires = "; expires=" + date.toUTCString();
-	        }
-	        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-	    },
+ 	<script>
+    const CookieUtil = {
+        setCookie: function (name, value, days = 14) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        },
+        getCookie: function (name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(";");
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nameEQ) === 0)
+                    return decodeURIComponent(c.substring(nameEQ.length));
+            }
+            return null;
+        },
+        deleteCookie: function (name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+    };
 
-	    getCookie: function (name) {
-	        const nameEQ = name + "=";
-	        const ca = document.cookie.split(';');
-	        for (let i = 0; i < ca.length; i++) {
-	            let c = ca[i].trim();
-	            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-	        }
-	        return null;
-	    },
+    function getCartItems() {
+        const cartItems = CookieUtil.getCookie("cartItems") || "";
+        return cartItems
+            .split('|')
+            .filter(Boolean)
+            .map(item => {
+                const [pdtId, quantity] = item.split(':');
+                return { pdtId: parseInt(pdtId), quantity: parseInt(quantity) };
+            });
+    }
 
-	    saveCartItems: function (items) {
-	        const simplifiedItems = items.map(item => ({
-	            pdtId: item.pdtId,
-	            quantity: item.quantity
-	        }));
-	        this.setCookie('cartItems', JSON.stringify(simplifiedItems), 14);
-	    },
+    function updateCartCount() {
+        const cartItems = getCartItems();
+        $(".count.EC-Layout-Basket-count").text(cartItems.length);
+    }
+    updateCartCount();
 
-	    setBasketId: function () {
-	        let basketId = this.getCookie('basketId');
-	        if (!basketId) {
-	            basketId = Math.random().toString(36).substring(2, 10);
-	            this.setCookie('basketId', basketId, 14);
-	        }
-	        return basketId;
-	    },
+    function updateTotalAmount() {
+    	const checkCount = $(".basket-checkbox.checked").length;
+        const FREE_SHIPPING_THRESHOLD = 50000;
+        const SHIPPING_FEE = 3000;
+        let totalAmount = 0;
+        let totalDiscount = 0;
+        
+        $(".all-count").text(checkCount);
 
-	    getCartItems: function () {
-	        const cartCookie = this.getCookie('cartItems');
-	        try {
-	            return cartCookie ? JSON.parse(cartCookie) : [];
-	        } catch (e) {
-	            console.error("Error parsing cart items from cookie:", e);
-	            return [];
-	        }
-	    }
-	};
+        $(".prdInfo").each(function () {
+            const checkbox = $(this).find(".basket-checkbox");
 
-	// 장바구니에 아이템 추가 함수
-	function addToCart(pdtId) {
-	    const basketId = CookieUtil.setBasketId();
-	    const cartItems = CookieUtil.getCartItems();
-	    const existingItem = cartItems.find(item => item.pdtId === pdtId);
+            if (checkbox.hasClass("checked")) {
+                const productRow = $(this).find(".product-row");
+                const unitPrice = parseFloat(productRow.data("price")) || 0;
+                const discountAmount = parseFloat(productRow.data("discount")) || 0;
+                const quantity = parseInt(productRow.find(".quantityInput").val()) || 1;
 
-	    if (existingItem) {
-	        const userConfirmed = confirm("같은 상품이 존재합니다. 추가하시겠습니까?");
-	        if (!userConfirmed) return;
-	        existingItem.quantity += 1;
-	    } else {
-	        cartItems.push({
-	            pdtId: pdtId,
-	            quantity: 1
-	        });
-	    }
+                totalAmount += unitPrice * quantity;
+                totalDiscount += discountAmount * quantity;
+            }
+        });
 
-	    CookieUtil.saveCartItems(cartItems);
-	    alert("장바구니에 상품이 추가되었습니다.");
-	    updateCartCount();
-	}
+        const shippingFee = totalAmount - totalDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+        const finalAmount = totalAmount - totalDiscount + shippingFee;
+        const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - (totalAmount - totalDiscount));
 
-	// 장바구니 카운트 업데이트 함수
-	function updateCartCount() {
-	    const cartItems = CookieUtil.getCartItems();
-	    const uniquepdtIds = new Set(cartItems.map(item => item.pdtId));
-	    const cartCount = uniquepdtIds.size;
-	    $(".count.EC-Layout-Basket-count").text(cartCount);
-	}
+        $(".prdPriceAll").text(totalAmount.toLocaleString());
+        $(".prdDiscountAll").text(totalDiscount.toLocaleString());
+        $(".prdFinalAll").text(finalAmount.toLocaleString());
+        $(".prdDelvAll").text(shippingFee.toLocaleString());
 
-	$(document).on("click", ".cart-in img", function () {
-	        const pdtId = $(this).data("pdtid");
-	        addToCart(pdtId);
-	        updateCartCount();
-	      
-	    });
+        if (shippingFee === 0) {
+            $(".total_info_txt.delv").hide();
+        } else {
+            $(".total_info_txt.delv").show().find(".amount").text(remainingForFreeShipping.toLocaleString());
+        }
+    }
 
-	// 이벤트 바인딩
-	$(document).ready(function () {
-		if (userPk == 0){
-	    	updateCartCount();			
-		}
+    $(function () {
+        $(".basket-checkbox").addClass("checked").prop("checked", true);
 
-	    
-	});
+        updateTotalAmount();
+
+        $(".box").on("click", function () {
+            const allChecked = $(".basket-checkbox").first().hasClass("checked");
+            $(".basket-checkbox").toggleClass("checked", !allChecked).prop("checked", !allChecked);
+            $(".checkcolor").css("background-color", !allChecked ? "black" : "#eee");
+            $(this).css("background-color", !allChecked ? "black" : "#eee");
+            console.log(this);
+
+            updateTotalAmount();
+        });
+
+        $(document).on("click", ".checkcolor", function () {
+            const isChecked = $(this).hasClass("checked");
+            const productRow = $(this).closest(".prdInfo");
+
+            $(this).toggleClass("checked", !isChecked);
+            $(this).css("background-color", !isChecked ? "black" : "#eee");
+
+            const basketCheckbox = productRow.find(".basket-checkbox");
+            basketCheckbox.toggleClass("checked", !isChecked);
+
+            updateTotalAmount();
+        });
+
+        $(".minusBtn").on("click", function () {
+        	const value = $(this).siblings(".quantityInput");
+            const productRow = $(this).closest(".prdInfo"); 
+            const pdtId = productRow.data("pdtid");
+            let pdtCount = parseInt(value.val()) || 1;
+            if (pdtCount > 1) {
+                value.val(pdtCount - 1);
+                updateCartQuantity(pdtId, pdtCount - 1); 
+                updateTotalAmount();
+            } else {
+                alert("최소 수량은 1개 입니다.");
+            }
+        });
+
+        $(".plusBtn").on("click", function () {
+        	const value = $(this).siblings(".quantityInput");
+            const productRow = $(this).closest(".prdInfo");
+            const pdtId = productRow.data("pdtid");
+            let pdtCount = parseInt(value.val()) || 1;
+            value.val(pdtCount + 1);
+            updateCartQuantity(pdtId, pdtCount + 1);
+            updateTotalAmount();
+        });
+        
+        function updateCartQuantity(pdtId, newQuantity) {
+            const cartItems = CookieUtil.getCookie("cartItems") || "";
+            const updatedCartItems = cartItems
+                .split("|")
+                .map(item => {
+                    const [cookiePdtId, quantity] = item.split(":");
+                    if (parseInt(cookiePdtId) === parseInt(pdtId)) {
+                        return `\${cookiePdtId}:\${newQuantity}`;
+                    }
+                    return item;
+                })
+                .join("|");
+
+            CookieUtil.setCookie("cartItems", updatedCartItems, 14);
+            console.log("업데이트된 쿠키:", updatedCartItems);
+        }
+    });
+
+    function deleteItem(itemId) {
+        const itemCheckbox = document.getElementById(`basket_chk_id_\${itemId}`);
+        const itemRow = $(itemCheckbox).closest(".prdInfo");
+
+        if (itemRow.length) {
+            const pdtId = $(itemRow).data("pdtid");
+            itemRow.remove();
+            console.log("삭제된 쿠키:", pdtId,"번 상품");
+
+            const cartItems = CookieUtil.getCookie("cartItems") || "";
+            const updatedCartItems = cartItems
+                .split("|")
+                .filter(item => {
+                    const [cookiePdtId] = item.split(":");
+                    return parseInt(cookiePdtId) !== parseInt(pdtId);
+                })
+                .join("|");
+
+            console.log("업데이트된 쿠키:", updatedCartItems);
+
+            if (updatedCartItems) {
+                CookieUtil.setCookie("cartItems", updatedCartItems, 14);
+            } else {
+                CookieUtil.deleteCookie("cartItems");
+            }
+
+            updateCartCount();
+            updateTotalAmount();
+        } else {
+            console.error(`itemRow가 null입니다. itemId: \${itemId}`);
+        }
+    }
+    window.deleteItem = deleteItem;
 	</script>
 
     <script>
-        // 쿠키) 비회원 장바구니 상품 갯수
-        const CookieUtil = {
-            getCookie: function (name) {
-                const nameEQ = name + "=";
-                const ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i].trim();
-                    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-                }
-                return null;
-            },
-            getCartItems: function () {
-                const cartCookie = this.getCookie('cartItems');
-                try {
-                    return cartCookie ? JSON.parse(cartCookie) : [];
-                } catch (e) {
-                    console.error("Error parsing cart items from cookie:", e);
-                    return [];
-                }
-            }
-        };
-
-        // 장바구니 카운트 업데이트 함수
-        function updateCartCount() {
-            const cartItems = CookieUtil.getCartItems();
-
-            // 고유한 pdtId의 개수를 세기 위해 Set을 사용
-            const uniquePdtIds = new Set(cartItems.map(item => item.pdtId));
-            const cartCount = uniquePdtIds.size;
-
-            // HTML에 카운트 업데이트
-            $(".count.EC-Layout-Basket-count").text(cartCount);
-        }
-
-        // 이벤트 바인딩
-        $(document).ready(function () {
-            // 페이지 로드 시 장바구니 카운트 초기화
-            updateCartCount();
-            
-
-            // 장바구니 추가 버튼 클릭 시
-            $(document).on("click", ".cart-in img", function () {
-                const pdtId = $(this).data("pdtid");
-                addToCart(pdtId); // 장바구니에 추가
-                updateCartCount(); // 장바구니 카운트 업데이트
-            });
-        });
-    </script>
-
-
-    <script>
-        // 체크박스, 수량 - / + 버튼  총합계 반영되는 함수
-        $(document).ready(function () {
-            const SHIPPING_FEE = 3000;
-            const FREE_SHIPPING_THRESHOLD = 50000;
-            const REWARD_RATE = 0.01;
-
-            // 초기 설정: 모든 체크박스를 선택 상태로 설정하고 배경색을 검정으로 설정
-            $(".basket-checkbox").addClass("checked").prop("checked", true);
-            $(".checkcolor").css("background-color", "black");
-
-            // 페이지 로드 시 초기 합계 계산
-            updateTotalAmount();
-
-            // 상위 체크박스 역할을 하는 .box 클릭 이벤트 (전체 선택/해제)
-            $(".box").on("click", function () {
-                const allChecked = $(".basket-checkbox").first().hasClass("checked");
-
-                // 전체 체크박스의 `checked` 클래스 토글 및 배경색 설정
-                $(".basket-checkbox").toggleClass("checked", !allChecked).prop("checked", !allChecked);
-                $(".checkcolor").css("background-color", !allChecked ? "black" : "#eee");
-
-                // 상위 체크박스 .box의 배경색도 변경
-                $(this).css("background-color", !allChecked ? "black" : "#eee");
-
-                // 총합 업데이트
-                updateTotalAmount();
-            });
-
-            // 개별 체크박스 클릭 이벤트
-            $(document).on("click", ".basket-checkbox", function () {
-                const isChecked = $(this).hasClass("checked");
-                const index = $(this).attr("id").replace("basket_chk_id_", "");  // 인덱스 추출
-                const checkColorDiv = $(`#checkcolor\${index}`);
-
-                // `checked` 클래스 토글 및 색상 변경
-                $(this).toggleClass("checked", !isChecked);
-                checkColorDiv.css("background-color", !isChecked ? "black" : "#eee");
-
-                // 모든 개별 체크박스가 선택된 상태인지 확인하여 상위 체크박스의 색상 결정
-                const allChecked = $(".basket-checkbox").length === $(".basket-checkbox.checked").length;
-                $(".box").css("background-color", allChecked ? "black" : "#eee");
-
-                // 총합 업데이트
-                updateTotalAmount();
-            });
-
-            // 수량 감소 버튼 클릭 이벤트 (이벤트 위임 사용)
-            $(document).on("click", ".minusBtn", function () {
-                const inputField = $(this).siblings(".quantityInput");
-                let value = parseInt(inputField.val()) || 1;
-                if (value > 1) {
-                    inputField.val(value - 1);
-                    updateTotalAmount(); // 합계 업데이트
-                }
-            });
-
-            // 수량 증가 버튼 클릭 이벤트 (이벤트 위임 사용)
-            $(document).on("click", ".plusBtn", function () {
-                const inputField = $(this).siblings(".quantityInput");
-                let value = parseInt(inputField.val()) || 1;
-                inputField.val(value + 1);
-                updateTotalAmount(); // 합계 업데이트
-            });
-
-            // 총합 계산 함수 정의
-            function updateTotalAmount() {
-                let totalAmount = 0;
-                let totalDiscount = 0;
-
-                // `checked` 클래스가 있는 상품만 금액 합산
-                $(".prdInfo").each(function () {
-                    const checkbox = $(this).find(".basket-checkbox");
-
-                    if (checkbox.hasClass("checked")) {
-                        const productRow = $(this).find(".product-row");
-                        const unitPrice = parseFloat(productRow.data("price")) || 0;
-                        const discountAmount = parseFloat(productRow.data("discount")) || 0;
-                        const quantity = parseInt(productRow.find(".quantityInput").val()) || 1;
-
-                        // 상품 가격과 할인 금액 계산
-                        totalAmount += unitPrice * quantity;
-                        totalDiscount += discountAmount * quantity;
-                    }
-                });
-
-                // 배송비 계산
-                const shippingFee = (totalAmount - totalDiscount) >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-
-                // 최종 결제 금액 계산
-                const finalAmount = totalAmount - totalDiscount + shippingFee;
-
-                // 무료배송까지 남은 금액 계산
-                const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - (totalAmount - totalDiscount));
-
-                // UI에 업데이트
-                $(".prdPriceAll").text(totalAmount.toLocaleString());
-                $(".prdDiscountAll").text(totalDiscount.toLocaleString());
-                $(".prdFinalAll").text(finalAmount.toLocaleString());
-
-                // 총 배송비와 무료배송 안내 표시/숨김
-                if (shippingFee === 0) {
-                    $(".prdDelvAll").closest(".delivery_price_wrap").hide(); // 총 배송비가 0원일 때 숨김
-                    $(".total_info_txt.delv").hide(); // 무료배송 안내 문구 숨김
-                    $(".item.total.title:contains('총 배송비')").hide();
-                } else {
-                    $(".prdDelvAll").text(shippingFee.toLocaleString()).closest(".delivery_price_wrap").show();
-                    $(".total_info_txt.delv").show().find(".amount").text(remainingForFreeShipping.toLocaleString());
-                    $(".item.total.title:contains('총 배송비')").show();
-                }
-            }
-        });
-    </script>
-
-
-    <script>
-        // X 누르면 상품 삭제
-        document.addEventListener("DOMContentLoaded", function () {
-            function deleteItem(itemId) {
-                console.log("삭제하려는 itemId:", itemId);  // 디버깅: itemId 값 확인
-
-                // 체크박스 ID를 기반으로 요소를 찾기
-                const itemCheckbox = document.getElementById(`basket_chk_id_\${itemId}`);
-
-                if (itemCheckbox) {
-                    // 체크박스와 같은 `product-row` 클래스가 있는 상품 행을 정확히 찾기
-                    const itemRow = $(itemCheckbox).closest(".prdInfo");  // `product-row` 대신 `prdInfo`로 찾음
-                    if (itemRow.length) {
-                        itemRow.remove();  // 상품 행 삭제
-                        console.log("상품 행 삭제됨:", itemRow);  // 디버깅: 삭제되는 행 확인
-                        updateTotalAmount();  // 총 합계 업데이트
-                    } else {
-                        console.error(`삭제할 상품 행을 찾을 수 없습니다. itemRow가 null입니다. (itemId: \${itemId})`);
-                    }
-                } else {
-                    console.error(`삭제할 체크박스를 찾을 수 없습니다. itemCheckbox가 null입니다. (ID: basket_chk_id_\${itemId})`);
-                }
-            }
-
-            // 총 합계를 다시 계산하는 함수
-            function updateTotalAmount() {
-                let totalAmount = 0;
-                let totalDiscount = 0;
-
-                // 각 상품의 가격과 수량을 기반으로 총 합계를 계산
-                $(".product-row").each(function () {
-                    const unitPrice = parseFloat($(this).data("price")) || 0;
-                    const discount = parseFloat($(this).data("discount")) || 0;
-                    const quantity = parseInt($(this).find(".quantityInput").val()) || 1;
-
-                    const itemTotal = unitPrice * quantity;
-                    const itemDiscount = discount * quantity;
-
-                    totalAmount += itemTotal;
-                    totalDiscount += itemDiscount;
-                });
-
-                // 합계 업데이트
-                $(".prdPriceAll").text(totalAmount.toLocaleString());
-                $(".prdDiscountAll").text(totalDiscount.toLocaleString());
-
-                // 배송비 및 최종 결제 금액 계산
-                const shippingFee = totalAmount - totalDiscount >= 50000 ? 0 : 3000;
-                const finalAmount = totalAmount - totalDiscount + shippingFee;
-
-                $(".prdDelvAll").text(shippingFee.toLocaleString());
-                $(".prdFinalAll").text(finalAmount.toLocaleString());
-
-                // 무료 배송 안내 표시 여부
-                if (shippingFee === 0) {
-                    $(".total_info_txt.delv").hide();
-                } else {
-                    $(".total_info_txt.delv").show();
-                    const remainingAmount = 50000 - (totalAmount - totalDiscount);
-                    $(".total_info_txt.delv .amount").text(remainingAmount.toLocaleString());
-                }
-
-                // 적립금 업데이트
-                const rewardPoints = Math.floor((totalAmount - totalDiscount) * 0.01);
-                $(".mileage_txt").text(`로그인 후 회원혜택과 적립금을 확인하세요.`);
-
-                /* 회원에 사용
-                $(".mileage_txt").text(`로그인 후 구매시 \${rewardPoints.toLocaleString()} 원 적립예정`); */
-            }
-
-            // 디버깅용 콘솔 로그로 `deleteItem` 함수와 `itemId`가 제대로 전달되는지 확인
-            window.deleteItem = deleteItem;
-        });
-    </script>
-
-    <script>
-    
     $("a.SP_cm_btn").on("click", function createOrderUrl(e) {
     	e.preventDefault();
-        let Path = "/projectOhora/product/orderpage.do?";
+        let Path = "/projectOhora/product/orderpage.htm?";
         
-        $(".basket-checkbox.checked:checked").each(function () {
+        $(".basket-checkbox.checked").each(function () {
             const pdtId = $(this).nextAll("input#pdtId").val();
             const pdtCount = $(this).nextAll("input#pdtCount").val();
 
@@ -1388,11 +1205,9 @@
             }
         });
 
-        // 마지막 & 제거
         Path = Path.slice(0, -1);
         location.href = Path;
     });
-
     </script>
 
     <!-- 스와이퍼 스크립트 -->
@@ -1417,7 +1232,4 @@
 
         swiper.update();
     </script>
-
-</body>
-<%@include file="footer.jsp" %>
-</html>
+   

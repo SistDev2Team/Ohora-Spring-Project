@@ -3,6 +3,8 @@ package kr.ohora.sl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,7 +76,6 @@ public class AdminPageController {
 
 	
 	// 검색
-	//@PostMapping("productSearch.htm")
 	@GetMapping("productSearch.htm")
 	public String productSearch(@RequestParam("keyword") String keyword
 			, @RequestParam("currentPage") int currentPage
@@ -91,6 +93,31 @@ public class AdminPageController {
 		model.addAttribute("pdto",new AdminPageDTO(criteria, total));
 
 		return "/admin/productList";
+	}
+	
+	// 뷰 용도
+	@GetMapping("productReg.htm")
+	public String productRegView(HttpSession session) {
+		log.info("AdminController.productRegView() ...");
+		return "admin/productReg";
+	}
+	
+	// 상품 등록
+	@PostMapping("productReg.htm")
+	public String productInsert(ProductDTO productDTO, Model model) {
+		log.info("AdminController.productInsert() ...");
+		
+		try {
+			this.adminService.productInsert(productDTO);
+			model.addAttribute("message", "상품 등록 성공!");
+		} catch (Exception e) {
+			log.error("상품 등록 실패 ..." + e.getMessage());
+			model.addAttribute("message", "상품 등록 중 오류 발생 ...");
+		}
+		
+		return "admin/productList";
+		//return "redirect:admin/productList.htm";
+		
 	}
 
 	@GetMapping("customerList.htm")
