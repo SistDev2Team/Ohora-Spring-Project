@@ -110,6 +110,13 @@
 	     WHERE userid = #{userid}
 	</select>
 	
+	<!-- 회원 상태 업데이트 쿼리 -->
+    <update id="updateUserStatus" parameterType="map">
+        UPDATE OUSER
+        SET enabled = #{enabled}
+        WHERE userid = #{userid}
+    </update>
+	
 	<!-- int deleteProducts(@Param("productIds") List<Integer> productIds); -->
 	<delete id="deleteProducts">
 	DELETE FROM OPRODUCT
