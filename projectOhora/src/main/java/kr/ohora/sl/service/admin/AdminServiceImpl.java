@@ -89,4 +89,14 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
+	@Override
+    public boolean modifyUserStatus(int userid, boolean enabled) {
+        try {
+            adminMapper.updateUserStatus(userid, enabled);
+            return true;
+        } catch (Exception e) {
+            log.error("Error updating user status", e);
+            return false;
+        }
+    }
 }
