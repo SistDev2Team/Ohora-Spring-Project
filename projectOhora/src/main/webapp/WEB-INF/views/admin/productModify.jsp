@@ -317,13 +317,13 @@ td input {
 			<!-- 나중에 타일즈로 처리 -->
 			<div class="row side_nav">
 				<ul class="nav nav-pills nav-stacked">
-					<li class="li_btns"><a href="/ik/admin/customerList.jsp">회원
+					<li class="li_btns"><a href="/admin/customerList.jsp">회원
 							관리</a></li>
 					<li class="li_btns active"><a href="/admin/productList.htm">상품
 							조회</a></li>
-					<li class="li_btns"><a href="/ik/admin/productReg.jsp">상품
+					<li class="li_btns"><a href="/admin/productReg.jsp">상품
 							등록</a></li>
-					<li class="li_btns"><a href="/ik/admin/orderList.jsp">주문
+					<li class="li_btns"><a href="/admin/orderList.jsp">주문
 							현황</a></li>
 				</ul>
 			</div>
@@ -392,7 +392,7 @@ td input {
 	            event.preventDefault(); 
 	            if (confirm("상품을 수정하시겠습니까?")) {
 	                alert("수정이 완료되었습니다.");
-	                location.replace("/ik/admin/productDetail.jsp");
+	                location.replace("/admin/productDetail.jsp");
 				 }
 	        });
 	    });

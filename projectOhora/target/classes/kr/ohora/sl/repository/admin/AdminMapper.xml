@@ -4,12 +4,108 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="kr.ohora.sl.repository.admin.AdminMapper">
+ 	<!-- 상품 정렬하는 SQL 쿼리 처리 -->
+	<sql id="prdSortCondition">
+			<if test="sortMethod == null">
+				ORDER BY pdtid ASC
+			</if>
+			<if test="sortMethod != null">
+				<choose>
+					<when test="sortMethod == 5">
+                     	ORDER BY pdtadddate DESC
+					</when>
+					<when test="sortMethod == 6">
+                     	ORDER BY pdtsalescount DESC
+					</when>
+					<when test="sortMethod == 8">
+                     	ORDER BY pdtviewcount DESC
+					</when>
+				</choose>
+			</if>
+	</sql>
  	
+	<!-- ArrayList<ProductDTO> selectAllProductList() throws SQLException; -->
+ 	<!-- SELECT * FROM OPRODUCT -->
  	<select id="selectAllProductList" resultType="kr.ohora.sl.domain.ProductDTO">
- 	SELECT * FROM OPRODUCT
- 	</select>
+    SELECT *
+    FROM (
+        SELECT A.*, ROW_NUMBER() OVER (<include refid="prdSortCondition" />) AS RNUM
+        FROM OPRODUCT A
+        WHERE 1=1
+        <if test="keyword != null and keyword != ''">
+            AND REGEXP_LIKE(pdtname, #{keyword}, 'i')
+        </if>
+    )
+    <![CDATA[
+    WHERE RNUM > #{offset}
+      AND RNUM <= #{offset} + #{numberPerPage}
+      ]]>
+</select>
+
+
  	
+	<!-- ProductDTO selectProductInfo(int pdtid) throws SQLException; -->
  	<select id="selectProductInfo" resultType="kr.ohora.sl.domain.ProductDTO">
  	SELECT * FROM OPRODUCT WHERE pdtid = #{pdtid}
  	</select>
+ 	
+	<!-- Integer selectTotalRecords( AdminPageCriteria criteria ); -->
+	<select id="selectTotalRecords" resultType="Integer">
+	<!-- SELECT COUNT(*) FROM OPRODUCT -->
+	SELECT COUNT(*)
+    FROM OPRODUCT
+    WHERE 1=1
+    <if test="keyword != null and keyword != ''">
+        AND REGEXP_LIKE(pdtname, #{keyword}, 'i')
+    </if>
+	</select>
+	
+	<!-- ArrayList<ProductDTO> selectProductsBySearch( AdminPageCriteria criteria ); -->
+	<select id="selectProductsBySearch"	resultType="kr.ohora.sl.domain.ProductDTO">
+	SELECT * 
+	FROM (
+        SELECT ROWNUM AS RNUM, A.*
+        FROM 
+	        (
+	        SELECT * 
+	        FROM OPRODUCT 
+	        WHERE REGEXP_LIKE(pdtname, #{keyword}, 'i')
+	              <include refid="prdSortCondition" />
+	              ) A
+	    WHERE ROWNUM &lt;= #{currentPage} * #{numberPerPage}
+	    ) 
+	 WHERE RNUM &gt; (#{currentPage} - 1) * #{numberPerPage}
+	</select>	
+	
+	<!-- Integer selectTotalRecordsBySearch( AdminPageCriteria criteria , @Param("keyword") String keyword ); -->
+	<select id="selectTotalRecordsBySearch" resultType="Integer">
+	SELECT COUNT(*)
+	FROM OPRODUCT
+	WHERE REGEXP_LIKE(pdtname, #{keyword}, 'i')
+	</select>
+ 	<!-- ArrayList<UserDTO> selectAllCustomerList() throws SQLException; -->
+ 	<resultMap id="userResultMap" type="kr.ohora.sl.domain.UserDTO">
+	    <result property="userid" column="USERID"/>
+	    <result property="username" column="USERNAME"/>
+	    <result property="password" column="PASSWORD"/>
+	    <result property="name" column="NAME"/>
+	    <result property="useremail" column="USEREMAIL"/>
+	    <result property="usertel" column="USERTEL"/>
+	    <result property="userbirth" column="USERBIRTH"/>
+	    <result property="userpoint" column="USERPOINT"/>
+	    <result property="usersnsagree" column="USERSNSAGREE"/>
+	    <result property="userjoindate" column="USERJOINDATE"/>
+	    <result property="enabled" column="ENABLED"/>
+	</resultMap>
+	
+	<select id="selectAllCustomerList" resultMap="userResultMap">
+	    SELECT *
+	    FROM OUSER
+	</select>
+ 	
+	<select id="selectCustomerDetailById" resultMap="userResultMap">
+	    SELECT *
+	    FROM OUSER
+	     WHERE userid = #{userid}
+	</select>
  </mapper>

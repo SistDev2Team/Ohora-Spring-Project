@@ -71,7 +71,7 @@
 								<div class="container-complete" data-prd-num="${newPrd.pdtid}">
 									<dl>
 										<a
-											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${newPrd.pdtid}&cate_no=121"
+											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${newPrd.pdtid}&cate_no=121"
 											class="viewlink"></a>
 										<div class="base-img">
 											<div class="thumb">
@@ -179,7 +179,7 @@
 								<div class="container-complete" data-prd-num="${bestPrd.pdtid}">
 									<dl>
 										<a
-											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${bestPrd.pdtid}&cate_no=121"
+											href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${bestPrd.pdtid}&cate_no=121"
 											class="viewlink"></a>
 										<div class="base-img">
 											<div class="thumb">

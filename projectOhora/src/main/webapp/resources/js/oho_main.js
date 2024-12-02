@@ -115,45 +115,45 @@ function generateProductHTML(products) {
     products.forEach((product, index) => {
         html += `
             <li id="item${index + 1}" class="item-swiper-slide swiper-slide">
-                <div class="container-complete" data-prd-num="${product.pdtId}">
+                <div class="container-complete" data-prd-num="${product.pdtid}">
                     <dl>
-                        <a href="/product/prd_detail_view.htm?pdtId=${product.pdtId}&cate_no=121" class="viewlink"></a>
+                        <a href="/product/prd_detail_view.htm?product_no=${product.pdtid}&cate_no=121" class="viewlink"></a>
                         <div class="base-img">
                             <div class="thumb">
                                 <img loading="lazy" alt="" class="thumb_img" width="800" height="800"
-                                     src="/resources/images/prd_image/imgs/${product.pdtImgUrl}.jpg">
+                                     src="/resources/images/prd_image/imgs/${product.pdtimgurl}.jpg">
                                 <img loading="lazy" class="hover_img" width="800" height="800"
-                                     src="/resources/images/prd_image/imgs_hover/${product.pdtImgUrl}.jpg">
+                                     src="/resources/images/prd_image/imgs_hover/${product.pdtumgurl}.jpg">
                             </div>
-                            <span class="soldout-img" style="display: ${product.pdtCount === 0 ? 'block' : 'none'};">
+                            <span class="soldout-img" style="display: ${product.pdtcount === 0 ? 'block' : 'none'};">
                                 <a href=""><span>coming<br>soon</span></a>
                             </span>
                         </div>
                         <div class="base-mask">
                             <dd class="name-container">
-                                <p class="name"><span>${product.pdtName}</span></p>
+                                <p class="name"><span>${product.pdtname}</span></p>
                             </dd>
                             <dd class="price-container">
-                                ${product.pdtDiscountRate !== 0 ? `
-                                    <p class="normal-price">${formatNumber(product.pdtAmount)}</p>
-                                    <p class="sale-price">${formatNumber(product.pdtDiscountAmount)}</p>
-                                    <p class="discount">${product.pdtDiscountRate}%</p>
+                                ${product.pdtdiscountrate !== 0 ? `
+                                    <p class="normal-price">${formatNumber(product.pdtamount)}</p>
+                                    <p class="sale-price">${formatNumber(product.pdtdiscountamount)}</p>
+                                    <p class="discount">${product.pdtdiscountrate}%</p>
                                 ` : `
-                                    <p class="sale-price">${formatNumber(product.pdtAmount)}</p>
+                                    <p class="sale-price">${formatNumber(product.pdtamount)}</p>
                                 `}
                             </dd>
-                            <dd class="prdRegiDate">등록일: ${product.pdtAdddate}</dd>
+                            <dd class="prdRegiDate">등록일: ${product.pdtadddate}</dd>
                             <div class="prdInfoBot">
                                 <div class="rvCount">
                                     <div class="rvWrap">
                                         <p class="rv_count_wrap">
-                                            <span class="rv_count_value">${product.pdtReviewCount}</span>
+                                            <span class="rv_count_value">${product.pdtreviewcount}</span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="cart-in">
-                                <img src="/resources/images/btn_list_cart.gif" data-pdtid="${product.pdtId}" alt="장바구니 추가 버튼">
+                                <img src="/resources/images/btn_list_cart.gif" data-pdtid="${product.pdtid}" alt="장바구니 추가 버튼">
                             </div>
                         </div>
                     </dl>

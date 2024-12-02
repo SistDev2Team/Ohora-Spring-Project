@@ -1,17 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="shortcut icon" type="image/x-icon" href="images/SiSt.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="">
-<script src="/resources/cdn-main/example.js"></script>
-<style>
 /* 컨테이너 스타일 */
 .container.admin_container {
     margin: 50px auto;
@@ -19,6 +5,7 @@
     max-width: 1200px;
     font-family: 'Arial', sans-serif;
     color: #333;
+    /* border-radius: 10px; */
 }
 
 /* 헤더 스타일 */
@@ -148,8 +135,7 @@ input#check_btn:checked {
     margin: 10px 0; /* 버튼과 테이블 사이의 여백 추가 */
 }
 
-.bt_del,
-.bt_modify {
+.bt_del {
     padding: 8px 15px; /* 버튼 크기 확대 */
     font-size: 14px; /* 글자 크기 */
     border: 1px solid #ccc; /* 테두리 설정 */
@@ -165,75 +151,149 @@ input#check_btn:checked {
     color: black;
 }
 
-.bt_modify:hover {
-    background-color: #c2c2c2; 
-    color: black;
+/* 페이징 */
+
+#page-container {
+  font-size: 0;
+  padding-top: 85px;
+
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
-</style>
-</head>
-<body>
-<div class="container admin_container">
-		<div class="row">
-			<h1 style="text-align: center; margin: 50px 0;">주문 현황</h1>
-			<!-- 나중에 타일즈로 처리 -->
-			<div class="row side_nav">
-				<ul class="nav nav-pills nav-stacked">
-					<li class="li_btns"><a href="/admin/customerList.jsp">회원 관리</a></li>
-					<li class="li_btns"><a href="/admin/productList.htm">상품 조회</a></li>
-					<li class="li_btns"><a href="/admin/productReg.jsp">상품 등록</a></li>
-					<li class="li_btns active"><a href="/admin/orderList.jsp">주문 현황</a></li>
-				</ul>
-			</div>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>주문ID</th>
-						<th>회원ID</th>
-						<th>회원이름</th>
-						<th>주문내역</th>
-						<th>총주문금액</th>
-						<th>주문일</th>
-						<th>교환반품취소</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>최사랑</td>
-						<td>팬더네일 외 2건</td>
-						<td>25000</td>
-						<td>2024-11-11</td>
-						<td>N</td>
-					</tr> 
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>최사랑</td>
-						<td>팬더네일 외 2건</td>
-						<td>25000</td>
-						<td>2024-11-11</td>
-						<td>N</td>
-					</tr> 
-				</tbody>
-			</table>
-		</div>
-		
-		<!-- 항목 클릭시 상품상세페이지 이동 -->
-		<script>
-		$("tr td").on("click",function(event){
-			location.href = "/admin/orderListDetail.jsp";
-		});
-		</script>
-</div> 		
-</body>
-</html>
 
+#page-container > .first {
+  margin-right: 40px;
+  background: none;
+  position: relative;
 
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
 
+#page-container > .first::before {
+  content: "<<";
 
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: #b8b8b8;
+  font-size: 12px;
+  font-family: "Gulim", "Noto Sans KR", sans-serif;
+}
 
+#page-container > .prev {
+  margin-right: 20px;
+  background: none;
+  position: relative;
 
+  display: flex;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
 
+#page-container > .prev::before {
+  content: "<";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: #b8b8b8;
+  font-size: 12px;
+  font-family: "Gulim", "Noto Sans KR", sans-serif;
+}
+
+#page-container > ol {
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+#page-container > ol > li {
+  padding: 0;
+}
+
+#page-container > ol > li > a.active {
+  color: #2c2c2c;
+  font-weight: bold;
  
+  font-size: 14px;
 
+  padding: 15px 30px;
+
+  text-decoration: none;
+}
+
+#page-container > ol > li > a {
+  color: #b8b8b8;
+  font-size: 14px;
+  padding: 15px 30px;
+}
+
+#page-container > .next {
+  margin-left: 20px;
+  background: none;
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+#page-container > .next::before {
+  content: ">";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: #b8b8b8;
+  font-size: 12px;
+  font-family: "Gulim", "Noto Sans KR", sans-serif;
+}
+
+#page-container > .last {
+  margin-left: 40px;
+  background: none;
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+#page-container > .last::before {
+  content: ">>";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: #b8b8b8;
+  font-size: 12px;
+  font-family: "Gulim", "Noto Sans KR", sans-serif;
+}
