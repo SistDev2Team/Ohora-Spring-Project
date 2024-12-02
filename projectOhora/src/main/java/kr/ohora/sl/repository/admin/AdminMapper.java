@@ -20,4 +20,5 @@ public interface AdminMapper {
 	UserDTO selectCustomerDetailById(Integer userid);
 	int deleteProducts(@Param("productIds") List<Integer> productIds);
 	void productInsert(ProductDTO productDTO); // 상품 등록
+  	void updateUserStatus(@Param("userid") int userid, @Param("enabled") boolean enabled);
 }
