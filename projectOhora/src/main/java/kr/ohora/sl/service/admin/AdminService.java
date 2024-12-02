@@ -26,6 +26,9 @@ public interface AdminService {
 
 	UserDTO getCustomerDetailById(Integer userid) throws SQLException;
 	
+   	 // 회원 상태 업데이트 메서드 선언
+   	 boolean modifyUserStatus(int userid, boolean enabled);
+	
 	// 상품 삭제
 	int deleteProducts(List<Integer> productIds);
 
