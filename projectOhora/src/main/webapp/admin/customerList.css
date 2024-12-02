@@ -366,3 +366,9 @@ h1 {
     transition: all 0.3s ease;
     text-align: right;
 }
+
+search-container{
+	text-align: right;
+	padding : 8px;
+}
+
