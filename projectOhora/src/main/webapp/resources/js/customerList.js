@@ -57,4 +57,56 @@ $(document).on("click", "#openUserEnrollModal", function () {
     $("#userEnrollModal").show();
 });
 		
-		
+
+$(document).ready(function() {
+    // 회원 정보 모달 열기
+    function openUserDetailModal(user) {
+        $('#modal-userid').text(user.userid);
+        $('#modal-name').text(user.name);
+        
+        // '사용중'과 '사용안함' 옵션에 클래스 추가
+        if (user.enabled) {
+            $('#modal-enabled-select').val('true').removeClass('disabled').addClass('enabled');
+        } else {
+            $('#modal-enabled-select').val('false').removeClass('enabled').addClass('disabled');
+        }
+        
+        $('#userDetailModal').show();
+    }
+
+    // 수정 버튼 클릭 시
+    $('#updateBtn').click(function() {
+        const userid = $('#modal-userid').text();
+        const enabled = $('#modal-enabled-select').val();
+
+        // CSRF 토큰 가져오기
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // 서버에 업데이트 요청
+        $.ajax({
+            url: '/admin/updateUserStatus.ajax',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: {
+                userid: userid,
+                enabled: enabled
+            },
+            dataType: 'json',
+            success: function(response) {
+                alert(response.message);
+                $('#userDetailModal').hide();
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('회원 정보 수정에 실패했습니다.');
+            }
+        });
+    });
+
+    // 닫기 버튼 클릭 시
+    $('#closeDetailBtn').click(function() {
+        $('#userDetailModal').hide();
+    });
+});	
