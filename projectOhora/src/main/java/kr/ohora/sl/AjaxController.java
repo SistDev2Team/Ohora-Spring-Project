@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.ohora.sl.service.admin.AdminService;
+import kr.ohora.sl.service.cart.CartService;
 import kr.ohora.sl.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,6 +32,7 @@ public class AjaxController {
 	 private static final long VALID_DURATION = 3 * 60 * 1000; // 인증번호 유효 시간 (3분)
 	
 	 private final MemberService memberService;
+	 private final CartService cartService;
 	 
 	 @Autowired
 	 private AdminService adminService;
@@ -151,5 +153,63 @@ public class AjaxController {
                     .body("{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}");
         }
     }
+	 
+	 
+	// 회원 장바구니 ajax 요청
+		@GetMapping("/checkcart.ajax")
+		public ResponseEntity<Map<String, String>> checkCart(@RequestParam("userPk") Integer userPk, @RequestParam("pdtId") Integer pdtId) throws SQLException{
+			System.out.println("userPk: "+userPk);
+			System.out.println("pdtId: "+pdtId);
+
+			Map<String, String> response = new HashMap<>();
+			Integer check = cartService.checkCart(userPk, pdtId);
+			if (check > 0) {
+				response.put("status", "ishold");
+			} else {
+				response.put("status", "empty");
+			}
+			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(response);
+		}
+
+		@GetMapping("/initcart.ajax")
+		public ResponseEntity<Map<String, String>> initCart(@RequestParam("userPk") Integer userPk) throws SQLException{
+			System.out.println("initCart: " + userPk);
+			Map<String, String> response = new HashMap<>();
+			Integer cartListCount = cartService.getCartListCount(userPk);
+			response.put("count", cartListCount.toString());
+			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(response);
+		}
+
+		@PostMapping("/addcart.ajax")
+		public ResponseEntity<Map<String, String>> addCart(@RequestParam("userPk") Integer userPk, @RequestParam("pdtId") Integer pdtId) throws SQLException{
+			System.out.println("addCart: " + userPk + ", " + pdtId);
+			Map<String, String> response = new HashMap<>();
+			Integer cartListCount = cartService.addToCart(userPk, pdtId);	    	
+			response.put("status", "success");
+			response.put("count", cartListCount.toString());
+			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(response);
+		}
+		@PostMapping("/updatecart.ajax")
+		public ResponseEntity<Map<String, String>> updateCart(@RequestParam("userPk") Integer userPk, @RequestParam("pdtId") Integer pdtId) throws SQLException{
+			System.out.println("updateCart: " + userPk + ", " + pdtId);
+			Map<String, String> response = new HashMap<>();
+
+			int count = cartService.updateCart(userPk, pdtId);
+			if (count > 0) {
+				response.put("status", "success");
+			} else {
+				response.put("status", "fail");
+			}
+
+			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(response);
+		}
 	
 }//class

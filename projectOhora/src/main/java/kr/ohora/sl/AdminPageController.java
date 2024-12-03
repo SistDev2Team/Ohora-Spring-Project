@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
 import kr.ohora.sl.domain.AdminPageDTO;
+import kr.ohora.sl.domain.OrderDetailDTO;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.UserDTO;
 import kr.ohora.sl.service.admin.AdminService;
@@ -179,6 +180,17 @@ public class AdminPageController {
 	        response.put("message", "회원 정보 수정에 실패했습니다.");
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); // 예외 발생 시
 	    }
+	}
+	
+	@GetMapping("orderList.htm")
+	public void orderList(Model model) throws Exception {
+		ArrayList<OrderDetailDTO> ordList = adminService.getOrderList();
+		model.addAttribute("ordList", ordList);
+	}
+	
+	@GetMapping("orderListDetail.htm")
+	public void orderListDetail() {
+		
 	}
 
 }

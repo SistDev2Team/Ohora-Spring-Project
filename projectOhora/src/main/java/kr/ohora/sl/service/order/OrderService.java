@@ -2,8 +2,8 @@ package kr.ohora.sl.service.order;
 
 import java.sql.SQLException;
 
-import kr.ohora.sl.domain.OrderDTO;
+import kr.ohora.sl.domain.OrderPageDTO;
 
 public interface OrderService {
-	String orderProcess(OrderDTO orderDTO) throws SQLException;
+	String orderProcess(OrderPageDTO orderDTO) throws SQLException;
 }

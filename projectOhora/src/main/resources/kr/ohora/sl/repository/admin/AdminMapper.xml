@@ -137,4 +137,8 @@
        )
 	</insert>
 	
+	<select id="selectOrderList" resultType="kr.ohora.sl.domain.OrderDetailDTO">
+	select * from oorddetail
+	</select>
+	
  </mapper>

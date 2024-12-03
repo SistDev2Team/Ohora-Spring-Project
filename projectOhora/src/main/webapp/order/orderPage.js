@@ -24,7 +24,7 @@ $("a#selfaddr").on("click", function(){
 $("button.btnRemove").on("click", function(){
 	if (confirm("선택하신 상품을 삭제하시겠습니까?")){
 		$(this).parent().parent().remove();
-		let path = "/projectOhora/product/orderpage.do?";
+		let path = "/order/orderPage.htm?";
 		const pdtIds = document.querySelectorAll("#pdtId");
 		const pdtCounts = document.querySelectorAll("#pdtCount");
 		for (let i=0; i<pdtIds.length;i++){

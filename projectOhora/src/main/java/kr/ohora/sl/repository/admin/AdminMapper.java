@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
+import kr.ohora.sl.domain.OrderDetailDTO;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.UserDTO;
 
@@ -21,4 +22,6 @@ public interface AdminMapper {
 	int deleteProducts(@Param("productIds") List<Integer> productIds);
 	void productInsert(ProductDTO productDTO); // 상품 등록
   	void updateUserStatus(@Param("userid") int userid, @Param("enabled") boolean enabled);
+  	
+  	ArrayList<OrderDetailDTO> selectOrderList() throws Exception; // 주문조회
 }

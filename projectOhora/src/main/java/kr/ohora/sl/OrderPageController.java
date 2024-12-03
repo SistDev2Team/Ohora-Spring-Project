@@ -1,12 +1,12 @@
 package kr.ohora.sl;
 
-import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,27 +16,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ohora.sl.domain.AddrDTO;
 import kr.ohora.sl.domain.CouponDTO;
-import kr.ohora.sl.domain.OrderDTO;
+import kr.ohora.sl.domain.OrderPageDTO;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.UserDTO;
+import kr.ohora.sl.domain.security.CustomUser;
 import kr.ohora.sl.service.order.OrderPageService;
 import kr.ohora.sl.service.order.OrderService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@RequiredArgsConstructor
 @RequestMapping("/order/*")
 public class OrderPageController {
-	
-	@Autowired
-	private OrderPageService orderPageService;
-	@Autowired
-	private OrderService orderService;
+
+	private final OrderPageService orderPageService;
+	private final OrderService orderService;
 	
 	@GetMapping("orderPage.htm")
 	public String orderPage(@RequestParam("pdtId") String[] pdtidArr, @RequestParam("pdtCount") int[] pdtCountArray
-			, Model model, Principal principal) throws SQLException { // 
+			, Model model, Authentication authentication) throws SQLException { // 
 		int userPk = 0;
+		try {
+			CustomUser customUser = (CustomUser) authentication.getPrincipal();
+			userPk = customUser.getUser().getUserid();
+		} catch (Exception e) {
+			userPk = 0;
+		}
+		System.out.println("OrderPageController에 들어온 userPk: " + userPk);
 		
 		UserDTO userDTO = null;
 		ArrayList<AddrDTO> addrList = null;
@@ -69,10 +77,16 @@ public class OrderPageController {
 	}
 	
 	@GetMapping("order.htm")
-	public String order(OrderDTO oderDTO) throws SQLException {
+	public String order(OrderPageDTO orderDTO, Authentication authentication) throws SQLException {
 		int userPk = 0;
-		oderDTO.setUserPk(userPk);
-		String orderId = this.orderService.orderProcess(oderDTO);
+		try {
+			CustomUser customUser = (CustomUser) authentication.getPrincipal();
+			userPk = customUser.getUser().getUserid();
+		} catch (Exception e) {
+			userPk = 0;
+		}
+		orderDTO.setUserPk(userPk);
+		String orderId = this.orderService.orderProcess(orderDTO);
 		LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String orderTime = currentTime.format(formatter);

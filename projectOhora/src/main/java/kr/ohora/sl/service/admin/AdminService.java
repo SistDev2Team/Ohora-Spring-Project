@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
+import kr.ohora.sl.domain.OrderDetailDTO;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.UserDTO;
 
@@ -34,4 +35,7 @@ public interface AdminService {
 
 	// 상품 등록
 	void productInsert(ProductDTO productDTO) throws Exception;
+	
+	// 주문 조회
+	ArrayList<OrderDetailDTO> getOrderList() throws Exception;
 }

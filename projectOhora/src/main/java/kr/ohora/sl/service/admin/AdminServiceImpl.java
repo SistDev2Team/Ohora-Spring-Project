@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
+import kr.ohora.sl.domain.OrderDetailDTO;
 import kr.ohora.sl.domain.ProductDTO;
 import kr.ohora.sl.domain.UserDTO;
 import kr.ohora.sl.repository.admin.AdminMapper;
@@ -16,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 public class AdminServiceImpl implements AdminService{
-	
+
 	@Autowired
 	private AdminMapper adminMapper;
 
@@ -77,7 +78,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void productInsert(ProductDTO productDTO) throws Exception {
 		log.info("AdminServiceImpl.productInsert()... 상품 등록 서비스 호출");
-		
+
 		try {
 			productDTO.calcDiscountAmount(); // 할인가계산
 			adminMapper.productInsert(productDTO);
@@ -85,18 +86,24 @@ public class AdminServiceImpl implements AdminService{
 			log.error("상품 등록 실패 ..." + e.getMessage());
 			throw new Exception("상품 등록 실패 ...", e);
 		}
-		
-		
+
+
 	}
 
 	@Override
-    public boolean modifyUserStatus(int userid, boolean enabled) {
-        try {
-            adminMapper.updateUserStatus(userid, enabled);
-            return true;
-        } catch (Exception e) {
-            log.error("Error updating user status", e);
-            return false;
-        }
-    }
+	public boolean modifyUserStatus(int userid, boolean enabled) {
+		try {
+			adminMapper.updateUserStatus(userid, enabled);
+			return true;
+		} catch (Exception e) {
+			log.error("Error updating user status", e);
+			return false;
+		}
+	}
+
+	// 주문 조회
+	@Override
+	public ArrayList<OrderDetailDTO> getOrderList() throws Exception {
+		return adminMapper.selectOrderList();
+	}
 }

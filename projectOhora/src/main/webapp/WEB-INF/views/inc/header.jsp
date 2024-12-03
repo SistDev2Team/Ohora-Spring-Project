@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 
 <div id="header">
@@ -41,28 +42,47 @@
 						class="xans-element- xans-layout xans-layout-statelogoff SP_gnb_inr">
 
 						<sec:authorize access="isAnonymous()">
-						    <a href="${contextPath}/member/joinus/join.htm" class="auth-link">
-						        <span class="title">회원가입 &nbsp;|&nbsp;</span>
-						    </a>
-						    <a href="${contextPath}/member/joinus/login.htm" class="auth-link">
-						        <span class="title">로그인</span>
-						    </a>
+							<a href="${contextPath}/member/joinus/join.htm" class="auth-link">
+								<span class="title">회원가입 &nbsp;|&nbsp;</span>
+							</a>
+							<a href="${contextPath}/member/joinus/login.htm"
+								class="auth-link"> <span class="title">로그인</span>
+							</a>
 						</sec:authorize>
-			 
-					<sec:authorize access="isAuthenticated()">
-					    <a href="${contextPath}/member/mypage/mypage.htm">
-					        <span class="title">마이페이지 &nbsp;|&nbsp;</span>
-					    </a>
+
+						<sec:authorize access="isAuthenticated()">
+							<a href="${contextPath}/member/mypage/mypage.htm"> <span
+								class="title">마이페이지</span>
+							</a>
+
+							<a class="log" style="cursor: pointer;"><span class="title">로그아웃</span></a>
+							<form id="logoutForm"
+								action="${contextPath}/member/joinus/logout.htm" method="post"
+								style="display: none;">
+								<input type="hidden" name="_csrf" value="${_csrf.token}">
+							</form>
+							<script>
+			                $(document).ready(function(){
+			                   $('.log').click(function(e){
+			                       e.preventDefault(); // 기본 동작(페이지 이동)을 막음
+			                           $('#logoutForm').submit(); // form 제출
+			                          });
+			                    });
+			            </script>
+
+							<%-- 
 					    <form action="${contextPath}/member/joinus/logout.htm" method="post">
 					        <input type="hidden" name="_csrf" value="${_csrf.token}">
 					        <button type="submit" class="logout-button">로그아웃</button>
-					    </form>
-					</sec:authorize>
-          </div>
-         </div>
-        </div>
-			
-			
+					    </form> 
+					    --%>
+
+						</sec:authorize>
+					</div>
+				</div>
+			</div>
+
+
 			<div class="SMS_fixed_inner">
 				<div
 					class="xans-element- xans-layout xans-layout-logotop fixed_logo">
@@ -109,7 +129,8 @@
 						<li class="eng_font"><a
 							href="${pageContext.request.contextPath}/event.htm?_=index">event</a></li>
 						<li class="eng_font"><a
-							href="${pageContext.request.contextPath}/howto.htm?howto=main">how to</a></li>
+							href="${pageContext.request.contextPath}/howto.htm?howto=main">how
+								to</a></li>
 					</ul>
 				</div>
 				<!-- //헤더 주메뉴 -->
@@ -136,8 +157,8 @@
 			<div class="SP_search_wrap">
 				<div class="SP_utilListSearch_inner">
 					<form id="searchBarForm" name=""
-						action="${pageContext.request.contextPath}/product/prd_search.htm" method="get"
-						target="_self" enctype="multipart/form-data">
+						action="${pageContext.request.contextPath}/product/prd_search.htm"
+						method="get" target="_self" enctype="multipart/form-data">
 						<div class="xans-element- xans-layout xans-layout-searchheader">
 
 
@@ -168,8 +189,9 @@
 						<li><a
 							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">#BEST
 								디자인 추천</a></li>
-						<li><a href="${pageContext.request.contextPath}/event.htm?_=event6">#첫구매 젤램프
-								증정</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/event.htm?_=event6">#첫구매
+								젤램프 증정</a></li>
 					</ul>
 				</div>
 				<!--------------- 검색 키워드 --------------->
@@ -261,7 +283,8 @@
 
 						<div class="big_txt"
 							style="margin-left: 35px; margin-bottom: 42px;">
-							<a class="big_ eng_font" href="${pageContext.request.contextPath}/event.htm?_=index">
+							<a class="big_ eng_font"
+								href="${pageContext.request.contextPath}/event.htm?_=index">
 								<span>event</span>
 							</a>
 						</div>
@@ -269,15 +292,20 @@
 						<div class="big_txt"
 							style="margin-left: 35px; margin-bottom: 42px;">
 							<a class="big_ eng_font"
-								href="${pageContext.request.contextPath}/review/reviewlist.htm?pdt_id=1"> <span>review</span>
+								href="${pageContext.request.contextPath}/review/reviewlist.htm?pdt_id=1">
+								<span>review</span>
 							</a>
 						</div>
 						<div class="big_txt" style="margin-left: 35px;">
 							<a class="big_ eng_font" href="#empty"> <span
 								style="margin-top: 10px;">brand</span>
-							</a> <a class="" href="${pageContext.request.contextPath}/ohora_Fend_brand4.htm"> <span>about</span>
-							</a> <a class="" href="${pageContext.request.contextPath}/membership.htm"> <span>membership</span>
-							</a> <a class="" href="${pageContext.request.contextPath}/magazine.htm"> <span>magazine</span>
+							</a> <a class=""
+								href="${pageContext.request.contextPath}/ohora_Fend_brand4.htm">
+								<span>about</span>
+							</a> <a class=""
+								href="${pageContext.request.contextPath}/membership.htm"> <span>membership</span>
+							</a> <a class=""
+								href="${pageContext.request.contextPath}/magazine.htm"> <span>magazine</span>
 							</a> <a class=""
 								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=238&currentPage=1">
 								<span>collaboration</span>
@@ -335,8 +363,10 @@
 							<a href="https://oe9lp.channel.io/home"><span>CS
 									Center</span></a> <a
 								href="${pageContext.request.contextPath}/board/noticelist.htm?currentPage=1"><span>Notice</span></a>
-							<a href="${pageContext.request.contextPath}/board/faqlist.htm?currentPage=1"><span>FAQ</span></a>
-							<a href="${pageContext.request.contextPath}/howto.htm?howto=main">How to</a>
+							<a
+								href="${pageContext.request.contextPath}/board/faqlist.htm?currentPage=1"><span>FAQ</span></a>
+							<a href="${pageContext.request.contextPath}/howto.htm?howto=main">How
+								to</a>
 						</div>
 					</div>
 				</div>
@@ -346,7 +376,11 @@
 
 	</div>
 	<!-- sticky 적용을 위한 태그-->
-
+	<script>
+var userPk = <sec:authorize access="isAuthenticated()">'<sec:authentication property="principal.user.userid"/>'</sec:authorize>
+<sec:authorize access="isAnonymous()">0</sec:authorize>;
+console.log("User ID: " + userPk);
+</script>
 
 	<!-- 슬라이더 초기화 코드 -->
 	<script>
@@ -365,20 +399,22 @@
       });
       
       function initCartCount(userPk){
-   	   $.ajax({
-              url: "${pageContext.request.contextPath}/product/initcart.ajax",
-              type: "POST",
-              dataType: "json",
-              data: { userPk },
-              success: function (jsonResponse){
-           	   $(".EC-Layout-Basket-count").text(jsonResponse.count);
-             }
-          });
-      }
-      
-      if (userPk != 0){
-    	  initCartCount(userPk);
-      }
+     	   $.ajax({
+                url: "/initcart.ajax",
+                type: "GET",
+                dataType: "json",
+                data: { userPk },
+                success: function (response){
+             	   $(".EC-Layout-Basket-count").text(response.count);
+               }
+            });
+        }
+        
+        if (userPk != 0){
+      	  initCartCount(userPk);
+        } else {
+      	  
+        }
       
     </script>
 

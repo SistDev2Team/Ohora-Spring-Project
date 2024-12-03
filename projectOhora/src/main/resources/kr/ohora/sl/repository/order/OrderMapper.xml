@@ -14,21 +14,29 @@
  	</select>
  	
  	<select id="selectCouponList" resultType="kr.ohora.sl.domain.CouponDTO">
- 	SELECT * FROM oissuedcoupon i JOIN ocoupon c ON i.cpnid = c.cpnid where userid = #{userPk} AND icpn_isused = 'N'
+ 	SELECT * FROM oissuedcoupon i JOIN ocoupon c ON i.cpnid = c.cpnid where userid = #{userPk} AND icpnisused = 'N'
  	</select>
  	
+ 	<!-- ArrayList<ProductDTO> selectProductList(String[] pdtidArr) throws SQLException; -->
  	<select id="selectProductList" resultType="kr.ohora.sl.domain.ProductDTO">
  	SELECT pdtid, pdtname, pdtamount, pdtdiscountrate, pdtimgurl
 	FROM OPRODUCT
 	<where>
+	<!-- 
 		<foreach item="pdtidArr" index="index" collection="array"
 		 open="pdtid IN (" separator="," close=")" >
 		 #{pdtidArr}
 		</foreach>
+		 -->
+		<foreach item="pdtId" index="index" collection="pdtidArr"
+		 open="pdtid IN (" separator="," close=")" >
+		 #{pdtId}
+		</foreach>
+		 
 	</where>
  	</select>
  	
- 	<insert id="insertOrder" parameterType="kr.ohora.sl.domain.OrderDTO">
+ 	<insert id="insertOrder" parameterType="kr.ohora.sl.domain.OrderPageDTO">
  	<selectKey order="BEFORE" resultType="Long" keyProperty="ordPk">
 	  SELECT O_ORDER_SEQ.NEXTVAL
 	  FROM dual
@@ -46,11 +54,11 @@
  	</update>
  	
  	<select id="checkPoint" resultType="Integer">
- 	SELECT user_point FROM o_user WHERE user_id = #{userPk}
+ 	SELECT userpoint FROM ouser WHERE userid = #{userPk}
  	</select>
  	
  	<update id="updateCoupon">
- 	UPDATE o_issuedcoupon SET icpn_isused = 'Y' WHERE user_id = #{userPk} AND icpn_id = #{icpnId} 
+ 	UPDATE oissuedcoupon SET icpnisused = 'Y' WHERE userid = #{userPk} AND icpnid = #{icpnId} 
  	</update>
  	
  	<insert id="insertOrdDetail">
@@ -69,5 +77,14 @@
 	SET pdtcount = pdtcount - #{pdtCount}
 	WHERE pdtid = #{pdtId}
  	</update>
+ 	
+ 	<delete id="deleteCart">
+ 	DELETE FROM ocartlist 
+	WHERE userid = #{userPk} AND
+ 	<foreach item="pdtIdArr" index="index" collection="list"
+		 open=" pdtid IN (" separator="," close=")" >
+		 #{pdtIdArr}
+	</foreach>
+ 	</delete>
 
  </mapper>

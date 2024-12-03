@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<form action="/order/order.htm" id="order_form">
+<form action="/order/order.htm" id="order_form" >
     <div class="order-container" id="wrap"> <!--mCafe24Order-->
 
         <div class="first-container">  <!--billingNshipping-->
@@ -579,7 +579,7 @@
                         사용 가능 )
                     </span>
                     <div class="control">
-                        <input type="text" id="inputPoint" name="inputPoint">
+                        <input type="text" id="inputPoint" name="inputPoint" value="0">
                         <button type="button" id="btn_point">전액 사용</button>
                     </div>
                     <ul class="pointGuide">

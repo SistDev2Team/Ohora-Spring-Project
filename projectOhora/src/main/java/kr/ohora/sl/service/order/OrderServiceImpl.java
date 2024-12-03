@@ -1,12 +1,13 @@
 package kr.ohora.sl.service.order;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.ohora.sl.domain.OrderDTO;
+import kr.ohora.sl.domain.OrderPageDTO;
 import kr.ohora.sl.repository.order.OrderMapper;
 
 @Service
@@ -17,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Transactional
 	@Override
-	public String orderProcess(OrderDTO orderDTO) throws SQLException {
+	public String orderProcess(OrderPageDTO orderDTO) throws SQLException {
 		orderDTO.settings();
 		int userPk = orderDTO.getUserPk();
 		// System.out.println(orderDTO);
@@ -31,16 +32,22 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		// 적립금 사용 처리
-		if (orderDTO.getInputPoint() >= 3000) {
-			int point = dao.checkPoint(userPk);
-			if (point >= 3000 && point >= orderDTO.getInputPoint()) {
-				point -= orderDTO.getInputPoint();
-				dao.updateUsePoint(userPk, point);
+		if (userPk != 0) {
+			if (orderDTO.getInputPoint() >= 3000) {
+				int point = dao.checkPoint(userPk);
+				if (point >= 3000 && point >= orderDTO.getInputPoint()) {
+					point -= orderDTO.getInputPoint();
+					dao.updateUsePoint(userPk, point);
+				}
 			}
 		}
 		
 		// 회원 장바구니 구매항목 삭제 처리
-		
+		if (userPk != 0) {
+			List<String> pdtIdArr = orderDTO.getPdtId();
+			System.out.println(pdtIdArr.toString());
+			dao.deleteCart(userPk, pdtIdArr);
+		}
 		
 		// 재고 처리
 		

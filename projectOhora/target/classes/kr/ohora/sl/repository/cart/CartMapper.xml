@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ohora.sl.repository.cart.CartMapper">
+
+	<select id="selectCartCount" resultType="Integer">
+	SELECT COUNT(*) FROM ocartlist WHERE userid = #{userPk} AND pdtid = #{pdtId}
+	</select>
+	
+	<insert id="addToCart">
+	INSERT INTO ocartlist 
+	(clistid, userid, pdtid, optid, clistpdtcount, clistadddate, clistselect) 
+	VALUES (addcart_seq.NEXTVAL, #{userPk}, #{pdtId}, 0, 1, SYSDATE, 'Y')
+	</insert>
+	
+	<select id="getCartListCount" resultType="Integer">
+	SELECT COUNT(DISTINCT pdtid) FROM ocartlist WHERE userid = #{userPk}
+	</select>
+	
+	<update id="updateCart">
+	UPDATE ocartlist SET clistpdtcount = clistpdtcount + 1 WHERE userid = #{userPk} AND pdtid = #{pdtId}
+	</update>
+	
+	<select id="getCartItems" resultType="kr.ohora.sl.domain.ProductDTO">
+	select * from oproduct p JOIN ocartlist c ON p.pdtid = c.pdtid WHERE userid = #{userPk}
+	</select>
+	
+	<delete id="deleteCart">
+	DELETE FROM ocartlist WHERE userid = #{userPk} AND pdtid = #{pdtId}
+	</delete>
+    
+
+</mapper>

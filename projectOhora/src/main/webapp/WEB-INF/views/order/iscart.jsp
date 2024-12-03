@@ -109,15 +109,15 @@
                                                 style="background-color: black;"></div>
                                         </label>
                                         <input type="hidden" id="pdtId" name="pdtId" value="${dto.pdtid}">
-                                		<input type="hidden" id="pdtCount" name="pdtCount" value="${dto.quantity}">
+                                		<input type="hidden" id="pdtCount" name="pdtCount" value="${dto.clistpdtcount}">
                                         &nbsp;
                                         <!-- // 개별 체크박스 -->
 
                                         <!-- 설명 -->
                                         <div class="description">
                                             <p class="prdImg">
-                                                <a href="${contextPath}/product/prd_view.htm?product_no=2&cate_no=160">
-                                                    <img loading="lazy" src="../resources/images/prdimage/imgs/${dto.pdtimgurl}.jpg"
+                                                <a href="${pageContext.request.contextPath}/product/prd_view.htm?product_no=2&cate_no=160">
+                                                    <img loading="lazy" src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${dto.pdtimgurl}.jpg"
                                                     alt="${dto.pdtname}" width="250" height="250"
                                                         onerror="this.onerror=null; this.src='/resources/images/default_image.jpg';">
                                                     </a>
@@ -171,7 +171,7 @@
                                                         </a>
                                                         <input id="quantity_id_${dto.pdtid}"
                                                             name="quantity_name_${dto.pdtid}" size="2"
-                                                            value="${dto.quantity}" type="text" class="quantityInput">
+                                                            value="${dto.clistpdtcount}" type="text" class="quantityInput">
                                                         <a href="javascript:void(0);" class="plusBtn">
                                                             <img class="QuantityUp" alt="up" src="/SkinImg/img/plus.svg"
                                                                 width="25" height="25">
@@ -198,7 +198,7 @@
 				                                <a href="#none" id="deleteBtn" onclick="deleteItem(${status.index});" class="btnNormal SMScart_option_del_btnTD">삭제</a>
 				                            </c:when>
 				                            <c:otherwise>
-				                                <a href="${contextPath}/product/deletecart.htm?pdtid=${dto.pdtid}" class="btnNormal SMScart_option_del_btnTD">삭제</a>
+				                                <a href="${pageContext.request.contextPath}/order/deletecart.htm?pdtId=${dto.pdtid}" class="btnNormal SMScart_option_del_btnTD">삭제</a>
 				                            </c:otherwise>
 				                        </c:choose>
                                         <div class="btnArea typeFull displaynone">
@@ -1045,7 +1045,9 @@
         const cartItems = getCartItems();
         $(".count.EC-Layout-Basket-count").text(cartItems.length);
     }
-    updateCartCount();
+    if (userPk == 0){
+    	updateCartCount();    	
+    }
 
     function updateTotalAmount() {
     	const checkCount = $(".basket-checkbox.checked").length;
@@ -1194,7 +1196,7 @@
     <script>
     $("a.SP_cm_btn").on("click", function createOrderUrl(e) {
     	e.preventDefault();
-        let Path = "/projectOhora/product/orderpage.htm?";
+        let Path = "/order/orderPage.htm?";
         
         $(".basket-checkbox.checked").each(function () {
             const pdtId = $(this).nextAll("input#pdtId").val();

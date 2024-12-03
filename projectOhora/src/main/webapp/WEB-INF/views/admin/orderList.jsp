@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -178,51 +179,45 @@ input#check_btn:checked {
 			<!-- 나중에 타일즈로 처리 -->
 			<div class="row side_nav">
 				<ul class="nav nav-pills nav-stacked">
-					<li class="li_btns"><a href="/admin/customerList.jsp">회원 관리</a></li>
+					<li class="li_btns"><a href="/admin/customerList.htm">회원 관리</a></li>
 					<li class="li_btns"><a href="/admin/productList.htm">상품 조회</a></li>
-					<li class="li_btns"><a href="/admin/productReg.jsp">상품 등록</a></li>
-					<li class="li_btns active"><a href="/admin/orderList.jsp">주문 현황</a></li>
+					<li class="li_btns"><a href="/admin/productReg.htm">상품 등록</a></li>
+					<li class="li_btns active"><a href="/admin/orderList.htm">주문 현황</a></li>
 				</ul>
 			</div>
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th>주문상세ID</th>
 						<th>주문ID</th>
-						<th>회원ID</th>
-						<th>회원이름</th>
-						<th>주문내역</th>
+						<th>주문상품</th>
+						<th>수량</th>
 						<th>총주문금액</th>
-						<th>주문일</th>
-						<th>교환반품취소</th>
+						<th>취소반품</th>
+						<th>처리상황</th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${ordList}" var="dto">
 					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>최사랑</td>
-						<td>팬더네일 외 2건</td>
-						<td>25000</td>
-						<td>2024-11-11</td>
-						<td>N</td>
+						<td>${dto.opdtid}</td>
+						<td>${dto.ordpk}</td>
+						<td id="opdtname" data-opdtid="${dto.opdtid}">${dto.opdtname}</td>
+						<td>${dto.opdtcount}</td>
+						<td><fmt:formatNumber value="${dto.opdtamount}" type="number" pattern="#,##0" /></td>
+						<td>-</td>
+						<td>${dto.opdtstate}</td>
 					</tr> 
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>최사랑</td>
-						<td>팬더네일 외 2건</td>
-						<td>25000</td>
-						<td>2024-11-11</td>
-						<td>N</td>
-					</tr> 
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
 		
 		<!-- 항목 클릭시 상품상세페이지 이동 -->
 		<script>
-		$("tr td").on("click",function(event){
-			location.href = "/admin/orderListDetail.jsp";
+		$("tr td#opdtname").on("click",function(event){
+			let opdtid = $(this).data("opdtid");
+			location.href = "/admin/orderListDetail.htm?opdtid="+opdtid;
 		});
 		</script>
 </div> 		

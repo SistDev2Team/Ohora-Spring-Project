@@ -34,7 +34,7 @@ public class ProductDTO {
 	private int optamount;			// 옵션 가격
 	private int optcount;			// 옵션 수량
 	
-	private int quantity;
+	private int clistpdtcount;
 	
 	public void calcDiscountAmount() {
 		if (this.pdtdiscountrate != 0) {
