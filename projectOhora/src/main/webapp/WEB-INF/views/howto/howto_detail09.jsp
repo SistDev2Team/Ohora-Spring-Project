@@ -2,25 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>세미큐어젤 제거편 how to - ohora</title>
-<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico">
-<link rel="stylesheet" href="${contextPath}/resources/cdn-main/howto_detail.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-.xans-board-readpackage-8 .SP_cm_btn.SP_btn_gray_bd {
-	display: inline-block !important;
-}
-</style>
-</head>
-<%@include file="../header.jsp" %>
-<body>
-
+<div id="content">
 	<div id="container">
 		<div id="contents">
 			<div id="SP_boardPageChk">
@@ -117,14 +99,14 @@
 														<div class="fr-view fr-view-article"> 
 															<p>
 																<img
-																	src="/projectOhora/resources/images/howto_detail_image/howtouse_detail16.jpg"
+																	src="${contextPath}/resources/images/howto_detail_image/howtouse_detail16.jpg"
 																	class="fr-fic fr-dib">
 															</p>
 															<p>
 																<a
 																	href="https://www.ohora.kr/product/list.html?cate_no=436&page_num=1">
 																	<img
-																	src="/projectOhora/resources/images/howto_detail_image/howtouse_detail17.jpg" size="1000px/11143px"
+																	src="${contextPath}/resources/images/howto_detail_image/howtouse_detail17.jpg" size="1000px/11143px"
 																	class="fr-fic fr-dib">
 																	</a><br>
 															</p>
@@ -240,9 +222,9 @@
 						<ul>
 						<!-- 다음 글, 이전 글 연결링크 -->
 							<li class="prev "><span>이전글</span><a
-								href="/projectOhora/ohora/howto_detail06.jsp">파츠 세미큐어젤 부착편</a></li>
+								href="${contextPath}/ohora/howto_detail06.jsp">파츠 세미큐어젤 부착편</a></li>
 							<li class="next "><span>다음글</span><a
-								href="/projectOhora/ohora/howto_detail10.jsp">세미큐어젤 부착편</a></li>
+								href="${contextPath}/ohora/howto_detail10.jsp">세미큐어젤 부착편</a></li>
 						</ul>
 					</div>
 				</div>
@@ -285,8 +267,4 @@
 		</script>
 		</div>
 	</div>
-
-
-</body>
-<%@include file="../footer.jsp" %>
-</html>
+</div>

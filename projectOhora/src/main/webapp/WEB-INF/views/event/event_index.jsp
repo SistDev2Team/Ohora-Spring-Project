@@ -1,21 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ohora 오호라 공식몰</title>
-<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/cdn-main/event.css">
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<%@include file="../header.jsp" %>
-<body>
-	<div id="wrap" >
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<div id="content">
+	<div id="wrap">
 		<div id="container">
 			<div id="contents">
 				<div class="wrap">
@@ -27,9 +15,10 @@
 						<!--신규 회원 혜택-->
 						<div class="event-list">
 							<div class="contents-box active" style="display: block;">
-								<a href="${contextPath}/event.do?_=event6">
+								<a href="${contextPath}/event/event_event6.htm">
 									<div class="image">
-									<img src="${contextPath}/resources/images/event_index_image/pc_event.jpg">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_event.jpg">
 									</div>
 									<div class="text-block">
 										<span class="date">welcome gift</span>
@@ -43,9 +32,11 @@
 						<!--vip season 8-->
 						<div class="event-list">
 							<div class="contents-box active" style="display: block;">
-								<a href="${contextPath}/event.do?_=vipgift08">
+								<a href="${contextPath}/event/event_vipgift08.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/pc_event_closed.jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_event_closed.jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">2023.12.14 ~ 2024.01.02</span>
@@ -62,9 +53,11 @@
 						<!--vip gift7-->
 						<div class="event-list">
 							<div class="contents-box active" style="display: block;">
-								<a href="${contextPath}/event.do?_=vipgift07">
+								<a href="${contextPath}/event/event_vipgift07.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/pc_event_closed (1).jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_event_closed (1).jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">2023.07.21 ~ 2023.07.31</span>
@@ -80,9 +73,11 @@
 						<!--젤네일팁 출시 1주년 기념 감사 이벤트-->
 						<div class="event-list">
 							<div class="contents-box active" style="display: block;">
-								<a href="${contextPath}/event.do?_=gelnailtip">
+								<a href="${contextPath}/event/event_gelnailtip.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/pc_event_closed (2).jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_event_closed (2).jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">2023.05.26 - 재고 소진 시 까지</span>
@@ -99,9 +94,11 @@
 						<!--오호라 X 르세라핌-->
 						<div class="event-list">
 							<div class="contents-box">
-								<a href="${contextPath}/event.do?_=lesserafim">
+								<a href="${contextPath}/event/event_lesserafim.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/pc_event_closed (3).jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_event_closed (3).jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">collaboration</span>
@@ -115,9 +112,11 @@
 						<!--vip gift6 -->
 						<div class="event-list">
 							<div class="contents-box">
-								<a href="${contextPath}/event.do?_=vipgift06">
+								<a href="${contextPath}/event/event_vipgift06.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/PC_event_list_closed.jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/PC_event_list_closed.jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">2022.12.09 - 재고 소진 시 까지 </span>
@@ -135,9 +134,11 @@
 						<!--데이즈데이즈2차-->
 						<div class="event-list">
 							<div class="contents-box">
-								<a href="${contextPath}/event.do?_=dazedayz_2">
+								<a href="${contextPath}/event/event_dazedayz_2.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/PC_event_list_closed (1).jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/PC_event_list_closed (1).jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">collaboration</span>
@@ -151,9 +152,11 @@
 						<!--초아-->
 						<div class="event-list">
 							<div class="contents-box">
-								<a href="${contextPath}/event.do?_=eventchoa">
+								<a href="${contextPath}/event/event_eventchoa.htm">
 									<div class="image">
-										<img src="${contextPath}/resources/images/event_index_image/pc_f.jpg" alt="">
+										<img
+											src="${contextPath}/resources/images/event_index_image/pc_f.jpg"
+											alt="">
 									</div>
 									<div class="text-block">
 										<span class="date">collaboration</span>
@@ -163,12 +166,12 @@
 								</a>
 							</div>
 						</div>
-						
+
 						<!-- go_top 버튼 -->
-					   <div id="floating">
-						    <div class="go_top">
-						        <span class="icon"></span>
-						    </div>
+						<div id="floating">
+							<div class="go_top">
+								<span class="icon"></span>
+							</div>
 						</div>
 
 
@@ -178,52 +181,56 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	$(document).ready(function () {
-	    let itemsToShow = 4;
-	    const totalItems = $(".event-list").length;
-	    
-	    // 초기 상태: 모든 event-list 숨기기
-	    $(".event-list").hide();
-	    // 첫 4개만 보이기
-	    $(".event-list:lt(" + itemsToShow + ")").show();
-	    $(".event-list:lt(" + itemsToShow + ") .contents-box").addClass("active");
-	    
-	    // MORE 버튼 클릭 이벤트
-	    $(".view").click(function (e) {
-	        e.preventDefault();
-	        itemsToShow += 4;
-	        
-	        // 추가 항목 표시
-	        $(".event-list:lt(" + itemsToShow + ")").show();
-	        $(".event-list:lt(" + itemsToShow + ") .contents-box").addClass("active");
-	        
-	        // 모든 항목이 표시되면 MORE 버튼 숨기기
-	        if (itemsToShow >= totalItems) {
-	            $(this).hide();
-	        }
-	    });
-	});
+</div>
+<script>
+	$(document).ready(
+			function() {
+				let itemsToShow = 4;
+				const totalItems = $(".event-list").length;
 
-	
+				// 초기 상태: 모든 event-list 숨기기
+				$(".event-list").hide();
+				// 첫 4개만 보이기
+				$(".event-list:lt(" + itemsToShow + ")").show();
+				$(".event-list:lt(" + itemsToShow + ") .contents-box")
+						.addClass("active");
+
+				// MORE 버튼 클릭 이벤트
+				$(".view").click(
+						function(e) {
+							e.preventDefault();
+							itemsToShow += 4;
+
+							// 추가 항목 표시
+							$(".event-list:lt(" + itemsToShow + ")").show();
+							$(
+									".event-list:lt(" + itemsToShow
+											+ ") .contents-box").addClass(
+									"active");
+
+							// 모든 항목이 표시되면 MORE 버튼 숨기기
+							if (itemsToShow >= totalItems) {
+								$(this).hide();
+							}
+						});
+			});
+
 	// go_top 버튼 스크립트
-    $(document).ready(function() {
-        $('.go_top').on('click', function() {
-            $('html, body').animate({ scrollTop: 0 }, 400);
-            return false;
-        });
-        
-        // 스크롤 이벤트에 따라 go_top 버튼 표시
-        $(window).scroll(function() {
-            if ($(this).scrollTop() > 200) {
-                $('#floating').fadeIn();
-            } else {
-                $('#floating').fadeOut();
-            }
-        });
-    });
-	</script>
-</body>
+	$(document).ready(function() {
+		$('.go_top').on('click', function() {
+			$('html, body').animate({
+				scrollTop : 0
+			}, 400);
+			return false;
+		});
 
-<%@include file="../footer.jsp" %>
-</html>
+		// 스크롤 이벤트에 따라 go_top 버튼 표시
+		$(window).scroll(function() {
+			if ($(this).scrollTop() > 200) {
+				$('#floating').fadeIn();
+			} else {
+				$('#floating').fadeOut();
+			}
+		});
+	});
+</script>

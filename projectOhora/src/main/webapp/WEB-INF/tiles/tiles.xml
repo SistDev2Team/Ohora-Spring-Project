@@ -32,6 +32,15 @@
         <put-attribute name="title"  value="Ohora {2}" />
         <put-attribute name="css"  value="{2}.css" />
     </definition>
+    
+    <definition name="*.*"  template="/WEB-INF/views/inc/layout.jsp">
+        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
+        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" /> 
+        
+        <put-attribute name="title"  value="Ohora {2}" />
+        <put-attribute name="css"  value="{2}.css" />
+    </definition>
 
     <!-- oho.main -->
     <definition name="oho_main"  template="/WEB-INF/views/inc/layout.jsp">

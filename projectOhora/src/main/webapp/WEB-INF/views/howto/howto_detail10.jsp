@@ -1,25 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>세미큐어젤 부착편 how to - ohora</title>
-<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico">
-<link rel="stylesheet" href="${contextPath}/resources/cdn-main/howto_detail.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-.xans-board-readpackage-8 .SP_cm_btn.SP_btn_gray_bd {
-	display: inline-block !important;
-}
-</style>
-</head>
-<%@include file="../header.jsp" %>
-<body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<div id="content">
 
 	<div id="container">
 		<div id="contents">
@@ -32,14 +15,14 @@
 							<h2 class="SP_subTitle eng_font">how to</h2>
 							<!-- <p class="SP_subTtileStxt">사용법&팁을 안내해드리는 공간입니다.</p> -->
 						</div>
-						
+
 						<!-- go_top 버튼 -->
-			            <div id="floating">
-			                <div class="go_top">
-			                    <span class="icon"></span>
-			                </div>
-			            </div>
-									
+						<div id="floating">
+							<div class="go_top">
+								<span class="icon"></span>
+							</div>
+						</div>
+
 						<form id="BoardDelForm" name="" action="/exec/front/Board/del/13"
 							method="post" target="_self" enctype="multipart/form-data">
 							<input id="no" name="no" value="148230" type="hidden"> <input
@@ -106,29 +89,33 @@
 															src="//www.ohora.kr/file_data/ohora2019/2021/12/29/40d6a19bb6e10ceba0abf53eef15fe59.jpg"
 															boarder="0" alt="" style="max-width: 587px !important;"><br></span>
 
-															<!-- youtube -->
-															<div class="ec-ucc-media-box-61145" style="position: relative; max-height: 100%; padding-bottom: 56.25%; 
-															overflow: hidden; margin-bottom: 14px;"><iframe src="https://www.youtube.com/embed/bGD8P-xQ_C0" 
-															frameborder="0" style="border: 0px; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" 
-															webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
-															<!--  -->
-															
-														<div class="fr-view fr-view-article"> 
+														<!-- youtube -->
+														<div class="ec-ucc-media-box-61145"
+															style="position: relative; max-height: 100%; padding-bottom: 56.25%; overflow: hidden; margin-bottom: 14px;">
+															<iframe src="https://www.youtube.com/embed/bGD8P-xQ_C0"
+																frameborder="0"
+																style="border: 0px; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
+																webkitallowfullscreen="" mozallowfullscreen=""
+																allowfullscreen=""></iframe>
+														</div>
+														<!--  -->
+
+														<div class="fr-view fr-view-article">
 															<p>
 																<img
-																	src="/projectOhora/resources/images/howto_detail_image/howtouse_detail18.jpg"
+																	src="${contextPath}/resources/images/howto_detail_image/howtouse_detail18.jpg"
 																	class="fr-fic fr-dib">
 															</p>
 															<p>
-																	<img
-																	src="/projectOhora/resources/images/howto_detail_image/howtouse_detail19.jpg"
+																<img
+																	src="${contextPath}/resources/images/howto_detail_image/howtouse_detail19.jpg"
 																	class="fr-fic fr-dib"><br>
 															</p>
 														</div>
 													</div>
 												</td>
 											</tr>
-											
+
 											<tr class="displaynone ">
 												<th scope="row">비밀번호</th>
 												<td><input id="password" name="password" fw-filter=""
@@ -136,13 +123,12 @@
 													onkeydown="if (event.keyCode == 13 || event.which == 13) { return false; }"
 													autocomplete="new-password" value="" type="password">
 													<span class="ec-base-help txtInfo">삭제하려면 비밀번호를
-														입력하세요.</span>
-														</td>
+														입력하세요.</span></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								
+
 								<!-- 버튼 -->
 								<div class="SP_submitBtn_wrap SP_submitBoardBtn_wrap ">
 									<span class="SP_submitBtn_left"> <span
@@ -153,21 +139,12 @@
 											href="#none" onclick="" class="SP_cm_btn SP_btn_gray_bd ">스팸신고</a>
 											<a href="#none" onclick="" class="SP_cm_btn SP_btn_gray_bd ">스팸해제</a>
 									</span> <a href="/board/how-to/13/" class="btnNormalFix sizeS">목록</a>
-									</span> <span class="SP_submitBtn_right"> 
-									
-									<!-- 어차피 관리자만 수정,삭제,작성이 가능함~ 버튼전부 동작안함 -->
-									<!-- 클릭하면 alert : 잘못된 접근입니다. -->
-									<a
-										class="SP_cm_btn SP_btn_gray_bd displaynone">삭제</a> 
-										
-<!-- 										href="/board/gallery/modify.html?board_act=edit&amp;no=148230&amp;board_no=13" -->
-										<!-- 클릭하면 alert: 본인이 작성하지 않은 게시글입니다. -->
-										<a
-										class="SP_cm_btn SP_btn_gray_bd displaynone">수정</a> 
-										
-<!-- 										href="/board/gallery/reply.html" -->
-										<!-- alert : 관리자만 작성 가능합니다. -->
-										<a 
+									</span> <span class="SP_submitBtn_right"> <!-- 어차피 관리자만 수정,삭제,작성이 가능함~ 버튼전부 동작안함 -->
+										<!-- 클릭하면 alert : 잘못된 접근입니다. --> <a
+										class="SP_cm_btn SP_btn_gray_bd displaynone">삭제</a> <!-- 										href="/board/gallery/modify.html?board_act=edit&amp;no=148230&amp;board_no=13" -->
+										<!-- 클릭하면 alert: 본인이 작성하지 않은 게시글입니다. --> <a
+										class="SP_cm_btn SP_btn_gray_bd displaynone">수정</a> <!-- 										href="/board/gallery/reply.html" -->
+										<!-- alert : 관리자만 작성 가능합니다. --> <a
 										class="SP_cm_btn SP_btn_gray_bd displaynone">답변</a>
 									</span>
 								</div>
@@ -234,11 +211,11 @@
 					<div
 						class="xans-element- xans-board xans-board-movement-8 xans-board-movement xans-board-8 SP_subSection board_movement_wrap">
 						<ul>
-						<!-- 다음 글, 이전 글 연결링크 -->
+							<!-- 다음 글, 이전 글 연결링크 -->
 							<li class="prev "><span>이전글</span><a
-								href="/projectOhora/ohora/howto_detail09.jsp">세미큐어젤 제거편</a></li>
+								href="${contextPath}/ohora/howto_detail09.jsp">세미큐어젤 제거편</a></li>
 							<li class="next "><span>다음글</span><a
-								href="/projectOhora/ohora/howto_detail10.jsp">젤램프 사용편</a></li>
+								href="${contextPath}/ohora/howto_detail10.jsp">젤램프 사용편</a></li>
 						</ul>
 					</div>
 				</div>
@@ -281,8 +258,4 @@
 		</script>
 		</div>
 	</div>
-
-
-</body>
-<%@include file="../footer.jsp" %>
-</html>
+</div>

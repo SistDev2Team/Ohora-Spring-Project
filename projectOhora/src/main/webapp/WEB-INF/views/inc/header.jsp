@@ -19,7 +19,7 @@
 							<div class="slick-slide slick-current slick-active"
 								data-slick-index="0" aria-hidden="false" style="width: 1200px"
 								tabindex="0">
-								<a href="${pageContext.request.contextPath}/event.htm?_=index"
+								<a href="${pageContext.request.contextPath}/event/event_index.htm"
 									tabindex="0" style="display: block"><img
 									src="https://ohora.kr/optimize/images/pc/common/PC_header_lamp2.webp"
 									style="width: 100%; display: block" /></a>
@@ -127,9 +127,9 @@
 							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=671&currentPage=1"><span>outlet</span></a>
 						</li>
 						<li class="eng_font"><a
-							href="${pageContext.request.contextPath}/event.htm?_=index">event</a></li>
+							href="${pageContext.request.contextPath}/event/event_index.htm">event</a></li>
 						<li class="eng_font"><a
-							href="${pageContext.request.contextPath}/howto.htm?howto=main">how
+							href="${pageContext.request.contextPath}/howto/howto.htm">how
 								to</a></li>
 					</ul>
 				</div>
@@ -190,7 +190,7 @@
 							href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=120&currentPage=1">#BEST
 								디자인 추천</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/event.htm?_=event6">#첫구매
+							href="${pageContext.request.contextPath}/event/event_event6.htm">#첫구매
 								젤램프 증정</a></li>
 					</ul>
 				</div>
@@ -284,7 +284,7 @@
 						<div class="big_txt"
 							style="margin-left: 35px; margin-bottom: 42px;">
 							<a class="big_ eng_font"
-								href="${pageContext.request.contextPath}/event.htm?_=index">
+								href="${pageContext.request.contextPath}/event/event_index.htm">
 								<span>event</span>
 							</a>
 						</div>
@@ -300,12 +300,12 @@
 							<a class="big_ eng_font" href="#empty"> <span
 								style="margin-top: 10px;">brand</span>
 							</a> <a class=""
-								href="${pageContext.request.contextPath}/ohora_Fend_brand4.htm">
+								href="${pageContext.request.contextPath}/board/ohora_Fend_brand4.htm">
 								<span>about</span>
 							</a> <a class=""
-								href="${pageContext.request.contextPath}/membership.htm"> <span>membership</span>
+								href="${pageContext.request.contextPath}/board/membership.htm"> <span>membership</span>
 							</a> <a class=""
-								href="${pageContext.request.contextPath}/magazine.htm"> <span>magazine</span>
+								href="${pageContext.request.contextPath}/board/magazine.htm"> <span>magazine</span>
 							</a> <a class=""
 								href="${pageContext.request.contextPath}/product/prd_view.htm?cate_no=238&currentPage=1">
 								<span>collaboration</span>
@@ -365,7 +365,7 @@
 								href="${pageContext.request.contextPath}/board/noticelist.htm?currentPage=1"><span>Notice</span></a>
 							<a
 								href="${pageContext.request.contextPath}/board/faqlist.htm?currentPage=1"><span>FAQ</span></a>
-							<a href="${pageContext.request.contextPath}/howto.htm?howto=main">How
+							<a href="${pageContext.request.contextPath}/howto/howto.htm">How
 								to</a>
 						</div>
 					</div>

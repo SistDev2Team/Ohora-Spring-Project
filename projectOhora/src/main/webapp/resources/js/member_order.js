@@ -1,48 +1,51 @@
-$("#btn_payment").on("click", function(event){
-	if ($("#rzipcode1").val() && $("#raddr1").val() && $("#raddr2").val() && $("#rphone2_2").val() && $("#rphone2_3").val() && $("#email1").val()){
-		$("#order_form").submit();
-	} else{
-		alert("배송지 정보를 입력하세요")
-		event.preventDefault();
-	}
-})
-
-$("a#preaddr").on("click", function(){
-	$("#recent-addr-info").show();
-	$("#selfInputAddr-form").hide();
-	$("#addrinput2").removeClass("selected");
-    $("#addrinput1").addClass("selected");
-})
-$("a#selfaddr").on("click", function(){
-	$("#recent-addr-info").hide();
-	$("#selfInputAddr-form").show();
-	$("#addrinput1").removeClass("selected");
-    $("#addrinput2").addClass("selected");
-})
-
-$("button.btnRemove").on("click", function(){
-	if (confirm("선택하신 상품을 삭제하시겠습니까?")){
-		$(this).parent().parent().remove();
-		let path = "/projectOhora/product/orderpage.do?";
-		const pdtIds = document.querySelectorAll("#pdtId");
-		const pdtCounts = document.querySelectorAll("#pdtCount");
-		for (let i=0; i<pdtIds.length;i++){
-			const pdtId = pdtIds[i].value;
-			const pdtCount = pdtCounts[i].value;
-			path += "pdtId="+pdtId+"&pdtCount="+pdtCount+"&";
+$(document).ready(function() {
+	
+	$("#btn_payment").on("click", function(event){
+		if ($("#rzipcode1").val() && $("#raddr1").val() && $("#raddr2").val() && $("#rphone2_2").val() && $("#rphone2_3").val() && $("#email1").val()){
+			$("#order_form").submit();
+		} else{
+			alert("배송지 정보를 입력하세요")
+			event.preventDefault();
 		}
-		path = path.slice(0, -1);
-		location.href = path;
-	}
-})
-
-$("#userCoupon").on('change', function(){
-	$("#txt_cpn_contents0").text($(this).val());
-})
-
-$("#btn_point").on("click", function(){
-	$("#input_point").val( $(".UseablePoint").data('point'));
-})
+	})
+	
+	$("a#preaddr").on("click", function(){
+		$("#recent-addr-info").show();
+		$("#selfInputAddr-form").hide();
+		$("#addrinput2").removeClass("selected");
+	    $("#addrinput1").addClass("selected");
+	})
+	$("a#selfaddr").on("click", function(){
+		$("#recent-addr-info").hide();
+		$("#selfInputAddr-form").show();
+		$("#addrinput1").removeClass("selected");
+	    $("#addrinput2").addClass("selected");
+	})
+	
+	$("button.btnRemove").on("click", function(){
+		if (confirm("선택하신 상품을 삭제하시겠습니까?")){
+			$(this).parent().parent().remove();
+			let path = "/order/orderPage.htm?";
+			const pdtIds = document.querySelectorAll("#pdtId");
+			const pdtCounts = document.querySelectorAll("#pdtCount");
+			for (let i=0; i<pdtIds.length;i++){
+				const pdtId = pdtIds[i].value;
+				const pdtCount = pdtCounts[i].value;
+				path += "pdtId="+pdtId+"&pdtCount="+pdtCount+"&";
+			}
+			path = path.slice(0, -1);
+			location.href = path;
+		}
+	})
+	
+	$("#userCoupon").on('change', function(){
+		$("#txt_cpn_contents0").text($(this).val());
+	})
+	
+	$("#btn_point").on("click", function(){
+		$("#input_point").val( $(".UseablePoint").data('point'));
+	})
+});
 
 document.querySelector('#input_point').addEventListener('change', function() {
   validateAndReplace(this);

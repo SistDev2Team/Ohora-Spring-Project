@@ -37,10 +37,6 @@ div {
     unicode-bidi: isolate;
 }
 
-body, h1, h2, h3, h4, h5, h6, table, pre, xmp, plaintext, listing, input, textarea, select, button, a {
-    font-family: inherit;
-    line-height: normal;
-}
 
 style attribute {
     --vh: 7.38px;
@@ -413,9 +409,6 @@ em {
     cursor: pointer;
 }
 
-.login_container .btnArea button.btnSubmit:disabled {
-    background: #dadada !important;
-}
 
 .login_container .btnArea .btnSubmit {
     display: inline-block;
@@ -852,4 +845,11 @@ input {
 
 #aaaaaa {
 	margin-bottom: 30px;
+}
+
+a {
+  font-family: inherit !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  text-decoration: none !important;
 }

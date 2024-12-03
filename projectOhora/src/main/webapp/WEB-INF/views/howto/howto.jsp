@@ -1,37 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page trimDirectiveWhitespaces="true" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>오호라</title>
-<link rel="shortcut icon" type="image/x-icon" href="http://localhost/jspPro/images/SiSt.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<link rel="stylesheet" href="${ contextPath }/resources/cdn-main/howto.css">
-<script src="http://localhost/jspPro/resources/cdn-main/example.js"></script>
+<%@ page trimDirectiveWhitespaces="true"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <style>
- span.material-symbols-outlined{
-    vertical-align: text-bottom;
- }  
+.xans-board-buttonlist-8 .SP_cm_btn.SP_btn_gray_bd {
+	display: inline-block !important;
+}
 </style>
-</head>
-<%@include file="../header.jsp" %>
-<body>
-<style>
-    .xans-board-buttonlist-8 .SP_cm_btn.SP_btn_gray_bd {display:inline-block !important; }
-    
-</style>
+<div id="content">
 	<div id="wrap" style="padding-top: 156px !important;">
 		<div id="container">
 			<div id="contents">
 				<div id="SP_boardPageChk">
 					<div class="SP_layoutFix">
-						<div class="xans-element- xans-board xans-board-listpackage-8 xans-board-listpackage xans-board-8 ">
-							<div class="xans-element- xans-board xans-board-title-8 xans-board-title xans-board-8 SP_subContHeader ">
+						<div
+							class="xans-element- xans-board xans-board-listpackage-8 xans-board-listpackage xans-board-8 ">
+							<div
+								class="xans-element- xans-board xans-board-title-8 xans-board-title xans-board-8 SP_subContHeader ">
 								<h2 class="SP_subTitle">how to</h2>
 							</div>
 							<div class="boardSort"></div>
@@ -40,7 +25,7 @@
 									class="xans-element- xans-board xans-board-fixed-8 xans-board-fixed xans-board-8 SP_gallListTable_wrap">
 									<ul>
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=10" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail10.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/1.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -53,9 +38,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=9" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail09.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/2.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -68,9 +53,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=8" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail08.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/3.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -83,9 +68,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=7" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail07.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/4.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -98,9 +83,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=6" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail06.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/5.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -113,9 +98,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=5" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail05.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/6.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -128,9 +113,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=4" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail04.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/7.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -143,9 +128,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=3" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail03.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/8.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -158,9 +143,9 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=2" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail02.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/9.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -172,10 +157,10 @@
 														href="/article/how-to/13/61145/"> 세미큐어젤 부착편 </a>
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
-											</div></li>	
-											
+											</div></li>
+
 										<li class="xans-record-"><a
-											href="${contextPath}/howto.do?howto=1" class="imgLink"><img
+											href="${contextPath}/howto/howto_detail01.htm" class="imgLink"><img
 												src="${ contextPath }/resources/images/howto_image/10.jpg"
 												onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'"
 												alt=""></a>
@@ -188,7 +173,7 @@
 												</p>
 												<p class="writeName Nunito_Sans_font">ohora</p>
 											</div></li>
-											
+
 									</ul>
 								</div>
 							</div>
@@ -239,7 +224,4 @@
 			</div>
 		</div>
 	</div>
-
-</body>
-<%@include file="../footer.jsp" %>
-</html>
+</div>

@@ -2,19 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ohora 오호라 공식몰</title>
-<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/cdn-main/event.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-</head>
-<%@include file="../header.jsp" %>
-<body>
+<div id="content">
 <div class="wrap">
     <div class="eventDetail">
         <div class="title-block">
@@ -70,7 +58,4 @@
                 </div>
             </div>
         </div>
-
-</body>
-<%@include file="../footer.jsp" %>
-</html>
+</div>
