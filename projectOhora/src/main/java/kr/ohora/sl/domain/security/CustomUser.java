@@ -30,9 +30,16 @@ public class CustomUser extends User {
             user.getAuthList().stream()
                 .map(auth -> new SimpleGrantedAuthority(auth.getAuthority()))
                 .collect(Collectors.toList())
-        );
+        ); //SimpleGrantedAuthority를 사용해 사용자의 권한 리스트를 Spring Security의 권한 구조로 변환
         this.user = user; // userDTO 저장
     }
+    
 }
 
+/*
+Authentication의 주요 메서드
+getPrincipal(): 인증된 사용자 정보(CustomUser ( UserDetails 객체))
+getAuthorities(): 사용자 권한 정보.
+isAuthenticated(): 인증 상태 확인.
+ */
 

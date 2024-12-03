@@ -6,30 +6,33 @@
 <div id="content">
 
 
-    
-    <c:if test="${param.loginCheck == 'fail'}">
-    <script>
-        alert("회원만 접근권한이 있습니다.");
-    </script>
-</c:if>
-   
-	<c:if test="${param.error == 'username'}">
-    <script>
-        alert("존재하지 않는 아이디입니다.");
-    </script>
-	</c:if>
-	
-	<c:if test="${param.error == 'password'}">
-	    <script>
+<c:choose>
+    <c:when test="${param.error == 'invalid_username'}">
+		    <script>
+		         alert("존재하지 않는 아이디입니다.");
+		    </script>
+    </c:when>
+    <c:when test="${param.error == 'invalid_password'}">
+       	<script>
 	        alert("비밀번호가 일치하지 않습니다.");
 	    </script>
-	</c:if>
-	
-	<c:if test="${param.error == 'unknown'}">
-	    <script>
-	        alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+    </c:when>
+    <c:when test="${param.error == 'invalid_account'}">
+       	<script>
+	        alert("해당 계정은 비활성화 되었습니다.");
 	    </script>
-	</c:if>
+    </c:when>
+    <c:otherwise>
+        <c:if test="${not empty param.error}">
+           <script>
+	        alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+	       </script>
+        </c:if>
+    </c:otherwise>
+</c:choose>
+
+
+
 		
     <div id="wrap" style="padding-top: 156px !important">
       <div id="container">
@@ -201,12 +204,12 @@
 
                       <div class="btnArea typeLogin">
                         <a
-                          href="${pageContext.request.contextPath}/findIdstart.do"
+                          href="${pageContext.request.contextPath}/member/joinus/findid.htm"
                           class="btnLogin SMS_login_id SMSloginID_btnTD"
                           id="aa"
                           ><b class="SMS_icon"></b>아이디 찾기</a>
                          
-                        <a href="${pageContext.request.contextPath}/findPwstart.do"
+                        <a href="${pageContext.request.contextPath}/member/joinus/findpw.htm"
                         
                           class="btnLogin SMS_login_pw SMSloginPW_btnTD"
                           

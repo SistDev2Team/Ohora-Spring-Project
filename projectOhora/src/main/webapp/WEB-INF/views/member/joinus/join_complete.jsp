@@ -42,21 +42,21 @@ span.material-symbols-outlined {
 					<table class="join-cp-table">
 						<tr>
 							<td class="label">아이디</td>
-							<td>${userId}</td>
+							<td>${user.username}</td>
 						</tr>
 						<tr>
 							<td class="label">이 름</td>
-							<td>${userName}</td>
+							<td>${user.name}</td>
 						</tr>
 						<tr>
 							<td class="label">이메일</td>
-							<td>${userEmail}</td>
+							<td>${user.useremail}</td>
 						</tr>
 					</table>
 					<div class="join-cp-textbox">
 						<p>
 						    ${userId} 님은 [Friend] 등급입니다.<br />
-						    <c:if test="${userSnsAgree == 'Y'}">
+						    <c:if test="${user.usersnsagree == 'Y'}">
 						        첫 구매시 오호라 젤램프를 받으실 수 있습니다.
 						    </c:if>
 						</p>
@@ -66,7 +66,7 @@ span.material-symbols-outlined {
 
 				<div class="btnArea">
 					<div class="btn">
-						<a href="${pageContext.request.contextPath}/loginHandlerstart.do">계속 쇼핑하기</a>
+						<a href="${pageContext.request.contextPath}/member/joinus/login.htm">계속 쇼핑하기</a>
 					
 					</div>
 				</div>

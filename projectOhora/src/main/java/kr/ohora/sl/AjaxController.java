@@ -211,5 +211,106 @@ public class AjaxController {
 					.contentType(MediaType.APPLICATION_JSON)
 					.body(response);
 		}
+		
+		@GetMapping(value = "/sendVerificationCode.ajax")
+	    public ResponseEntity<Map<String, String>> sendVerificationCode(
+	            @RequestParam("verification_method") String verificationMethod,
+	            @RequestParam("contact") String contact,
+	            HttpSession session) {
+
+	        log.info("Verification request: method=" + verificationMethod + ", contact=" + contact);
+
+	        Map<String, String> response = new HashMap<>();
+
+	        try {
+	            // 인증번호 생성
+	            String verificationCode = String.format("%06d", new Random().nextInt(1000000));
+	            log.info("Generated verification code: " + verificationCode);
+
+	            // 인증번호 및 생성 시간을 세션에 저장
+	            session.setAttribute("verificationCode", verificationCode);
+	            session.setAttribute("generationTime", new Date());
+
+	            if ("email".equalsIgnoreCase(verificationMethod)) {
+	                // 이메일 전송
+	                memberService.sendVerificationEmail(contact, verificationCode);
+	                log.info("Verification email sent to: " + contact);
+	            } else if ("phone".equalsIgnoreCase(verificationMethod)) {
+	                // SMS 전송
+	                log.info("SMS sent to phone number: " + contact + " with code: " + verificationCode);
+	              
+	            } else {
+	                response.put("status", "error");
+	                response.put("message", "잘못된 인증 방법입니다.");
+	                return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(response);
+	            }
+
+	            response.put("status", "success");
+	            response.put("message", "인증번호가 전송되었습니다.");
+	            return ResponseEntity.ok()
+	                    .contentType(MediaType.APPLICATION_JSON)
+	                    .body(response);
+	            
+	        } catch (Exception e) {
+	            log.error("Error sending verification code", e);
+	            response.put("status", "error");
+	            response.put("message", "인증번호 전송 중 오류가 발생했습니다.");
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .contentType(MediaType.APPLICATION_JSON)
+	                    .body(response);
+	        }
+		
+	    }
+		
+		
+	    
+	    @PostMapping("/verifyCode.ajax")
+	    public ResponseEntity<Map<String, String>> verifyCode(@RequestParam("verification_code") String verificationCode, HttpSession session) {
+	        log.info("Received verification code for verification: " + verificationCode);
+
+	        Map<String, String> response = new HashMap<>();
+
+	        // 세션에서 저장된 인증번호와 생성 시간 가져오기
+	        String storedCode = (String) session.getAttribute("verificationCode");
+	        Date generationTime = (Date) session.getAttribute("generationTime");
+
+	        if (storedCode == null || generationTime == null) {
+	            log.error("No verification code found in session.");
+	            response.put("status", "error");
+	            response.put("message", "인증번호가 요청되지 않았습니다.");
+	        } else {
+	            long currentTime = System.currentTimeMillis();
+	            long timeElapsed = currentTime - generationTime.getTime();
+
+	            if (timeElapsed > VALID_DURATION) {
+	                // 인증번호 만료 처리
+	                log.warn("Verification code expired. Elapsed time: " + timeElapsed + " ms");
+	                response.put("status", "expired");
+	                response.put("message", "인증번호가 만료되었습니다. 다시 요청하세요.");
+
+	                // 세션에서 인증번호와 생성 시간 제거
+	                session.removeAttribute("verificationCode");
+	                session.removeAttribute("generationTime");
+	            } else if (storedCode.equals(verificationCode)) {
+	                // 인증번호 일치 - 인증 성공
+	                log.info("Verification code matched successfully.");
+	                response.put("status", "success");
+	                response.put("message", "인증이 완료되었습니다.");
+
+	                // 인증 후 세션 데이터 제거
+	                session.removeAttribute("verificationCode");
+	                session.removeAttribute("generationTime");
+	            } else {
+	                // 인증번호 불일치
+	                log.warn("Verification code mismatch. Provided: " + verificationCode + ", Stored: " + storedCode);
+	                response.put("status", "error");
+	                response.put("message", "인증번호가 일치하지 않습니다.");
+	            }
+	        }
+
+	        return ResponseEntity.ok()
+	                  .contentType(MediaType.APPLICATION_JSON)
+	                  .body(response);
+	    }
 	
 }//class

@@ -40,44 +40,55 @@
 
 					<div
 						class="xans-element- xans-layout xans-layout-statelogoff SP_gnb_inr">
-
+						
+						<!-- 비회원 사용자 -->
 						<sec:authorize access="isAnonymous()">
-							<a href="${contextPath}/member/joinus/join.htm" class="auth-link">
-								<span class="title">회원가입 &nbsp;|&nbsp;</span>
-							</a>
-							<a href="${contextPath}/member/joinus/login.htm"
-								class="auth-link"> <span class="title">로그인</span>
-							</a>
+						    <a href="${contextPath}/member/joinus/join.htm" class="auth-link">
+						        <span class="title">회원가입&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						    </a>
+						    <a href="${contextPath}/member/joinus/login.htm" class="auth-link">
+						        <span class="title">&nbsp;&nbsp;로그인</span>
+						    </a>
 						</sec:authorize>
-
+						
+						<!-- 관리자 사용자 -->
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+						    <a href="${contextPath}/admin/productList.htm">
+						        <span class="title">마이페이지</span>
+						    </a>
+						</sec:authorize>
+												
+						<!-- 일반 사용자 -->
+						<sec:authorize access="hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN')">
+						    <a href="${contextPath}/member/mypage/mypage.htm">
+						        <span class="title">마이페이지</span>
+						    </a>
+						</sec:authorize>
+												
+						<!-- 인증된 사용자 (공통 표시) -->
 						<sec:authorize access="isAuthenticated()">
-							<a href="${contextPath}/member/mypage/mypage.htm"> <span
-								class="title">마이페이지</span>
-							</a>
-
-							<a class="log" style="cursor: pointer;"><span class="title">로그아웃</span></a>
-							<form id="logoutForm"
-								action="${contextPath}/member/joinus/logout.htm" method="post"
-								style="display: none;">
-								<input type="hidden" name="_csrf" value="${_csrf.token}">
-							</form>
-							<script>
-			                $(document).ready(function(){
-			                   $('.log').click(function(e){
-			                       e.preventDefault(); // 기본 동작(페이지 이동)을 막음
-			                           $('#logoutForm').submit(); // form 제출
-			                          });
-			                    });
-			            </script>
-
-							<%-- 
-					    <form action="${contextPath}/member/joinus/logout.htm" method="post">
-					        <input type="hidden" name="_csrf" value="${_csrf.token}">
-					        <button type="submit" class="logout-button">로그아웃</button>
-					    </form> 
-					    --%>
-
-						</sec:authorize>
+		                   <a class="log" style="cursor: pointer;"><span class="title">로그아웃</span></a>
+		                   <form id="logoutForm" action="${contextPath}/member/joinus/logout.htm" method="post" style="display: none;">
+		                   <input type="hidden" name="_csrf" value="${_csrf.token}">
+		                   </form>
+		                    <script>
+		                         $(document).ready(function(){
+		                            $('.log').click(function(e){
+		                                e.preventDefault(); // 기본 동작(페이지 이동)을 막음
+		                                    $('#logoutForm').submit(); // form 제출
+		                                   });
+		                             });
+		                    </script>                    
+					  </sec:authorize>						
+<!-- <script>
+    <sec:authorize access="isAuthenticated()">
+        let userid = '<sec:authentication property="principal.user.userid"/>';
+        console.log("> userid : " + userid);
+    </sec:authorize>
+    <sec:authorize access="isAnonymous()">
+        console.log("로그인x");
+    </sec:authorize>
+</script> -->
 					</div>
 				</div>
 			</div>

@@ -14,6 +14,52 @@
         <put-attribute name="title"  value="Ohora {1}" />
         <put-attribute name="css"  value="{1}.css" />
     </definition>
+  
+   <definition name="member/joinus/*" template="/WEB-INF/views/inc/layout.jsp">
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/{1}.jsp" />
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="title" value="Ohora {1}" />
+    <put-attribute name="css"  value="{1}.css" />
+    </definition> 
+
+     <definition name="member/joinus/findid" template="/WEB-INF/views/inc/layout.jsp">
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/findid.jsp" />
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="title" value="Ohora findid" />
+    <put-attribute name="css"  value="/member/joinus/findid.css" />
+    </definition> 
+    
+   <definition name="member/joinus/showid" template="/WEB-INF/views/inc/layout.jsp">
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/showid.jsp" />
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="title" value="Ohora showid" />
+    <put-attribute name="css"  value="/member/joinus/showid.css" />
+    </definition>
+ 
+    <definition name="member/joinus/findpw" template="/WEB-INF/views/inc/empty.jsp">
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/findpw.jsp" />
+    <put-attribute name="title" value="Ohora findpw" />
+    </definition>
+    
+	<definition name="member/joinus/checkpw" template="/WEB-INF/views/inc/empty.jsp">
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/checkpw.jsp" />
+    <put-attribute name="title" value="Ohora checkpw" />
+    </definition>
+    
+ 	<definition name="member/joinus/changepw" template="/WEB-INF/views/inc/empty.jsp">
+    <put-attribute name="header" value="" />
+    <put-attribute name="footer" value="" />
+    <put-attribute name="content" value="/WEB-INF/views/member/joinus/changepw.jsp" />
+    <put-attribute name="title" value="Ohora changepw" />
+    </definition>
+
 
     <definition name="*/*/*"  template="/WEB-INF/views/inc/layout.jsp">
         <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
@@ -23,6 +69,7 @@
         <put-attribute name="title"  value="Ohora {3}" />
         <put-attribute name="css"  value="{3}.css" />
     </definition>
+     
     
     <definition name="*.*"  template="/WEB-INF/views/inc/layout.jsp">
         <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
@@ -52,84 +99,6 @@
         <put-attribute name="css"  value="oho_main.css" />
     </definition>
 
-     <!--
-    <definition name="*.*"  template="/WEB-INF/views/{1}/inc/layout.jsp">
-       <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute> 
-       <put-attribute name="visual" value="/WEB-INF/views/{1}/inc/visual.jsp"></put-attribute> 
-       <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute> 
-       <put-attribute name="aside" value="/WEB-INF/views/{1}/inc/aside.jsp"></put-attribute> 
-       <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
-       
-       <put-attribute name="css"  value="{2}.css" />
-   </definition>
-     -->
-    <!-- joinus.join -->
-    <!-- joinus.login -->
-    <!-- 
-    <definition name="joinus.*"  template="/WEB-INF/views/joinus/inc/layout.jsp">
-       <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute> 
-       <put-attribute name="visual" value="/WEB-INF/views/joinus/inc/visual.jsp"></put-attribute> 
-       <put-attribute name="content" value="/WEB-INF/views/joinus/{1}.jsp"></put-attribute> 
-       <put-attribute name="aside" value="/WEB-INF/views/joinus/inc/aside.jsp"></put-attribute> 
-       <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
-   </definition>
-     -->
-    <!-- customer.* -->
-    <!-- 
-    <definition name="customer.*"  template="/WEB-INF/views/customer/inc/layout.jsp">
-        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" /> 
-        <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" /> 
-        <put-attribute name="content" value="/WEB-INF/views/customer/{1}.jsp" /> 
-        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />        
-        <put-attribute name="title"  value="SiSt5 Spring Tiles" />
-    </definition>
-     -->
-    
-    <!-- customer.notice -->
-    <!-- 
-    <definition name="customer.notice"  template="/WEB-INF/views/customer/inc/layout.jsp">
-        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" /> 
-        <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" /> 
-        <put-attribute name="content" value="/WEB-INF/views/customer/notice.jsp" /> 
-        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />        
-        <put-attribute name="title"  value="SiSt5 Spring Tiles" />
-    </definition>
-     -->
-    <!-- customer.noticeReg -->
-    <!-- 
-    <definition name="customer.noticeReg"  template="/WEB-INF/views/customer/inc/layout.jsp">
-        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" /> 
-        <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" /> 
-        <put-attribute name="content" value="/WEB-INF/views/customer/noticeReg.jsp" /> 
-        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />        
-        <put-attribute name="title"  value="SiSt5 Spring Tiles" />
-    </definition>
-     -->
-    <!-- customer.noticeEdit -->
-    <!-- 
-    <definition name="customer.noticeEdit"  template="/WEB-INF/views/customer/inc/layout.jsp">
-        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" /> 
-        <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" /> 
-        <put-attribute name="content" value="/WEB-INF/views/customer/noticeEdit.jsp" /> 
-        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />        
-        <put-attribute name="title"  value="SiSt5 Spring Tiles" />
-    </definition>
-     -->
-    <!-- customer.noticeDetail -->
-    <!-- 
-    <definition name="customer.noticeDetail"  template="/WEB-INF/views/customer/inc/layout.jsp">
-        <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" /> 
-        <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" /> 
-        <put-attribute name="content" value="/WEB-INF/views/customer/noticeDetail.jsp" /> 
-        <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />        
-        <put-attribute name="title"  value="SiSt5 Spring Tiles" />
-    </definition>
-     -->
 </tiles-definitions>
 
 

@@ -2,28 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-   
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>오호라</title>
-<link rel="shortcut icon" type="image/x-icon" href="http://localhost/jspPro/images/SiSt.ico">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/member/mypage/mypage.css">
-<script src="http://localhost/jspPro/resources/cdn-main/example.js"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <style>
  span.material-symbols-outlined{
     vertical-align: text-bottom;
  }  
 </style>
+
 </head>
-<%@ include file="../../inc/header.jsp" %>
-<body>
+
+<div id="content">
 
     <div id="main-container">
 
@@ -79,15 +68,16 @@
 
 
                                 <div class="infoMegBox_wrap">
+                                 <sec:authentication property="principal" var="pinfo" />
                                     <p class="ment">
-                                        <strong><span><span class="member-name">${user.user_name}</span></span></strong>님 반갑습니다.
+                                        <strong><span><span class="member-name">${pinfo.user.name}</span></span></strong>님 반갑습니다.
                                     </p>
                                     
 										<p class="grade">회원님의 등급은 
 										    <strong class="group">[
 										        <span class="groupName-wrap" id="groupName">
 										            <span class="group_name">
-										                ${user.mem_id == 1 ? 'friend' : user.mem_id == 2 ? 'family' : user.mem_id == 3 ? 'crew' : ''}
+										                ${pinfo.user.memid == 1 ? 'friend' : pinfo.user.memid == 2 ? 'family' : pinfo.user.memid == 3 ? 'crew' : ''}
 										            </span>
 										        </span>
 										    ]</strong>입니다.
@@ -110,12 +100,12 @@
 								            </c:forEach>
 																            
 								            <c:choose>								               
-								                <c:when test="${user.mem_id == 3}">
+								                <c:when test="${pinfo.user.memid == 3}">
 								                    이미 최고 등급에 도달하셨습니다.
 								                </c:when>
 								               								               
 								                <c:otherwise>
-								                    <c:set var="goalAmount" value="${user.mem_id == 1 ? 150000 : 400000}" />
+								                    <c:set var="goalAmount" value="${pinfo.user.memid == 1 ? 150000 : 400000}" />
 								                    <fmt:formatNumber value="${ goalAmount - totalSum < 0 ? 0 :goalAmount - totalSum }" type="number" pattern="#,##0" />원 남았습니다.								   							                    
 								                </c:otherwise>
 								                
@@ -148,8 +138,8 @@
                                             <div class="pnc_displayTableInr">
                                                 <div class="myOrderInfoTitle">my point</div>
                                                 <div class="myOrderInfoCont">
-                                                    <a href="" class="pointCount" style="">${formattedUserPoint}</a>
-                                                </div>
+                                                    <a href="" class="pointCount" style=""><fmt:formatNumber value="${pinfo.user.userpoint}"/></a>
+                                                </div> 
                                             </div>
                                         </div>
                                     </li>
@@ -179,128 +169,134 @@
                                 <a href="">+더보기</a>
                             </div>
                         </div>
+<div class="orderState_wrap">
+    <ul>
+        <li>
+            <a href="">
+                <span>상품준비중</span>
+                <span class="count">
+                    <span id="orderstate_prepare_production_count">
+                        <c:forEach var="stateCount" items="${stateCounts}">
+                            <c:if test="${stateCount.STATE == '상품준비중'}">
+                                ${stateCount.STATECOUNT}
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span>배송준비중</span>
+                <span class="count">
+                    <span id="orderstate_prepare_delivery_count">
+                        <c:forEach var="stateCount" items="${stateCounts}">
+                            <c:if test="${stateCount.STATE == '배송준비중'}">
+                                ${stateCount.STATECOUNT}
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span>배송중</span>
+                <span class="count">
+                    <span id="xans_myshop_orderstate_shppied_begin_count">
+                        <c:forEach var="stateCount" items="${stateCounts}">
+                            <c:if test="${stateCount.STATE == '배송중'}">
+                                ${stateCount.STATECOUNT}
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span>배송완료</span>
+                <span class="count">
+                    <span id="xans_myshop_orderstate_shppied_complate_count">
+                        <c:forEach var="stateCount" items="${stateCounts}">
+                            <c:if test="${stateCount.STATE == '배송완료'}">
+                                ${stateCount.STATECOUNT}
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
 
-                        <div class="orderState_wrap">
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <span>상품준비중</span>
-                                        <span class="count">
-                                            <span id="orderstate_prepare_production_count">
-                                            ${orderStateCounts[0]}
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span>배송준비중</span>
-                                        <span class="count">
-                                            <span id="orderstate_prepare_delivery_count">
-                                            ${orderStateCounts[1]}
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span>배송중</span>
-                                        <span class="count">
-                                            <span id="xans_myshop_orderstate_shppied_begin_count">
-                                            ${orderStateCounts[2]}
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span>배송완료</span>
-                                        <span class="count">
-                                            <span id="xans_myshop_orderstate_shppied_complate_count">
-                                            ${orderStateCounts[3]}
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+
 
                         <div class="order-history-wrap">
-                        
-                            <table class="ordhistory-table">
+						<table>
+						    <thead>
+						        <tr>
+						            <th scope="col" class="number">주문일자</th>
+						            <th scope="col" class="thumb">상품정보</th>
+						            <th scope="col" class="product">상품금액</th>
+						            <th scope="col" class="product">결제금액</th>
+						            <th scope="col" class="quantity">주문상세</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        <!-- 주문 내역이 있을 경우 -->
+						        <c:if test="${not empty groupedOrders}">
+						            <c:forEach var="entry" items="${groupedOrders}">
+						                <!-- 날짜별 그룹화 -->
+						                <c:set var="orderDate" value="${entry.key}" />
+						                <c:set var="orders" value="${entry.value}" />
+						                
+						                <c:forEach var="orderDetail" items="${orders}" varStatus="status">
+						                    <tr class="table-record">
+						                        <!-- 첫 번째 행에만 날짜 표시 -->
+						                        <c:if test="${status.first}">
+						                            <td class="number center" rowspan="${orders.size()}">${orderDate}</td>
+						                        </c:if>
+						                        
+						                        <!-- 상품정보 -->
+						                        <td class="subject alignLeft">
+						                            <a href="#">${orderDetail.OPDTNAME}</a>
+						                        </td>
+						                        
+						                        <!-- 상품금액 -->
+						                        <td class="price center">
+						                            <fmt:formatNumber value="${orderDetail.OPDTAMOUNT}" type="number" pattern="#,##0" />
+						                        </td>
+						                        
+						                        <!-- 결제금액 -->
+						                        <td class="totalprice">
+						                            <fmt:formatNumber value="${orderDetail.ORDTOTALAMOUNT}" type="number" pattern="#,##0" />
+						                        </td>
+						                        
+						                        <!-- 첫 번째 행에만 주문 상세 표시 -->
+						                        <c:if test="${status.first}">
+						                            <td class="center number" rowspan="${orders.size()}">
+						                                <form action="${pageContext.request.contextPath}/member/mypage/orderdetail.htm" method="post">
+						                                    <input type="hidden" name="ORDPK" value="${orderDetail.ORDPK}" />
+						                                     <input type="hidden" name="_csrf" value="${_csrf.token}">
+						                                    <button type="submit" class="ordhistory-linkView">자세히보기</button>
+						                                </form>
+						                            </td>
+						                        </c:if>
+						                    </tr>
+						                </c:forEach>
+						            </c:forEach>
+						        </c:if>
+						        
+						        <!-- 주문 내역이 없을 경우 -->
+						        <c:if test="${empty groupedOrders}">
+						            <tr>
+						                <td colspan="5" class="empty">주문 내역이 없습니다</td>
+						            </tr>
+						        </c:if>
+						    </tbody>
+						</table>
 
-                                <colgroup>
-                                    <col width="170px">
-                                    <col width="auto">
-                                    <col width="200px">
-                                    <col width="200px">
-                                    <col width="180px">
-                                </colgroup>
-
-                                <thead>
-                                    <tr>
-                                    <th scope="col" class="number">주문일자</th>
-                                    <th scope="col" class="thumb">상품정보</th>
-                                    <th scope="col" class="product">상품금액</th>
-                                    <th scope="col" class="product">결제금액</th>
-                                    <th scope="col" class="quantity">주문상세</th>
-                                    </tr>
-                                </thead>
-                                                    
-								<tbody>
-								    <c:forEach var="entry" items="${groupedOrders}">
-								        <c:set var="orderDate" value="${entry.key}" />
-								        <c:set var="orders" value="${entry.value}" />
-								        
-								        <c:forEach var="orderDetail" items="${orders}" varStatus="status">
-								        
-								            <tr class="table-record">
-								                
-								                <!-- 날짜는 첫 번째 행에만 표시 -->
-								                <c:if test="${status.first}">
-								                    <td class="number center" rowspan="${orders.size()}">${orderDate}</td>
-								                </c:if>
-								
-								                <!-- 상품정보 -->
-								                <td class="subject alignLeft">
-								                    <a href="">${orderDetail.OPDT_NAME}</a>
-								                </td>
-								                
-								                <!-- 상품금액 -->
-								                <td class="price center">
-								                    <fmt:formatNumber value="${orderDetail.OPDT_AMOUNT}" type="number" pattern="#,##0" />
-								                </td>
-								                
-								                <!-- 결제금액 -->					                    
-								                <td class="totalprice">
-								                    <fmt:formatNumber value="${orderDetail.ORD_TOTAL_AMOUNT}" type="number" pattern="#,##0" />
-								                </td>
-								                
-								                <!-- 주문상세: 첫 번째 행에만 표시 -->
-								                <c:if test="${status.first}">
-								                    <td class="center number" rowspan="${orders.size()}">
-								                        <form action="${pageContext.request.contextPath}/orderdetail.do" method="post">
-								                            <input type="hidden" name="ORD_PK" value="${orderDetail.ORD_PK}">
-								                            <button type="submit" class="ordhistory-linkView">자세히보기</button>
-								                        </form>
-								                    </td>
-								                </c:if>
-								            </tr>
-								        
-								        </c:forEach>
-								    </c:forEach>
-								</tbody>
-
-								    
-								    
-                                                                                                                            
-								     <!-- 주문 내역 없을 경우 -->
-								    <tbody class="noOrder ${empty groupedOrders ? '' : 'displayNone'}">
-								        <tr>
-								            <td colspan="5" class="empty">주문 내역이 없습니다</td>
-								        </tr>
-								    </tbody>
-								</table>
 
                         </div>
 
@@ -310,15 +306,15 @@
                         <div class="myShopMenu-list">
                             <ul>
                               
-                                <li><a href="${pageContext.request.contextPath}/orderlist.do">주문내역</a></li>
+                                <li><a href="${pageContext.request.contextPath}/member/mypage/orderlist.htm">주문내역</a></li>
                                 
 								<li>
-								    <a href="${pageContext.request.contextPath}/editstart.do">
+								    <a href="${pageContext.request.contextPath}/member/mypage/meminfo.htm">
 								        회원정보
 								    </a>
 								</li>
                                                                                                                                                       
-                                <li><a href="${pageContext.request.contextPath}/addrstart.do">배송주소록</a></li>
+                                <li><a href="${pageContext.request.contextPath}/member/mypage/addr.htm">배송주소록</a></li>
                                 
                                 <li><a href="">이용약관</a></li>
                             </ul>
@@ -327,7 +323,7 @@
                         <div class="myShopMenu-list">
                             <ul>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/coupon.do">쿠폰내역<span class="">
+                                    <a href="${pageContext.request.contextPath}/member/mypage/coupon.htm">쿠폰내역<span class="">
                                         <span class="xans_myshop_main_coupon_cnt">${availableCoupons}</span>
                                         장</span>
                                     </a>
@@ -365,6 +361,4 @@
     </div>
     <!-- 메인 컨테이너 -->
 
-</body>
-<%@include file="../../inc/footer.jsp" %>
-</html>
+</div>

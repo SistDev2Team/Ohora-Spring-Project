@@ -9,49 +9,52 @@
 
     <!-- 에러 : spring-security-4.2.xsd 수정. -->   
      
-   <!-- <security:http pattern="/member/joinus/**" security="none" /> -->
-   <!-- <security:http pattern="/member/mypage/**" security="none" /> -->
-<!--    <security:http pattern="/member/joinus/resources/**" security="none" /> -->
+    <!-- <security:http pattern="/member/joinus/**" security="none" /> -->
+    <!-- <security:http pattern="/member/mypage/**" security="none" />  -->
+    <!--    <security:http pattern="/member/joinus/resources/**" security="none" /> -->
+    
    <security:http pattern="/oho_main" security="none" />
        
     <!-- 접근제어를 위한 설정 코드 p681  -->
    <security:http use-expressions="true" >
    
-   <!--  토큰 없이 -->
-        <!-- <security:csrf disabled="true" /> -->
-        
+    <security:custom-filter ref="refererTrackingFilter" before="FORM_LOGIN_FILTER"/> 
+   
+        <!--  토큰 없이 -->
+        <!-- <security:csrf disabled="true" /> -->      
         <!-- 모든 POST는 토큰 들고가세요 -->
         <!--   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> -->
-        <security:csrf />
+        
+     <security:csrf />
         
 
-      <!-- 여기다가 접근 권한 설정 -->
-      <!-- <security:intercept-url pattern="" access="hasRole('ROLE_ADMIN')"/> -->
-      <security:intercept-url pattern="/member/mypage/**" access="isAuthenticated()"/>       
-      <security:intercept-url pattern="/member/joinus/**" access="permitAll" /> 
+     <!-- 여기다가 접근 권한 설정 -->
+     <!-- <security:intercept-url pattern="" access="hasRole('ROLE_ADMIN')"/> -->
+     <!-- 세켠 Key 이름 : SPRING_SECURITY_SAVED_REQUEST   -->
+   
+     
+     <security:intercept-url pattern="/member/mypage/**" access="isAuthenticated()"/>   
+     <security:intercept-url pattern="/member/joinus/**" access="permitAll" /> 
 
    <!--**false**로 설정하면 로그인 성공 후 원래 접근하려던 URL(SavedRequest에 저장된 URL)로 리다이렉트  -->
-      <security:form-login   
-       login-page="/member/joinus/login.htm"
-       login-processing-url="/login" 
-       default-target-url="/oho_main" 
-       authentication-failure-url="/member/joinus/login.htm?error=true"
-       always-use-default-target="false"
-       authentication-success-handler-ref="customLoginSuccessHandler"                
-       />
+    <security:form-login
+            login-page="/member/joinus/login.htm"
+            login-processing-url="/login"
+            authentication-success-handler-ref="customLoginSuccessHandler"
+            authentication-failure-handler-ref="customAuthenticationFailureHandler"
+            default-target-url="/oho_main.htm"
+        />
+        <!-- default-target-url 은 제거해도 무방 -->
  
-   <!-- 403 접근 금지 오류 : 직접 개발자 구현 클래스 객체 호출해서   -->
+    <!-- 403 접근 금지 오류 : 직접 개발자 구현 클래스 객체 호출해서   -->
     <!--  <security:access-denied-handler ref="customAccessDeniedHandler" />  -->
-     
-     
+    
      <security:logout logout-url="/member/joinus/logout.htm" 
      invalidate-session="true"
      logout-success-url="/oho_main.htm"
      />   
      
    </security:http>   
-   
-    
    
    <!-- PasswordEncoder 자동 암호화 처리 -->
    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>  
@@ -62,13 +65,14 @@
           <security:password-encoder ref="bCryptPasswordEncoder" />
         </security:authentication-provider>
         
-        <!-- 
-        <security:authentication-provider>
-         <security:user-service>
-        <security:user name="admin" password="{noop}admin123" authorities="ROLE_ADMIN,ROLE_MANAGER"/>
-        </security:user-service>
-        </security:authentication-provider>
-         -->  
    </security:authentication-manager>
 
+<!-- 
+필터 체인 순서
+1. SECURITY_CONTEXT_FILTER
+2. refererTrackingFilter (custom-filter) : PRE_LOGIN_URL
+3. FORM_LOGIN_FILTER
+4. LOGOUT_FILTER
+5. FILTER_SECURITY_INTERCEPTOR : SavedRequest
+ -->
 </beans>

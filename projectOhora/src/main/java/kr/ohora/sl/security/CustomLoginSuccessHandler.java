@@ -1,14 +1,12 @@
 package kr.ohora.sl.security;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
@@ -21,41 +19,47 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-
-		// 1. SavedRequest 가져오기
-		HttpSession session = request.getSession(false); // 세션 가져오기
+	                                    Authentication authentication) throws IOException, ServletException {
 		
-		if (session != null) {
-			// 세션에서 "SPRING_SECURITY_SAVED_REQUEST"로 SavedRequest 가져오기
-			SavedRequest savedRequest = (SavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+		//우선순위: SavedRequest → PRE_LOGIN_URL → 기본 URL 
+		
+	    HttpSession session = request.getSession(false);
+	    String redirectUrl = request.getContextPath() + "/oho_main.htm"; // 3. 기본 URL
+	    
+	    if (session != null) {
+	    	
+	        // 1. SavedRequest 확인
+	        SavedRequest savedRequest = (SavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+	        
+	        log.info("세션에 저장된 savedRequest : " + savedRequest);
+	        
+	        if (savedRequest != null) {
+	            redirectUrl = savedRequest.getRedirectUrl(); // SavedRequest URL 사용 ( Spring에서 자동 제거)
+	        } else {
+	            // 2. PRE_LOGIN_URL 확인
+	            String preLoginUrl = (String) session.getAttribute("PRE_LOGIN_URL");
+	            log.info("세션에 저장된 PRE_LOGIN_URL : " + preLoginUrl);
 
-			// 2. Redirect URL 결정
-			String redirectUrl = null;
+	            if (preLoginUrl != null && preLoginUrl.startsWith(request.getContextPath()) &&
+	                !preLoginUrl.contains("/web/upload/") && 
+	                !preLoginUrl.endsWith(".jpg") && 
+	                !preLoginUrl.endsWith(".png")&&
+	                !preLoginUrl.endsWith(".js")) {
+	                
+	                redirectUrl = preLoginUrl; // 유효한 경우 리다이렉트 URL로 설정
+	            }
 
-			if (savedRequest != null) {
-				
-				// SavedRequest가 있는 경우: 원래 요청 URL
-				redirectUrl = savedRequest.getRedirectUrl();
-			} else {
-				// Referer 헤더 확인 보고있던 페이지를 요청
-				String refererUrl = request.getHeader("Referer");
-				if (refererUrl != null && !refererUrl.contains("login")) {
-					redirectUrl = refererUrl;
-				}
-			}
-			// 3. Redirect URL이 없으면 기본 URL로 설정
-			if (redirectUrl == null) {
-				redirectUrl = request.getContextPath() + "/oho_main.htm";
-			}
-			// 4. 리다이렉트 처리
-			response.sendRedirect(redirectUrl);
-		}
+	            session.removeAttribute("PRE_LOGIN_URL"); // 사용 후 제거(수동 제거 필요)
+	        }
+	    }
+
+	    log.info("최종 리다이렉트 URL: " + redirectUrl);
+	    response.sendRedirect(redirectUrl);
 	}
+
 }
-
-
 /*
-Referer 헤더 검증
-Referer 헤더 값이 외부 도메인에서 오는 경우를 방지하려면, Referer URL이 동일한 도메인을 포함하는지 확인하는 로직 추가를 고려하세요.
+인증이 필요한 URL로 접근 → 로그인 성공 → SavedRequest URL로 리다이렉트.
+인증이 필요 없는 URL로 접근 → 로그인 성공 → PRE_LOGIN_URL로 리다이렉트.
+이전 URL 정보가 없는 경우 → /oho_main.htm로 리다이렉트.
 */

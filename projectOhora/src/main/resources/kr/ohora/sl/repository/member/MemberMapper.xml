@@ -8,6 +8,7 @@
 	<resultMap id="userMap" type="kr.ohora.sl.domain.UserDTO">
 	    <!-- UserDTO 필드 매핑 -->
 	    <id property="userid" column="USERID" />
+	    <result property="memid" column="MEMID" />
 	    <result property="username" column="USERNAME" />
 	    <result property="password" column="PASSWORD" />
 	    <result property="name" column="NAME" />
@@ -27,7 +28,8 @@
 
 	<select id="getUserInfo" parameterType="string" resultMap="userMap">
 	    SELECT 
-	        u.USERID, 
+	        u.USERID,
+	        u.MEMID, 
 	        u.USERNAME, 
 	        u.PASSWORD, 
 	        u.NAME, 
@@ -104,7 +106,243 @@
         SYSDATE                          
     )
 </insert>
+
+ <select id="findUsername" parameterType="map" resultType="string">
+    SELECT username
+    FROM SCOTT.OUSER
+    WHERE name = #{name}
+      AND (
+          (#{contactType} = 'email' AND useremail = #{contact})
+          OR
+          (#{contactType} = 'phone' AND usertel = #{contact})
+      )
+
+</select>
+
+    <!-- 사용자 정보 체크 -->
+    <select id="checkUser" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM SCOTT.OUSER
+        WHERE USERNAME = #{username}
+          AND NAME = #{name}
+          <choose>
+              <when test="contactType == 'email'">
+                  AND USEREMAIL = #{contact}
+              </when>
+              <when test="contactType == 'phone'">
+                  AND USERTEL = #{contact}
+              </when>
+          </choose>
+    </select>
     
+    <!-- 비밀번호 변경 -->
+    <update id="updatePassword" parameterType="map">
+        UPDATE SCOTT.OUSER
+        SET PASSWORD = #{newPassword}
+        WHERE USERNAME = #{username}
+    </update>
+
     
+    <!-- 주문 상태별 카운트 조회 -->
+    <select id="getOrderStateCounts" parameterType="int" resultType="map">
+        SELECT D.OPDTSTATE AS STATE, COUNT(*) AS STATECOUNT
+        FROM SCOTT.OORDDETAIL D
+        JOIN SCOTT.OORDER O ON D.ORDPK = O.ORDPK
+        WHERE O.USERID = #{userid}
+        AND O.ORDORDERDATE >= TRUNC(ADD_MONTHS(SYSDATE, -6))
+        AND D.OPDTSTATE IS NOT NULL
+        GROUP BY D.OPDTSTATE
+        ORDER BY stateCount DESC
+    </select>
+    
+     <!-- 6개월구매이력 -->
+    <select id="getOrderDetails" parameterType="int" resultType="map">
+	   SELECT 
+	        TO_CHAR(O.ORDORDERDATE, 'YYYY-MM-DD') AS ORDORDERDATE,
+	        D.OPDTNAME, 
+	        D.OPDTAMOUNT, 
+	        O.ORDTOTALAMOUNT, 
+	        O.ORDPK
+	    FROM SCOTT.OORDDETAIL D
+	    JOIN SCOTT.OORDER O ON D.ORDPK = O.ORDPK
+	    WHERE O.USERID = #{userid}
+	      AND O.ORDORDERDATE >= TRUNC(ADD_MONTHS(SYSDATE, -6))
+	    ORDER BY ORDORDERDATE DESC
+    </select>
+    
+    <!-- 특정 주문 기본 정보 조회 -->
+    <select id="getOrderById" parameterType="int" resultType="kr.ohora.sl.domain.OrderDTO">
+        SELECT 
+            ORDPK, ORDID, USERID, ICPNID, ORDNAME, ORDADDRESS, ORDZIPCODE, 
+            ORDTEL, ORDEMAIL, ORDPASSWORD, ORDORDERDATE, ORDTOTALAMOUNT, 
+            ORDCPNDISCOUNT, ORDPDTDISCOUNT, ORDUSEPOINT, ORDPAYOPTION, ORDDELIVERYFEE
+        FROM SCOTT.OORDER
+        WHERE ORDPK = #{ordpk}
+    </select>
+
+    <!-- 특정 주문의 상세 정보 조회 -->
+    <select id="getOrderDetailsByOrderId" parameterType="int" resultType="kr.ohora.sl.domain.OrderDetailDTO">
+        SELECT 
+            OPDTID, ORDPK, OPDTNAME, OPDTAMOUNT, OPDTDCAMOUNT, OPDTOPNAME, 
+            OPDTOPAMOUNT, OPDTCOUNT, OPDTSTATE, OPDTREFUND, OPDTDELCOMPANY, 
+            OPDTDELNUMBER, OPDTCONFIRM
+        FROM SCOTT.OORDDETAIL
+        WHERE ORDPK = #{ordpk}
+    </select>
+    
+    <!-- 3개월 주문내역 조회 -->
+	<resultMap id="orderResultMap" type="kr.ohora.sl.domain.OrderDTO">
+	    <id property="ordpk" column="ORDPK" />
+	    <result property="ordorderdate" column="ORDORDERDATE" />
+	    <result property="ordid" column="ORDID" />
+	    <result property="ordname" column="ORDNAME" />
+	    <collection property="orderdetails" ofType="kr.ohora.sl.domain.OrderDetailDTO">
+	        <id property="opdtid" column="OPDTID" />
+	        <result property="opdtname" column="OPDTNAME" />
+	        <result property="opdtcount" column="OPDTCOUNT" />
+	        <result property="opdtamount" column="OPDTAMOUNT" />
+	        <result property="opdtstate" column="OPDTSTATE" />
+	        <result property="opdtrefund" column="OPDTREFUND" />
+	    </collection>
+	</resultMap>
+	
+	<select id="getOrderList" parameterType="int" resultMap="orderResultMap">
+	    SELECT 
+	        O.ORDPK, O.ORDORDERDATE, O.ORDID, O.ORDNAME, 
+	        D.OPDTID, D.OPDTNAME, D.OPDTCOUNT, D.OPDTAMOUNT, D.OPDTSTATE, D.OPDTREFUND
+	    FROM SCOTT.OORDER O
+	    LEFT JOIN SCOTT.OORDDETAIL D ON O.ORDPK = D.ORDPK
+	    WHERE O.USERID = #{userid}
+	      AND O.ORDORDERDATE >= ADD_MONTHS(SYSDATE, -3)
+	    ORDER BY O.ORDORDERDATE DESC
+	</select>
+	
+	<!-- 보유쿠폰 조회 -->
+     <select id="getAvailableCoupons" parameterType="int" resultType="int">
+	    SELECT COUNT(*) AS AVAILABLECOUPONS 
+	    FROM SCOTT.OISSUEDCOUPON 
+	    WHERE USERID = #{userid} 
+	      AND ICPNISUSED = 'N'
+	</select>
+	
+	<!-- 보유쿠폰 상세조회 -->
+	<resultMap id="couponResultMap" type="map">
+	    <result property="cpninfo" column="CPNINFO" />
+	    <result property="cpndiscountrate" column="CPNDISCOUNTRATE" />
+	    <result property="cpnconvalue" column="CPNCONVALUE" />
+	    <result property="cpnapply" column="CPNAPPLY" />
+	    <result property="cpnstartdate" column="CPNSTARTDATE" />
+	    <result property="cpnenddate" column="CPNENDDATE" />
+	    <result property="cpndiscounttype" column="CPNDISCOUNTTYPE" />
+	</resultMap>
+	
+	<select id="getAvailableCouponDetails" parameterType="int" resultMap="couponResultMap">
+	    SELECT 
+	        C.CPNINFO, 
+	        C.CPNDISCOUNTRATE, 
+	        C.CPNCONVALUE, 
+	        C.CPNAPPLY, 
+	        C.CPNSTARTDATE, 
+	        C.CPNENDDATE, 
+	        C.CPNDISCOUNTTYPE
+	    FROM SCOTT.OISSUEDCOUPON IC
+	    JOIN SCOTT.OCOUPON C ON IC.CPNID = C.CPNID
+	    WHERE IC.USERID = #{userid} 
+	    AND IC.ICPNISUSED = 'N'
+	</select>
+	
+	<!-- 대표 배송지 조회 -->
+	<select id="getAddresses" parameterType="int" resultType="kr.ohora.sl.domain.AddrDTO">
+    SELECT 
+        ADDRID, 
+        USERID, 
+        ADDRNICK, 
+        ADDRNAME, 
+        ADDRHTEL, 
+        ADDRTEL, 
+        ADDRADDRESSMAIN, 
+        ADDRADDRESSDETAIL, 
+        ADDRZIPCODE, 
+        ADDRMAIN 
+    FROM 
+        SCOTT.OADDRESS 
+    WHERE 
+        USERID = #{userid} 
+        AND ADDRMAIN = 'Y'
+   </select>
+   
+   	<select id="addressList" parameterType="int" resultType="kr.ohora.sl.domain.AddrDTO">
+    SELECT 
+        ADDRID, 
+        USERID, 
+        ADDRNICK, 
+        ADDRNAME, 
+        ADDRHTEL, 
+        ADDRTEL, 
+        ADDRADDRESSMAIN, 
+        ADDRADDRESSDETAIL, 
+        ADDRZIPCODE, 
+        ADDRMAIN 
+    FROM 
+        SCOTT.OADDRESS 
+    WHERE 
+        USERID = #{userid} 
+   </select>
+   
+   <update id="updateUser" parameterType="kr.ohora.sl.domain.UserDTO">
+    UPDATE SCOTT.OUSER
+    SET 
+        PASSWORD = #{password},
+        USERTEL = #{usertel},
+        USERBIRTH = #{userbirth},
+        USERSNSAGREE = #{usersnsagree}
+    WHERE USERID = #{userid}
+   </update>
+   
+	<update id="updateAddress" parameterType="kr.ohora.sl.domain.AddrDTO">
+	    UPDATE SCOTT.OADDRESS
+	    SET
+	        ADDRZIPCODE = #{addrzipcode},
+	        ADDRADDRESSMAIN = #{addraddressmain},
+	        ADDRADDRESSDETAIL = #{addraddressdetail}
+	    WHERE ADDRID = #{addrid}
+	</update>
+	
+	<!-- 배송지등록 -->
+	<insert id="insertAddress" parameterType="kr.ohora.sl.domain.AddrDTO" useGeneratedKeys="true" keyProperty="addrid">
+    <selectKey keyProperty="addrid" resultType="int" order="BEFORE">
+        SELECT SCOTT.O_ADDRESS_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO SCOTT.OADDRESS (
+        ADDRID,
+        USERID,
+        ADDRNICK,
+        ADDRNAME,
+        ADDRHTEL,
+        ADDRTEL,
+        ADDRADDRESSMAIN,
+        ADDRADDRESSDETAIL,
+        ADDRZIPCODE,
+        ADDRMAIN
+    ) VALUES (
+        #{addrid}, 
+        #{userid}, 
+        #{addrnick}, 
+        #{addrname}, 
+        #{addrhtel}, 
+        #{addrtel}, 
+        #{addraddressmain}, 
+        #{addraddressdetail}, 
+        #{addrzipcode}, 
+        #{addrmain}
+    )
+</insert>
+
+    <!-- 기본 배송지 해제 -->
+	<update id="resetDefaultAddress" parameterType="int">
+    UPDATE SCOTT.OADDRESS
+    SET ADDRMAIN = 'N'
+    WHERE USERID = #{userid} AND ADDRMAIN = 'Y'
+    </update>
 
 </mapper>

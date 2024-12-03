@@ -50,7 +50,7 @@
 				회원
 				<div class="sub" id="bb">
 					<a href="#">신규 혜택</a><br /> <br /> <a href="#">멤버십 혜택</a><br />
-					<br /> <a href="${pageContext.request.contextPath}/oho_mypage.do">마이페이지</a><br />
+					<br /> <a href="${pageContext.request.contextPath}/member/mypage/mypage.htm">마이페이지</a><br />
 					<br /> <a href="#">적립금·쿠폰내역</a><br /> <br /> <a href="#">회원정보변경</a>
 				</div>
 			</div>
