@@ -18,7 +18,8 @@ public interface AdminService {
 	int getTotalRecords( AdminPageCriteria criteria );
 	
 	// 상품 리스트 출력 ( 검색 )
-	public ArrayList<ProductDTO> getProductsBySearch( AdminPageCriteria criteria );
+	//public 
+	ArrayList<ProductDTO> getProductsBySearch( AdminPageCriteria criteria );
 	
 	// 상품 레코드 값 ( 검색 )
 	int getTotalRecordsBySearch( AdminPageCriteria criteria , String keyword);

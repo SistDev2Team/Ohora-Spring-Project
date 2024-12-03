@@ -8,13 +8,13 @@
 
 <div id="content">
 	<h1 style="text-align: center; margin: 50px 0;">회원 리스트</h1>
-	<div class="search-container">
+	<!-- <div class="search-container">
 		<select name="grade">
 			<option value="">사용자 활성화여부</option>
 			<option value="1">사용중</option>
 			<option value="0">사용안함</option>
 		</select>
-	</div>
+	</div> -->
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -78,8 +78,8 @@
 
 				<div class="label">사용여부</div>
 				<select id="modal-enabled-select" class="value">
-				    <option value="true" ${user.enabled ? 'selected' : ''}>사용중</option>
-				    <option value="false" ${!user.enabled ? 'selected' : ''}>사용안함</option>
+				    <option value="true">사용중</option>
+				    <option value="false">사용안함</option>
 				</select>
 
 			</div>

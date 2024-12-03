@@ -10,10 +10,9 @@
 			<if test="categoryNumber != null">
 				<choose>
 					<when test="categoryNumber == 121">
-                     	<![CDATA[
-                        pdtadddate >= '2018-05-01' 
-                        AND pdtadddate < '2018-09-01'
-                        ]]>
+	                 	<![CDATA[
+	                    pdtadddate >= SYSDATE - INTERVAL '30' DAY
+	                    ]]>
 					</when>
 					<when test="categoryNumber == 120">
 						pdtsalescount >= 300

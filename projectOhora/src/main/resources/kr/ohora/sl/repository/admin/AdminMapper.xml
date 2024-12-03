@@ -129,11 +129,11 @@
 	<!-- void productInsert(ProductDTO productDTO); -->
 	<insert id="productInsert" parameterType="kr.ohora.sl.domain.ProductDTO">
 	INSERT INTO OPRODUCT (
-           pdtid, catid, pdtname, pdtamount, pdtdiscountrate, 
+           pdtid, catid, scatid, pdtname, pdtamount, pdtdiscountrate, 
            pdtimgurl, pdtcount, pdtadddate, pdtdescription
       		 ) VALUES (
-           #{pdtid}, #{catid}, #{pdtname}, #{pdtamount}, #{pdtdiscountrate}, 
-           #{pdtimgurl}, #{pdtcount}, #{pdtadddate}, #{pdtdescription}
+           #{pdtid}, #{catid}, #{scatid}, #{pdtname}, #{pdtamount}, #{pdtdiscountrate}, 
+           #{pdtimgurl, javaType=String, jdbcType=VARCHAR}, #{pdtcount}, #{pdtadddate}, #{pdtdescription}
        )
 	</insert>
 	

@@ -2,6 +2,8 @@ package kr.ohora.sl.domain;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +37,8 @@ public class ProductDTO {
 	private int optcount;			// 옵션 수량
 	
 	private int clistpdtcount;
+	
+	private CommonsMultipartFile file; // 파일업로드
 	
 	public void calcDiscountAmount() {
 		if (this.pdtdiscountrate != 0) {

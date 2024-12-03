@@ -20,7 +20,7 @@ public interface AdminMapper {
 	ArrayList<UserDTO> selectAllCustomerList() throws SQLException;
 	UserDTO selectCustomerDetailById(Integer userid);
 	int deleteProducts(@Param("productIds") List<Integer> productIds);
-	void productInsert(ProductDTO productDTO); // 상품 등록
+	void productInsert(ProductDTO productDTO) throws ClassNotFoundException, SQLException; // 상품 등록
   	void updateUserStatus(@Param("userid") int userid, @Param("enabled") boolean enabled);
   	
   	ArrayList<OrderDetailDTO> selectOrderList() throws Exception; // 주문조회

@@ -23,7 +23,6 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public ArrayList<ProductDTO> getAllProductList(AdminPageCriteria criteria) throws SQLException {
-		log.info("> AdminServiceImpl.getAllProductList()...");		
 		ArrayList<ProductDTO> productDTO = adminMapper.selectAllProductList(criteria);
 		for (ProductDTO product : productDTO) {
 			product.calcDiscountAmount();
@@ -33,7 +32,6 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public ProductDTO getProductInfo(int pdtid) throws SQLException {
-		log.info("> AdminServiceImpl.getProductInfo()...");		
 		ProductDTO productDTO = adminMapper.selectProductInfo(pdtid);
 		productDTO.calcDiscountAmount();
 		return productDTO;
@@ -41,13 +39,11 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int getTotalRecords(AdminPageCriteria criteria) {
-		log.info("> AdminServiceImpl.getTotalRecords()...");
 		return this.adminMapper.selectTotalRecords( criteria );
 	}
 
 	@Override
 	public ArrayList<ProductDTO> getProductsBySearch(AdminPageCriteria criteria) {
-		log.info("AdminServiceImpl.getProductsBySearch()...");
 		ArrayList<ProductDTO> productDTO = adminMapper.selectProductsBySearch(criteria);
 		for (ProductDTO product : productDTO) {
 			product.calcDiscountAmount();
@@ -57,7 +53,6 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int getTotalRecordsBySearch(AdminPageCriteria criteria, String keyword) {
-		log.info("AdminServiceImpl.getTotalRecordsBySearch()...");
 		return this.adminMapper.selectTotalRecordsBySearch(criteria, keyword);
 	}
 	@Override
@@ -78,16 +73,14 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void productInsert(ProductDTO productDTO) throws Exception {
 		log.info("AdminServiceImpl.productInsert()... 상품 등록 서비스 호출");
-
+		
 		try {
 			productDTO.calcDiscountAmount(); // 할인가계산
 			adminMapper.productInsert(productDTO);
 		} catch (Exception e) {
-			log.error("상품 등록 실패 ..." + e.getMessage());
+			log.error("상품 등록 실패 ..." + e);
 			throw new Exception("상품 등록 실패 ...", e);
 		}
-
-
 	}
 
 	@Override

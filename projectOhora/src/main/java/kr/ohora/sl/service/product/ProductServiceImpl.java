@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ohora.sl.domain.Criteria;
 import kr.ohora.sl.domain.ProductDTO;
@@ -31,9 +32,11 @@ public class ProductServiceImpl implements ProductService{
 		return this.productMapper.selectTotalRecords( criteria );
 	}
 
+	@Transactional
 	@Override
 	public ProductDTO getProductDetail(int pdtid) {
 		log.info("> ProductServiceImpl.prdDetail()...");
+		productMapper.productViewUpdate();
 		return this.productMapper.selectProductDetail( pdtid );
 	}
 

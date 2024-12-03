@@ -1,10 +1,13 @@
 package kr.ohora.sl;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import kr.ohora.sl.domain.AdminPageCriteria;
 import kr.ohora.sl.domain.AdminPageDTO;
@@ -79,9 +83,10 @@ public class AdminPageController {
 
 	// 검색
 	@GetMapping("productSearch.htm")
-	public String productSearch(@RequestParam("keyword") String keyword
+	public String productSearch(
+			  @RequestParam("keyword") String keyword
 			, @RequestParam("currentPage") int currentPage
-			,Model model, AdminPageCriteria criteria) {
+			, Model model, AdminPageCriteria criteria) {
 		log.info("> AdminController.productSearch() ...");
 		System.out.println("> keyword : " + keyword);
 		criteria.setKeyword(keyword);
@@ -106,20 +111,45 @@ public class AdminPageController {
 
 	// 상품 등록
 	@PostMapping("productReg.htm")
-	public String productInsert(ProductDTO productDTO, Model model) {
-		log.info("AdminController.productInsert() ...");
+	public String productInsert(ProductDTO productDTO, HttpServletRequest request) 
+	        throws ClassNotFoundException, SQLException, IllegalStateException, IOException {
+	    log.info(">> productInsert() ... 상품 등록 시작~~~");
 
-		try {
-			this.adminService.productInsert(productDTO);
-			model.addAttribute("message", "상품 등록 성공!");
-		} catch (Exception e) {
-			log.error("상품 등록 실패 ..." + e.getMessage());
-			model.addAttribute("message", "상품 등록 중 오류 발생 ...");
-		}
+	    CommonsMultipartFile multipartFile = productDTO.getFile();
+	    if (multipartFile == null || multipartFile.isEmpty()) {
+	        log.error("파일이 없습니다!");
+	        return "redirect:/admin/productReg.htm?error=file_missing";
+	    }
 
-		return "admin/productList";
-		//return "redirect:admin/productList.htm";
+	    log.info("파일 이름: " + multipartFile.getOriginalFilename());
+	    String uploadRealPath = request.getServletContext().getRealPath("/resources/images/prd_image/imgs");
 
+	    String originalFilename = multipartFile.getOriginalFilename();
+	    String fileNameWithoutExtension = originalFilename.substring(0, originalFilename.lastIndexOf(".")); // 확장자 제거
+	    String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자 추출
+	    
+	    // 실제 저장 파일 경로 생성
+	    File dest = new File(uploadRealPath, fileNameWithoutExtension + fileExtension);
+
+	    try {
+	        log.info("저장 파일 경로: " + dest.getAbsolutePath());
+	        multipartFile.transferTo(dest); // 파일 저장
+	        productDTO.setPdtimgurl(fileNameWithoutExtension); // DB에 확장자를 제외한 이름만 저장
+	    } catch (IOException e) {
+	        log.error("파일 업로드 실패: " + e.getMessage(), e);
+	        return "redirect:/admin/productReg.htm?error=upload_fail";
+	    }
+
+	    try {
+	        productDTO.calcDiscountAmount(); // 추가 데이터 처리
+	        adminService.productInsert(productDTO); // DB에 상품 등록
+	        log.info("> ********* 상품 등록 성공!!! ********* <");
+	    } catch (Exception e) {
+	        log.error("상품 등록 실패 .......", e);
+	        return "redirect:/admin/productReg.htm?error=insert_fail";
+	    }
+
+	    return "redirect:/admin/productList.htm";
 	}
 
 	@GetMapping("customerList.htm")

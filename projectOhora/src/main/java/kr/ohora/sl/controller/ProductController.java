@@ -45,7 +45,9 @@ public class ProductController {
 
 
 	@GetMapping("/prd_detail_view")
-	public String prdDetailView(Model model,@RequestParam("cate_no") int categoryNumber, @RequestParam("product_no") int pdtid) {
+	public String prdDetailView(Model model
+			,@RequestParam(value = "cate_no", required = false) Integer categoryNumber
+			, @RequestParam("product_no") int pdtid) {
 		log.info("> ProductController prdDetailView() ...");
 		ProductDTO productDTO = new ProductDTO();
 		// ProductDTO 상세 정보 가져오기
@@ -73,6 +75,7 @@ public class ProductController {
 		criteria.setCurrentPage(currentPage);
 		criteria.setNumberOfPageBlock(10);
 		criteria.setNumberPerPage(39);
+		criteria.setCategoryNumber(null);
 
 		model.addAttribute("list", this.productService.getProductsBySearch(criteria));
 

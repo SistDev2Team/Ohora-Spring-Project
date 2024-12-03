@@ -27,19 +27,6 @@ public class AdminPageCriteria {
 		this.numberOfPageBlock = numberOfPageBlock;
 	}
 	
-	/*
-	public AdminPageCriteria(String keyword, int currentPage, int numberOfPageBlock) {
-		this.keyword = keyword;
-		this.currentPage = currentPage;
-		this.numberOfPageBlock = numberOfPageBlock;
-	}
-	*/
-	
-	
-	// ?pageNum=2&amount=10&type=T&keyword=홍길동&..
-	// org.springframework.web.util
-	// 	ㄴ UriComponentsBuilder
-	
 	public String getListLink() {
         UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
                 .queryParam("currentPage", this.currentPage)
@@ -53,4 +40,4 @@ public class AdminPageCriteria {
 	public int getOffset() {
 	    return (currentPage - 1) * numberPerPage;
 	}
-} // class
+} 

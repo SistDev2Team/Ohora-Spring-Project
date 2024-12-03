@@ -80,7 +80,7 @@
 											<div class="item-container">
 												<dl>
 													<a
-														href="${pageContext.request.contextPath}/product/prd_detail_view.htm?pdtId=${pdt.pdtid}&cate_no=${param.cate_no}"
+														href="${pageContext.request.contextPath}/product/prd_detail_view.htm?product_no=${pdt.pdtid}&cate_no=${param.categoryNumber}"
 														class="item-viewlink"></a>
 													<div class="item-image">
 														<img

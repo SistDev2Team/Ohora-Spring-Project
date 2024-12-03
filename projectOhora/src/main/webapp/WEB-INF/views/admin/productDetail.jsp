@@ -11,7 +11,7 @@
 		<!-- 상품 디테일 설명 -->
 		<div class="product-details-container">
 			<div class="product-image">
-				<img src="../resources/images/prd_image/imgs/${productDTO.pdtimgurl}.jpg" alt="상품 이미지">
+				<img src="${pageContext.request.contextPath}/resources/images/prd_image/imgs/${productDTO.pdtimgurl}.jpg" alt="상품 이미지">
 			</div>
 			<div class="product-info">
 				<table class="product-table">
@@ -53,7 +53,7 @@
 					</tr>
 					<tr>
 						<th>상품 설명</th>
-						<td>${productDTO.pdtdescription == null ? productDTO.pdtdescription : '-'}</td>
+						<td>${productDTO.pdtdescription != null ? productDTO.pdtdescription : '-'}</td>
 					</tr>
 				</table>
 			</div>
