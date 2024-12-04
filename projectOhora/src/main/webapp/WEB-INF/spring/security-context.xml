@@ -32,7 +32,7 @@
      <!-- <security:intercept-url pattern="" access="hasRole('ROLE_ADMIN')"/> -->
      <!-- 세켠 Key 이름 : SPRING_SECURITY_SAVED_REQUEST   -->
    
-     
+     <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/> 
      <security:intercept-url pattern="/member/mypage/**" access="isAuthenticated()"/>   
      <security:intercept-url pattern="/member/joinus/**" access="permitAll" /> 
 

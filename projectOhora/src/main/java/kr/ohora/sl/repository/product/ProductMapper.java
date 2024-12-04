@@ -17,7 +17,7 @@ public interface ProductMapper {
     
     public Integer selectTotalRecords( Criteria criteria );
     
-    public void productViewUpdate();	// 상품 클릭시 조회수 +1
+    public void productViewUpdate(@Param("pdtid") int pdtid);	// 상품 클릭시 조회수 +1
 
 	public ProductDTO selectProductDetail(@Param("pdtid") int pdtid);
 

@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <meta name="csrf-token" content="${_csrf.token}">
-<script
-	src="${pageContext.request.contextPath}/resources/js/customerList.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/js/customerList.js"></script>
 
 <div id="content">
 	<h1 style="text-align: center; margin: 50px 0;">회원 리스트</h1>

@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public ProductDTO getProductDetail(int pdtid) {
 		log.info("> ProductServiceImpl.prdDetail()...");
-		productMapper.productViewUpdate();
+		productMapper.productViewUpdate(pdtid);
 		return this.productMapper.selectProductDetail( pdtid );
 	}
 

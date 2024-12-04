@@ -213,14 +213,15 @@ public class AdminPageController {
 	}
 	
 	@GetMapping("orderList.htm")
-	public void orderList(Model model) throws Exception {
+	public String orderList(Model model) throws Exception {
 		ArrayList<OrderDetailDTO> ordList = adminService.getOrderList();
 		model.addAttribute("ordList", ordList);
+		return "/admin/orderList";
 	}
 	
 	@GetMapping("orderListDetail.htm")
-	public void orderListDetail() {
-		
+	public String orderListDetail() {
+		return "/admin/orderListDetail";
 	}
 
 }

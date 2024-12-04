@@ -34,6 +34,13 @@ public class CustomUser extends User {
         this.user = user; // userDTO 저장
     }
     
+    @Override
+    public boolean isEnabled() {
+    	return this.user.getEnabled();
+    }
+    
+    
+    
 }
 
 /*
